@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" alignment="CENTER" prefHeight="200.0"
+	prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1"
+	xmlns="http://javafx.com/javafx/11.0.1">
+	<children>
+		<Label style="-fx-font-size: 25pt;"
+			text="JavaFX Template Project" />
+	</children>
+</VBox>
