@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -34,24 +33,6 @@
             <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../../../Downloads/Proyecto%20DAd/61183.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../../../Downloads/Proyecto%20DAd/delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
             <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
               <columns>
                   <TableColumn prefWidth="75.0" text="numFactura" />
@@ -62,15 +43,28 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/delete.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </GridPane>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="573.0">
-               <children>
-                  <ToggleButton mnemonicParsing="false" text="Complejo" />
-               </children>
-            </HBox>
             <HBox alignment="CENTER" prefHeight="250.0" prefWidth="559.0">
                <children>
                   <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="189.0">
@@ -218,7 +212,7 @@
                               <TableColumn prefWidth="75.0" text="Subtotal" />
                           </columns>
                            <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                            </HBox.margin>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -239,7 +233,7 @@
                                        <graphic>
                                           <ImageView fitHeight="34.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../../../../Downloads/Proyecto%20DAd/61183.png" />
+                                                <Image url="@../images/Add.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -248,41 +242,50 @@
                                        <graphic>
                                           <ImageView fitHeight="34.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../../../../Downloads/Proyecto%20DAd/delete.png" />
+                                                <Image url="@../images/delete.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                              <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ComboBox prefWidth="150.0" promptText="Estado">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                 </children></HBox>
                            </children>
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
                         </VBox>
-                        <TableView prefHeight="86.0" prefWidth="326.0" HBox.hgrow="ALWAYS">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Base" />
-                            <TableColumn prefWidth="75.0" text="Tipo" />
-                              <TableColumn prefWidth="75.0" text="&quot;Tax_id&quot;" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="639.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TableView prefHeight="86.0" prefWidth="326.0" HBox.hgrow="NEVER">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="Base" />
+                                  <TableColumn prefWidth="75.0" text="Tipo" />
+                                    <TableColumn prefWidth="75.0" text="&quot;Tax_id&quot;" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                 </HBox.margin>
+                              </TableView>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="559.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="670.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <ComboBox prefWidth="150.0" promptText="Estado">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ComboBox>
-                     </children>
-                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="431.0" HBox.hgrow="ALWAYS" />
                   <HBox alignment="CENTER" prefHeight="35.0" prefWidth="178.0">
                      <children>
                         <Label text="Total a pagar:">
