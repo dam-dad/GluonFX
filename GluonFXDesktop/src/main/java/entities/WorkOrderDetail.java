@@ -1,5 +1,5 @@
 package entities;
-// Generated 19 ene. 2020 16:41:53 by Hibernate Tools 5.2.12.Final
+// Generated 21 ene. 2020 12:50:14 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -16,8 +16,10 @@ import javax.persistence.Table;
 public class WorkOrderDetail implements java.io.Serializable {
 
 	private WorkOrderDetailId id;
+	private Integer workOrderId;
 	private Double quantity;
 	private Double price;
+	private Double priceUnit;
 
 	public WorkOrderDetail() {
 	}
@@ -26,16 +28,18 @@ public class WorkOrderDetail implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public WorkOrderDetail(WorkOrderDetailId id, Double quantity, Double price) {
+	public WorkOrderDetail(WorkOrderDetailId id, Integer workOrderId, Double quantity, Double price, Double priceUnit) {
 		this.id = id;
+		this.workOrderId = workOrderId;
 		this.quantity = quantity;
 		this.price = price;
+		this.priceUnit = priceUnit;
 	}
 
 	@EmbeddedId
 
 	@AttributeOverrides({
-			@AttributeOverride(name = "workOrderId", column = @Column(name = "work_order_id", nullable = false)),
+			@AttributeOverride(name = "orderDetailId", column = @Column(name = "order_detail_id", nullable = false)),
 			@AttributeOverride(name = "productId", column = @Column(name = "product_id", nullable = false, length = 30)) })
 	public WorkOrderDetailId getId() {
 		return this.id;
@@ -43,6 +47,15 @@ public class WorkOrderDetail implements java.io.Serializable {
 
 	public void setId(WorkOrderDetailId id) {
 		this.id = id;
+	}
+
+	@Column(name = "work_order_id")
+	public Integer getWorkOrderId() {
+		return this.workOrderId;
+	}
+
+	public void setWorkOrderId(Integer workOrderId) {
+		this.workOrderId = workOrderId;
 	}
 
 	@Column(name = "quantity", precision = 22, scale = 0)
@@ -61,6 +74,15 @@ public class WorkOrderDetail implements java.io.Serializable {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	@Column(name = "price_unit", precision = 22, scale = 0)
+	public Double getPriceUnit() {
+		return this.priceUnit;
+	}
+
+	public void setPriceUnit(Double priceUnit) {
+		this.priceUnit = priceUnit;
 	}
 
 }

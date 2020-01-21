@@ -1,5 +1,5 @@
 package entities;
-// Generated 19 ene. 2020 16:41:53 by Hibernate Tools 5.2.12.Final
+// Generated 21 ene. 2020 12:50:14 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,24 +10,24 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class WorkOrderDetailId implements java.io.Serializable {
 
-	private int workOrderId;
+	private int orderDetailId;
 	private String productId;
 
 	public WorkOrderDetailId() {
 	}
 
-	public WorkOrderDetailId(int workOrderId, String productId) {
-		this.workOrderId = workOrderId;
+	public WorkOrderDetailId(int orderDetailId, String productId) {
+		this.orderDetailId = orderDetailId;
 		this.productId = productId;
 	}
 
-	@Column(name = "work_order_id", nullable = false)
-	public int getWorkOrderId() {
-		return this.workOrderId;
+	@Column(name = "order_detail_id", nullable = false)
+	public int getOrderDetailId() {
+		return this.orderDetailId;
 	}
 
-	public void setWorkOrderId(int workOrderId) {
-		this.workOrderId = workOrderId;
+	public void setOrderDetailId(int orderDetailId) {
+		this.orderDetailId = orderDetailId;
 	}
 
 	@Column(name = "product_id", nullable = false, length = 30)
@@ -48,7 +48,7 @@ public class WorkOrderDetailId implements java.io.Serializable {
 			return false;
 		WorkOrderDetailId castOther = (WorkOrderDetailId) other;
 
-		return (this.getWorkOrderId() == castOther.getWorkOrderId())
+		return (this.getOrderDetailId() == castOther.getOrderDetailId())
 				&& ((this.getProductId() == castOther.getProductId()) || (this.getProductId() != null
 						&& castOther.getProductId() != null && this.getProductId().equals(castOther.getProductId())));
 	}
@@ -56,7 +56,7 @@ public class WorkOrderDetailId implements java.io.Serializable {
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result + this.getWorkOrderId();
+		result = 37 * result + this.getOrderDetailId();
 		result = 37 * result + (getProductId() == null ? 0 : this.getProductId().hashCode());
 		return result;
 	}

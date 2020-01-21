@@ -1,5 +1,5 @@
 package entities;
-// Generated 19 ene. 2020 16:41:53 by Hibernate Tools 5.2.12.Final
+// Generated 21 ene. 2020 12:50:14 by Hibernate Tools 5.2.12.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 public class Budget implements java.io.Serializable {
 
 	private Integer budgetId;
+	private String budgetNumber;
 	private String companyId;
 	private String customerId;
 	private Date budgetDate;
@@ -32,8 +33,9 @@ public class Budget implements java.io.Serializable {
 	public Budget() {
 	}
 
-	public Budget(String companyId, String customerId, Date budgetDate, Integer status, Integer conceptId, Double price,
-			String taxId, Double taxTotal, Double priceTaxesIncluded) {
+	public Budget(String budgetNumber, String companyId, String customerId, Date budgetDate, Integer status,
+			Integer conceptId, Double price, String taxId, Double taxTotal, Double priceTaxesIncluded) {
+		this.budgetNumber = budgetNumber;
 		this.companyId = companyId;
 		this.customerId = customerId;
 		this.budgetDate = budgetDate;
@@ -55,6 +57,15 @@ public class Budget implements java.io.Serializable {
 
 	public void setBudgetId(Integer budgetId) {
 		this.budgetId = budgetId;
+	}
+
+	@Column(name = "budget_number")
+	public String getBudgetNumber() {
+		return this.budgetNumber;
+	}
+
+	public void setBudgetNumber(String budgetNumber) {
+		this.budgetNumber = budgetNumber;
 	}
 
 	@Column(name = "company_id")
