@@ -1,9 +1,11 @@
 package entities;
-// Generated 19 ene. 2020 16:41:53 by Hibernate Tools 5.2.12.Final
+// Generated 21 ene. 2020 12:50:14 by Hibernate Tools 5.2.12.Final
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -16,10 +18,12 @@ import javax.persistence.TemporalType;
 @Table(name = "invoice", catalog = "7057507_administration_db")
 public class Invoice implements java.io.Serializable {
 
-	private int invoiceId;
+	private Integer invoiceId;
+	private String invoiceNumber;
 	private String companyId;
 	private String customerId;
 	private Date invoiceDate;
+	private Integer status;
 	private Integer conceptId;
 	private Integer payMethodId;
 	private Double price;
@@ -30,16 +34,14 @@ public class Invoice implements java.io.Serializable {
 	public Invoice() {
 	}
 
-	public Invoice(int invoiceId) {
-		this.invoiceId = invoiceId;
-	}
-
-	public Invoice(int invoiceId, String companyId, String customerId, Date invoiceDate, Integer conceptId,
-			Integer payMethodId, Double price, String taxId, Double taxTotal, Double priceTaxesIncluded) {
-		this.invoiceId = invoiceId;
+	public Invoice(String invoiceNumber, String companyId, String customerId, Date invoiceDate, Integer status,
+			Integer conceptId, Integer payMethodId, Double price, String taxId, Double taxTotal,
+			Double priceTaxesIncluded) {
+		this.invoiceNumber = invoiceNumber;
 		this.companyId = companyId;
 		this.customerId = customerId;
 		this.invoiceDate = invoiceDate;
+		this.status = status;
 		this.conceptId = conceptId;
 		this.payMethodId = payMethodId;
 		this.price = price;
@@ -49,14 +51,24 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "invoice_id", unique = true, nullable = false)
-	public int getInvoiceId() {
+	public Integer getInvoiceId() {
 		return this.invoiceId;
 	}
 
-	public void setInvoiceId(int invoiceId) {
+	public void setInvoiceId(Integer invoiceId) {
 		this.invoiceId = invoiceId;
+	}
+
+	@Column(name = "invoice_number")
+	public String getInvoiceNumber() {
+		return this.invoiceNumber;
+	}
+
+	public void setInvoiceNumber(String invoiceNumber) {
+		this.invoiceNumber = invoiceNumber;
 	}
 
 	@Column(name = "company_id")
@@ -85,6 +97,15 @@ public class Invoice implements java.io.Serializable {
 
 	public void setInvoiceDate(Date invoiceDate) {
 		this.invoiceDate = invoiceDate;
+	}
+
+	@Column(name = "status")
+	public Integer getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	@Column(name = "concept_id")

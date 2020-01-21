@@ -1,5 +1,5 @@
 package entities;
-// Generated 19 ene. 2020 16:41:53 by Hibernate Tools 5.2.12.Final
+// Generated 21 ene. 2020 12:50:14 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,24 +10,24 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class BudgetDetailId implements java.io.Serializable {
 
-	private int budgetId;
+	private int budgetDetailId;
 	private String productId;
 
 	public BudgetDetailId() {
 	}
 
-	public BudgetDetailId(int budgetId, String productId) {
-		this.budgetId = budgetId;
+	public BudgetDetailId(int budgetDetailId, String productId) {
+		this.budgetDetailId = budgetDetailId;
 		this.productId = productId;
 	}
 
-	@Column(name = "budget_id", nullable = false)
-	public int getBudgetId() {
-		return this.budgetId;
+	@Column(name = "budget_detail_id", nullable = false)
+	public int getBudgetDetailId() {
+		return this.budgetDetailId;
 	}
 
-	public void setBudgetId(int budgetId) {
-		this.budgetId = budgetId;
+	public void setBudgetDetailId(int budgetDetailId) {
+		this.budgetDetailId = budgetDetailId;
 	}
 
 	@Column(name = "product_id", nullable = false, length = 30)
@@ -48,7 +48,7 @@ public class BudgetDetailId implements java.io.Serializable {
 			return false;
 		BudgetDetailId castOther = (BudgetDetailId) other;
 
-		return (this.getBudgetId() == castOther.getBudgetId())
+		return (this.getBudgetDetailId() == castOther.getBudgetDetailId())
 				&& ((this.getProductId() == castOther.getProductId()) || (this.getProductId() != null
 						&& castOther.getProductId() != null && this.getProductId().equals(castOther.getProductId())));
 	}
@@ -56,7 +56,7 @@ public class BudgetDetailId implements java.io.Serializable {
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result + this.getBudgetId();
+		result = 37 * result + this.getBudgetDetailId();
 		result = 37 * result + (getProductId() == null ? 0 : this.getProductId().hashCode());
 		return result;
 	}

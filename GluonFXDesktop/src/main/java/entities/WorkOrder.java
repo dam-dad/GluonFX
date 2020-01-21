@@ -1,5 +1,5 @@
 package entities;
-// Generated 19 ene. 2020 16:41:53 by Hibernate Tools 5.2.12.Final
+// Generated 21 ene. 2020 12:50:14 by Hibernate Tools 5.2.12.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 public class WorkOrder implements java.io.Serializable {
 
 	private Integer workOrderId;
+	private String workOrderNumber;
 	private String companyId;
 	private String customerId;
 	private Date workOrderDate;
@@ -32,8 +33,9 @@ public class WorkOrder implements java.io.Serializable {
 	public WorkOrder() {
 	}
 
-	public WorkOrder(String companyId, String customerId, Date workOrderDate, Integer status, Integer conceptId,
-			Double price, String taxId, Double taxTotal, Double priceTaxesIncluded) {
+	public WorkOrder(String workOrderNumber, String companyId, String customerId, Date workOrderDate, Integer status,
+			Integer conceptId, Double price, String taxId, Double taxTotal, Double priceTaxesIncluded) {
+		this.workOrderNumber = workOrderNumber;
 		this.companyId = companyId;
 		this.customerId = customerId;
 		this.workOrderDate = workOrderDate;
@@ -55,6 +57,15 @@ public class WorkOrder implements java.io.Serializable {
 
 	public void setWorkOrderId(Integer workOrderId) {
 		this.workOrderId = workOrderId;
+	}
+
+	@Column(name = "work_order_number")
+	public String getWorkOrderNumber() {
+		return this.workOrderNumber;
+	}
+
+	public void setWorkOrderNumber(String workOrderNumber) {
+		this.workOrderNumber = workOrderNumber;
 	}
 
 	@Column(name = "company_id")

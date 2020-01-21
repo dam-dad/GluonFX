@@ -1,5 +1,5 @@
 package entities;
-// Generated 19 ene. 2020 16:41:53 by Hibernate Tools 5.2.12.Final
+// Generated 21 ene. 2020 12:50:14 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -16,8 +16,10 @@ import javax.persistence.Table;
 public class InvoiceDetail implements java.io.Serializable {
 
 	private InvoiceDetailId id;
+	private Integer invoiceId;
 	private Double quantity;
 	private Double price;
+	private Double priceUnit;
 
 	public InvoiceDetail() {
 	}
@@ -26,16 +28,18 @@ public class InvoiceDetail implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public InvoiceDetail(InvoiceDetailId id, Double quantity, Double price) {
+	public InvoiceDetail(InvoiceDetailId id, Integer invoiceId, Double quantity, Double price, Double priceUnit) {
 		this.id = id;
+		this.invoiceId = invoiceId;
 		this.quantity = quantity;
 		this.price = price;
+		this.priceUnit = priceUnit;
 	}
 
 	@EmbeddedId
 
 	@AttributeOverrides({
-			@AttributeOverride(name = "invoiceId", column = @Column(name = "invoice_id", nullable = false)),
+			@AttributeOverride(name = "invoiceDetailId", column = @Column(name = "invoice_detail_id", nullable = false)),
 			@AttributeOverride(name = "productId", column = @Column(name = "product_id", nullable = false, length = 30)) })
 	public InvoiceDetailId getId() {
 		return this.id;
@@ -43,6 +47,15 @@ public class InvoiceDetail implements java.io.Serializable {
 
 	public void setId(InvoiceDetailId id) {
 		this.id = id;
+	}
+
+	@Column(name = "invoice_id")
+	public Integer getInvoiceId() {
+		return this.invoiceId;
+	}
+
+	public void setInvoiceId(Integer invoiceId) {
+		this.invoiceId = invoiceId;
 	}
 
 	@Column(name = "quantity", precision = 22, scale = 0)
@@ -61,6 +74,15 @@ public class InvoiceDetail implements java.io.Serializable {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	@Column(name = "price_unit", precision = 22, scale = 0)
+	public Double getPriceUnit() {
+		return this.priceUnit;
+	}
+
+	public void setPriceUnit(Double priceUnit) {
+		this.priceUnit = priceUnit;
 	}
 
 }

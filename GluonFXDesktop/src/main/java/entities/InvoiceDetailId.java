@@ -1,5 +1,5 @@
 package entities;
-// Generated 19 ene. 2020 16:41:53 by Hibernate Tools 5.2.12.Final
+// Generated 21 ene. 2020 12:50:14 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,24 +10,24 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class InvoiceDetailId implements java.io.Serializable {
 
-	private int invoiceId;
+	private int invoiceDetailId;
 	private String productId;
 
 	public InvoiceDetailId() {
 	}
 
-	public InvoiceDetailId(int invoiceId, String productId) {
-		this.invoiceId = invoiceId;
+	public InvoiceDetailId(int invoiceDetailId, String productId) {
+		this.invoiceDetailId = invoiceDetailId;
 		this.productId = productId;
 	}
 
-	@Column(name = "invoice_id", nullable = false)
-	public int getInvoiceId() {
-		return this.invoiceId;
+	@Column(name = "invoice_detail_id", nullable = false)
+	public int getInvoiceDetailId() {
+		return this.invoiceDetailId;
 	}
 
-	public void setInvoiceId(int invoiceId) {
-		this.invoiceId = invoiceId;
+	public void setInvoiceDetailId(int invoiceDetailId) {
+		this.invoiceDetailId = invoiceDetailId;
 	}
 
 	@Column(name = "product_id", nullable = false, length = 30)
@@ -48,7 +48,7 @@ public class InvoiceDetailId implements java.io.Serializable {
 			return false;
 		InvoiceDetailId castOther = (InvoiceDetailId) other;
 
-		return (this.getInvoiceId() == castOther.getInvoiceId())
+		return (this.getInvoiceDetailId() == castOther.getInvoiceDetailId())
 				&& ((this.getProductId() == castOther.getProductId()) || (this.getProductId() != null
 						&& castOther.getProductId() != null && this.getProductId().equals(castOther.getProductId())));
 	}
@@ -56,7 +56,7 @@ public class InvoiceDetailId implements java.io.Serializable {
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result + this.getInvoiceId();
+		result = 37 * result + this.getInvoiceDetailId();
 		result = 37 * result + (getProductId() == null ? 0 : this.getProductId().hashCode());
 		return result;
 	}
