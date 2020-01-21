@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.36063708759954494" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.36063708759954494" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <items>
       <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="300.0">
         <columnConstraints>
@@ -65,6 +66,11 @@
       </GridPane>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
+            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="573.0">
+               <children>
+                  <ToggleButton mnemonicParsing="false" text="Complejo" />
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="250.0" prefWidth="559.0">
                <children>
                   <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="189.0">
@@ -166,7 +172,7 @@
             </HBox>
             <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="559.0" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="559.0" VBox.vgrow="ALWAYS">
                      <children>
                         <GridPane alignment="CENTER" gridLinesVisible="true" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="333.0" HBox.hgrow="ALWAYS">
                            <columnConstraints>
@@ -174,11 +180,11 @@
                               <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="261.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
                            </rowConstraints>
                            <children>
                               <Label text="Concepto:" />
-                              <TextArea maxWidth="1.7976931348623157E308" prefHeight="3.0" prefWidth="261.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                              <TextArea maxWidth="1.7976931348623157E308" minHeight="0.0" prefHeight="20.0" prefWidth="261.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                            </children>
                            <HBox.margin>
                               <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
@@ -194,7 +200,7 @@
                            </rowConstraints>
                            <children>
                               <Label text="Precio:" />
-                              <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" GridPane.columnIndex="1" />
+                              <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="20.0" GridPane.columnIndex="1" />
                            </children>
                            <HBox.margin>
                               <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
@@ -220,7 +226,7 @@
                         </TableView>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="87.0" prefWidth="573.0">
                      <children>
                         <VBox prefHeight="86.0" prefWidth="254.0">
                            <children>
@@ -284,7 +290,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField editable="false" prefHeight="37.0" prefWidth="77.0">
+                        <TextField disable="true" editable="false" prefHeight="37.0" prefWidth="77.0">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
