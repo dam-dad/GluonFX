@@ -1,5 +1,5 @@
 package entities;
-// Generated 21 ene. 2020 12:50:14 by Hibernate Tools 5.2.12.Final
+// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +17,7 @@ public class Product implements java.io.Serializable {
 	private String name;
 	private String description;
 	private Double price;
+	private Integer stock;
 	private String url;
 
 	public Product() {
@@ -26,11 +27,12 @@ public class Product implements java.io.Serializable {
 		this.productId = productId;
 	}
 
-	public Product(String productId, String name, String description, Double price, String url) {
+	public Product(String productId, String name, String description, Double price, Integer stock, String url) {
 		this.productId = productId;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.stock = stock;
 		this.url = url;
 	}
 
@@ -70,6 +72,15 @@ public class Product implements java.io.Serializable {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	@Column(name = "stock")
+	public Integer getStock() {
+		return this.stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 
 	@Column(name = "url", length = 500)

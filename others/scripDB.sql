@@ -41,6 +41,7 @@ product_id VARCHAR(30),
 name VARCHAR(255),
 description VARCHAR(500),
 price DOUBLE,
+stock INT,
 url VARCHAR(500),
 CONSTRAINT pk_product PRIMARY KEY(product_id)
 );
@@ -193,8 +194,8 @@ INSERT INTO tax (tax_id, percentage, description) VALUES ('IGIC', 7, 'IMPUESTO C
 INSERT INTO pay_method(description) VALUES ('BANK TRANSFER'); 
 
 
-INSERT INTO product (product_id, name, description, price, url) 
-VALUES ('10000191', 'Consolador', 'placentero y pequeño', 9.90, 'www.pornhub.com');
+INSERT INTO product (product_id, name, description, price, stock, url) 
+VALUES ('10000191', 'Consolador', 'placentero y pequeño', 9.90, 900, 'www.pornhub.com');
 
 
 
