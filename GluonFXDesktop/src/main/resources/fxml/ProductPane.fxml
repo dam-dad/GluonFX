@@ -10,10 +10,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="513.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
    <children>
+      <HBox alignment="CENTER" prefHeight="64.0" prefWidth="513.0">
+         <children>
+            <Label text="Añadir detalle">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="111.0" prefWidth="579.0" VBox.vgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER" prefHeight="196.0" prefWidth="285.0" HBox.hgrow="ALWAYS">
