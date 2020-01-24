@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
@@ -10,8 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="513.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="111.0" prefWidth="579.0" VBox.vgrow="ALWAYS">
          <children>
@@ -22,7 +22,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField disable="true">
+                  <TextField fx:id="billID" disable="true">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -42,7 +42,7 @@
                         <Insets />
                      </HBox.margin>
                      <children>
-                        <ImageView fitHeight="81.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                        <ImageView fx:id="productImg" fitHeight="151.0" fitWidth="154.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
                      </children>
                   </GridPane>
                </children>
@@ -58,7 +58,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField />
+                  <ComboBox fx:id="productCmb" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="177.0" prefWidth="182.0" HBox.hgrow="ALWAYS">
@@ -68,7 +68,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField />
+                  <TextField fx:id="quantityTxt" />
                </children>
             </HBox>
          </children>
