@@ -129,13 +129,13 @@ CONSTRAINT fk_invoice_details_02 FOREIGN KEY (product_id) REFERENCES product(pro
 
 
 CREATE TABLE work_order_detail(
-order_detail_id INT AUTO_INCREMENT,
+work_order_detail_id INT AUTO_INCREMENT,
 work_order_id INT,
 product_id VARCHAR(30),
 quantity DOUBLE,
 price DOUBLE,
 price_unit DOUBLE DEFAULT 0,
-CONSTRAINT pk_work_order_details_01 PRIMARY KEY(order_detail_id, product_id),
+CONSTRAINT pk_work_order_details_01 PRIMARY KEY(work_order_detail_id, product_id),
 CONSTRAINT fk_work_order_details_01 FOREIGN KEY (work_order_id) REFERENCES work_order(work_order_id),
 CONSTRAINT fk_work_order_details_02 FOREIGN KEY (product_id) REFERENCES product(product_id)
 );

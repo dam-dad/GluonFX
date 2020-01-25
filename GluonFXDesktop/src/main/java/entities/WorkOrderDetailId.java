@@ -10,24 +10,24 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class WorkOrderDetailId implements java.io.Serializable {
 
-	private int orderDetailId;
+	private int workOrderDetailId;
 	private String productId;
 
 	public WorkOrderDetailId() {
 	}
 
-	public WorkOrderDetailId(int orderDetailId, String productId) {
-		this.orderDetailId = orderDetailId;
+	public WorkOrderDetailId(int workOrderDetailId, String productId) {
+		this.workOrderDetailId = workOrderDetailId;
 		this.productId = productId;
 	}
 
-	@Column(name = "order_detail_id", nullable = false)
-	public int getOrderDetailId() {
-		return this.orderDetailId;
+	@Column(name = "work_order_detail_id", nullable = false)
+	public int getWorkOrderDetailId() {
+		return this.workOrderDetailId;
 	}
 
-	public void setOrderDetailId(int orderDetailId) {
-		this.orderDetailId = orderDetailId;
+	public void setWorkOrderDetailId(int workOrderDetailId) {
+		this.workOrderDetailId = workOrderDetailId;
 	}
 
 	@Column(name = "product_id", nullable = false, length = 30)
@@ -48,7 +48,7 @@ public class WorkOrderDetailId implements java.io.Serializable {
 			return false;
 		WorkOrderDetailId castOther = (WorkOrderDetailId) other;
 
-		return (this.getOrderDetailId() == castOther.getOrderDetailId())
+		return (this.getWorkOrderDetailId() == castOther.getWorkOrderDetailId())
 				&& ((this.getProductId() == castOther.getProductId()) || (this.getProductId() != null
 						&& castOther.getProductId() != null && this.getProductId().equals(castOther.getProductId())));
 	}
@@ -56,7 +56,7 @@ public class WorkOrderDetailId implements java.io.Serializable {
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result + this.getOrderDetailId();
+		result = 37 * result + this.getWorkOrderDetailId();
 		result = 37 * result + (getProductId() == null ? 0 : this.getProductId().hashCode());
 		return result;
 	}

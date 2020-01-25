@@ -2,20 +2,24 @@ package fx.app_main;
 
 
 import fx.controller.InvoiceController;
+import fx.controller.RootController;
+import fx.controller.StartController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class TemplateApp extends Application {
+public class App extends Application {
 	
 	//private TemplateController controller;
-	private InvoiceController controller;
+	//private RootController controller;
+	
+	StartController controller;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		//controller = new TemplateController();
-		controller = new InvoiceController();
+		
+		controller = new StartController();
 		
 		Scene escena = new Scene(controller.getView());
 		

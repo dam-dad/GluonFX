@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import hibernate.HibernateController;
 import javafx.fxml.Initializable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -21,13 +22,14 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
-public class BillController implements Initializable {
+public class InvoiceController implements Initializable {
 	
 	//FXML
 
 	@FXML
-    private SplitPane view;
+    private VBox view;
 	
 	@FXML
 	private TableView<?> billSelector;
@@ -104,6 +106,9 @@ public class BillController implements Initializable {
 	@FXML
 	private TextField totalFld;
 	
+	//hibernate
+	HibernateController hibernate;
+	
 	//model
 	
 	//Strings
@@ -145,15 +150,23 @@ public class BillController implements Initializable {
 
 	}
 	
-	public BillController() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BillView.fxml"));
+	public InvoiceController() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/InvoiceView.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
 	
+	
+	//injectors
+	public void injectHibernate(HibernateController hibernate) {
+		this.hibernate = hibernate;		
+	}
+	
+	
+	
 	//getters y setters
 	
-	public SplitPane getView() {
+	public VBox getView() {
 		return view;
 	}
 
