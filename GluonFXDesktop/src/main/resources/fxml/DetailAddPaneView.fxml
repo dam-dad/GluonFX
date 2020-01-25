@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import dad.javafx.componentes.TextDecimal?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -10,9 +11,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="AÑADIR NUEVO DETALLE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="111.0" prefWidth="579.0" VBox.vgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER" prefHeight="196.0" prefWidth="285.0" HBox.hgrow="ALWAYS">
@@ -22,7 +33,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="billID" disable="true">
+                  <TextField fx:id="billID" disable="true" editable="false">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -68,7 +79,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="quantityTxt" />
+                  <TextDecimal />
                </children>
             </HBox>
          </children>
