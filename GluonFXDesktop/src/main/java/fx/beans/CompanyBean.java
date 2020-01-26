@@ -1,15 +1,22 @@
 package fx.beans;
 
 import entities.Company;
+import entities.Invoice;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class CompanyBean {
 	
 	
-	
 	private Company company;
 	
+	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty companyId = new SimpleStringProperty(); 
 	private StringProperty name = new SimpleStringProperty(); 
 	private StringProperty address = new SimpleStringProperty(); 
@@ -17,10 +24,12 @@ public class CompanyBean {
 	private StringProperty country = new SimpleStringProperty(); 
 	private StringProperty email = new SimpleStringProperty(); 
 	private StringProperty phone = new SimpleStringProperty(); 
+	private ListProperty<Invoice> invoices = new SimpleListProperty<Invoice>(); 
 	
 	
 	public CompanyBean(Company c) {
 		this.company = c; 
+		id.set(company.getId());
 		companyId.set(company.getCompanyId());
 		name.set(company.getName());
 		address.set(company.getAddress());
@@ -28,12 +37,34 @@ public class CompanyBean {
 		country.set(company.getCountry());
 		email.set(company.getEmail());
 		phone.set(company.getPhone());		
+		
+		invoices.set( FXCollections.observableArrayList(company.getInvoices()));
 	}
 	
 	
 	public Company getCompany() {
 		return company;
 	}
+
+
+	
+
+	public final IntegerProperty idProperty() {
+		return this.id;
+	}
+	
+
+
+	public final int getId() {
+		return this.idProperty().get();
+	}
+	
+
+
+	public final void setId(final int id) {
+		this.idProperty().set(id);
+	}
+	
 
 
 	public final StringProperty companyIdProperty() {
@@ -160,6 +191,31 @@ public class CompanyBean {
 		this.phoneProperty().set(phone);
 	}
 	
+
+
+	public final ListProperty<Invoice> invoicesProperty() {
+		return this.invoices;
+	}
+	
+
+
+	public final ObservableList<Invoice> getInvoices() {
+		return this.invoicesProperty().get();
+	}
+	
+
+
+	public final void setInvoices(final ObservableList<Invoice> invoices) {
+		this.invoicesProperty().set(invoices);
+	}
+	
+
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getName();
+	}
 	
 
 }

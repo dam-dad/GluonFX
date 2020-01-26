@@ -1,38 +1,66 @@
 package fx.beans;
 
+import java.util.ArrayList;
+
+import entities.InvoiceDetail;
 import entities.Product;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ProductBean {
+
 	
 	private Product product; 
 	
+	private IntegerProperty id = new SimpleIntegerProperty(); 
 	private StringProperty productId = new SimpleStringProperty(); 
 	private StringProperty name = new SimpleStringProperty();
 	private StringProperty description = new SimpleStringProperty();
 	private DoubleProperty price = new SimpleDoubleProperty(); 
 	private IntegerProperty stock = new SimpleIntegerProperty(); 
 	private StringProperty url = new SimpleStringProperty();
+	private ListProperty<InvoiceDetail> invoiceDetails = new SimpleListProperty<InvoiceDetail>();
 	
 	
 	public ProductBean(Product p) {
 		this.product = p;
+		id.set(product.getId());
 		productId.set(product.getProductId());
 		name.set(product.getName());
 		description.set(product.getDescription());
 		price.set(product.getPrice());
 		stock.set(product.getStock());
 		url.set(product.getUrl());
+		
+		invoiceDetails.set(FXCollections.observableArrayList(product.getInvoiceDetails()));
 	}
 	
 	public Product getProduct() {
 		return product;
 	}
+
+	public final IntegerProperty idProperty() {
+		return this.id;
+	}
+	
+
+	public final int getId() {
+		return this.idProperty().get();
+	}
+	
+
+	public final void setId(final int id) {
+		this.idProperty().set(id);
+	}
+	
 
 	public final StringProperty productIdProperty() {
 		return this.productId;
@@ -123,7 +151,23 @@ public class ProductBean {
 		this.urlProperty().set(url);
 	}
 	
+
+	public final ListProperty<InvoiceDetail> invoiceDetailsProperty() {
+		return this.invoiceDetails;
+	}
 	
+
+	public final ObservableList<InvoiceDetail> getInvoiceDetails() {
+		return this.invoiceDetailsProperty().get();
+	}
 	
+
+	public final void setInvoiceDetails(final ObservableList<InvoiceDetail> invoiceDetails) {
+		this.invoiceDetailsProperty().set(invoiceDetails);
+	}
+	
+
+	
+
 
 }

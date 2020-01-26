@@ -59,10 +59,12 @@ public class RootController implements Initializable  {
 			mainView.getChildren().add(subControllerInvoice.getView());
 			VBox.setVgrow(subControllerInvoice.getView(), Priority.ALWAYS);
 			
+			//update content for all views
+			subControllerInvoice.updateContent();
 			
 			
 		} catch (Exception e) {
-			System.out.println("Error cargando las vistas");
+			e.printStackTrace();
 		}
 				
 		

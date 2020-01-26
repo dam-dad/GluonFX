@@ -1,7 +1,8 @@
 package fx.beans;
 
+import entities.Invoice;
 import entities.InvoiceDetail;
-import entities.InvoiceDetailId;
+import entities.Product;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -13,52 +14,59 @@ public class InvoiceDetailBean {
 	
 	private InvoiceDetail invoiceDetail;
 	
-	private ObjectProperty<InvoiceDetailId> id = new SimpleObjectProperty<InvoiceDetailId>(); 	
-	private IntegerProperty invoiceId = new SimpleIntegerProperty(); 
+	
+	private IntegerProperty id = new SimpleIntegerProperty(); 
+	private ObjectProperty<Invoice> invoice = new SimpleObjectProperty<Invoice>(); 
+	private ObjectProperty<Product> product = new SimpleObjectProperty<>();
 	private DoubleProperty quantity = new SimpleDoubleProperty(); 
 	private DoubleProperty price = new SimpleDoubleProperty(); 
 	private DoubleProperty priceUnit = new SimpleDoubleProperty(); 
 	
 	public InvoiceDetailBean(InvoiceDetail i) {	
 		this.invoiceDetail = i;
+		
 		id.set(invoiceDetail.getId());
-		invoiceId.set(invoiceDetail.getInvoiceId());
-		quantity.set(invoiceDetail.getQuantity());
-		price.set(invoiceDetail.getPrice());
-		priceUnit.set(invoiceDetail.getPriceUnit());
+	
+		try {id.set(invoiceDetail.getId());} catch (Exception e) {}
+		try {invoice.set(invoiceDetail.getInvoice());} catch (Exception e) {}
+		try {product.set(invoiceDetail.getProduct());} catch (Exception e) {}
+		try {quantity.set(invoiceDetail.getQuantity());} catch (Exception e) {}
+		try {price.set(invoiceDetail.getPrice());} catch (Exception e) {}
+		try {priceUnit.set(invoiceDetail.getPriceUnit());} catch (Exception e) {}
+					
 	}
 	
 	public InvoiceDetail getInvoiceDetail() {
 		return invoiceDetail;
 	}
 
-	public final ObjectProperty<InvoiceDetailId> idProperty() {
+	public final IntegerProperty idProperty() {
 		return this.id;
 	}
 	
 
-	public final InvoiceDetailId getId() {
+	public final int getId() {
 		return this.idProperty().get();
 	}
 	
 
-	public final void setId(final InvoiceDetailId id) {
+	public final void setId(final int id) {
 		this.idProperty().set(id);
 	}
 	
 
-	public final IntegerProperty invoiceIdProperty() {
-		return this.invoiceId;
+	public final ObjectProperty<Invoice> invoiceProperty() {
+		return this.invoice;
 	}
 	
 
-	public final int getInvoiceId() {
-		return this.invoiceIdProperty().get();
+	public final Invoice getInvoice() {
+		return this.invoiceProperty().get();
 	}
 	
 
-	public final void setInvoiceId(final int invoiceId) {
-		this.invoiceIdProperty().set(invoiceId);
+	public final void setInvoice(final Invoice invoice) {
+		this.invoiceProperty().set(invoice);
 	}
 	
 
@@ -105,8 +113,25 @@ public class InvoiceDetailBean {
 	public final void setPriceUnit(final double priceUnit) {
 		this.priceUnitProperty().set(priceUnit);
 	}
+
+	public final ObjectProperty<Product> productProperty() {
+		return this.product;
+	}
+	
+
+	public final Product getProduct() {
+		return this.productProperty().get();
+	}
+	
+
+	public final void setProduct(final Product product) {
+		this.productProperty().set(product);
+	}
 	
 	
 	
+	
+
+
 	
 }

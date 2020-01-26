@@ -97,14 +97,39 @@ public class HibernateController {
 		/*
 		 * Selecciona todos los elementos de una lista concreta
 		 */		
-		public List<?> selectAll(String entityName) {
+		/*
+		 * Selecciona todos los elementos de una lista concreta
+		 */		
+		public List selectAll(String entityName) {
+			
+			
+			//session.clear();
+			
+			session.beginTransaction();
+			
+			Query query = session.createQuery("From " + entityName);
+			
+			
+			List lista = query.list();
+			
+			session.getTransaction().commit();
+					
+			return lista; 				
+			
+			
+		}
+		
+		/*
+		 * Cosulta personalizada
+		 */		
+		public List<?> customQuery(String customQuery) {
 			
 			
 			session.clear();
 			
 			session.beginTransaction();
 			
-			Query<?> query = session.createQuery("From " + entityName);
+			Query<?> query = session.createQuery(customQuery);
 			
 			
 			List<?> lista = query.list();
@@ -112,8 +137,15 @@ public class HibernateController {
 			session.getTransaction().commit();
 					
 			return lista; 				
-			
-			
+						
+		}
+		
+		public Object uniqueResultQuery(String hql) {	        
+	        Query query = session.createQuery(hql);
+	        query.setMaxResults(1);
+	        Object object =  query.uniqueResult();
+	        
+	        return object;
 		}
 		
 
