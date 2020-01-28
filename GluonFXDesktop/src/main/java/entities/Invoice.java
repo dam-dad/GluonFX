@@ -1,12 +1,19 @@
 package entities;
-// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
+// Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,48 +25,100 @@ import javax.persistence.TemporalType;
 @Table(name = "invoice", catalog = "7057507_administration_db")
 public class Invoice implements java.io.Serializable {
 
-	private Integer invoiceId;
+	private Integer id;
+	private Company company;
+	private Concept concept;
+	private Customer customer;
+	private PayMethod payMethod;
+	private Tax tax;
 	private String invoiceNumber;
-	private String companyId;
-	private String customerId;
 	private Date invoiceDate;
 	private Integer status;
-	private Integer conceptId;
-	private Integer payMethodId;
 	private Double price;
-	private String taxId;
 	private Double taxTotal;
 	private Double priceTaxesIncluded;
+	private List<InvoiceDetail> invoiceDetails;
 
 	public Invoice() {
 	}
 
-	public Invoice(String invoiceNumber, String companyId, String customerId, Date invoiceDate, Integer status,
-			Integer conceptId, Integer payMethodId, Double price, String taxId, Double taxTotal,
-			Double priceTaxesIncluded) {
+	public Invoice(Company company, Concept concept, Customer customer, PayMethod payMethod, Tax tax,
+			String invoiceNumber, Date invoiceDate, Integer status, Double price, Double taxTotal,
+			Double priceTaxesIncluded, List<InvoiceDetail> invoiceDetails) {
+		this.company = company;
+		this.concept = concept;
+		this.customer = customer;
+		this.payMethod = payMethod;
+		this.tax = tax;
 		this.invoiceNumber = invoiceNumber;
-		this.companyId = companyId;
-		this.customerId = customerId;
 		this.invoiceDate = invoiceDate;
 		this.status = status;
-		this.conceptId = conceptId;
-		this.payMethodId = payMethodId;
 		this.price = price;
-		this.taxId = taxId;
 		this.taxTotal = taxTotal;
 		this.priceTaxesIncluded = priceTaxesIncluded;
+		this.invoiceDetails = invoiceDetails;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "invoice_id", unique = true, nullable = false)
-	public Integer getInvoiceId() {
-		return this.invoiceId;
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setInvoiceId(Integer invoiceId) {
-		this.invoiceId = invoiceId;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_id")
+	public Company getCompany() {
+		return this.company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "concept_id")
+	public Concept getConcept() {
+		return this.concept;
+	}
+
+	public void setConcept(Concept concept) {
+		this.concept = concept;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "customer_id")
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pay_method_id")
+	public PayMethod getPayMethod() {
+		return this.payMethod;
+	}
+
+	public void setPayMethod(PayMethod payMethod) {
+		this.payMethod = payMethod;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tax_id")
+	public Tax getTax() {
+		return this.tax;
+	}
+
+	public void setTax(Tax tax) {
+		this.tax = tax;
 	}
 
 	@Column(name = "invoice_number")
@@ -69,24 +128,6 @@ public class Invoice implements java.io.Serializable {
 
 	public void setInvoiceNumber(String invoiceNumber) {
 		this.invoiceNumber = invoiceNumber;
-	}
-
-	@Column(name = "company_id")
-	public String getCompanyId() {
-		return this.companyId;
-	}
-
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
-	}
-
-	@Column(name = "customer_id")
-	public String getCustomerId() {
-		return this.customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -108,24 +149,6 @@ public class Invoice implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "concept_id")
-	public Integer getConceptId() {
-		return this.conceptId;
-	}
-
-	public void setConceptId(Integer conceptId) {
-		this.conceptId = conceptId;
-	}
-
-	@Column(name = "pay_method_id")
-	public Integer getPayMethodId() {
-		return this.payMethodId;
-	}
-
-	public void setPayMethodId(Integer payMethodId) {
-		this.payMethodId = payMethodId;
-	}
-
 	@Column(name = "price", precision = 22, scale = 0)
 	public Double getPrice() {
 		return this.price;
@@ -133,15 +156,6 @@ public class Invoice implements java.io.Serializable {
 
 	public void setPrice(Double price) {
 		this.price = price;
-	}
-
-	@Column(name = "tax_id", length = 30)
-	public String getTaxId() {
-		return this.taxId;
-	}
-
-	public void setTaxId(String taxId) {
-		this.taxId = taxId;
 	}
 
 	@Column(name = "tax_total", precision = 22, scale = 0)
@@ -160,6 +174,15 @@ public class Invoice implements java.io.Serializable {
 
 	public void setPriceTaxesIncluded(Double priceTaxesIncluded) {
 		this.priceTaxesIncluded = priceTaxesIncluded;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice")
+	public List<InvoiceDetail> getInvoiceDetails() {
+		return this.invoiceDetails;
+	}
+
+	public void setInvoiceDetails(List<InvoiceDetail> invoiceDetails) {
+		this.invoiceDetails = invoiceDetails;
 	}
 
 }

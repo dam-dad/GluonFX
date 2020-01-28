@@ -1,11 +1,15 @@
 package entities;
-// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
+// Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -15,26 +19,28 @@ import javax.persistence.Table;
 @Table(name = "pay_method", catalog = "7057507_administration_db")
 public class PayMethod implements java.io.Serializable {
 
-	private Integer payMethodId;
+	private Integer id;
 	private String description;
+	private List<Invoice> invoices = new ArrayList<Invoice>(0);
 
 	public PayMethod() {
 	}
 
-	public PayMethod(String description) {
+	public PayMethod(String description, List<Invoice> invoices) {
 		this.description = description;
+		this.invoices = invoices;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "pay_method_id", unique = true, nullable = false)
-	public Integer getPayMethodId() {
-		return this.payMethodId;
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setPayMethodId(Integer payMethodId) {
-		this.payMethodId = payMethodId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Column(name = "description")
@@ -44,6 +50,15 @@ public class PayMethod implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "payMethod")
+	public List<Invoice> getInvoices() {
+		return this.invoices;
+	}
+
+	public void setInvoices(List<Invoice> invoices) {
+		this.invoices = invoices;
 	}
 
 }

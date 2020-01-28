@@ -1,9 +1,18 @@
 package entities;
-// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
+// Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -13,32 +22,46 @@ import javax.persistence.Table;
 @Table(name = "product", catalog = "7057507_administration_db")
 public class Product implements java.io.Serializable {
 
+	private Integer id;
 	private String productId;
 	private String name;
 	private String description;
 	private Double price;
 	private Integer stock;
 	private String url;
+	private List<WorkOrderDetail> workOrderDetails = new ArrayList<WorkOrderDetail>(0);
+	private List<BudgetDetail> budgetDetails = new ArrayList<BudgetDetail>(0);
+	private List<InvoiceDetail> invoiceDetails = new ArrayList<InvoiceDetail>(0);
 
 	public Product() {
 	}
 
-	public Product(String productId) {
-		this.productId = productId;
-	}
-
-	public Product(String productId, String name, String description, Double price, Integer stock, String url) {
+	public Product(String productId, String name, String description, Double price, Integer stock, String url,
+			List<WorkOrderDetail> workOrderDetails, List<BudgetDetail> budgetDetails, List<InvoiceDetail> invoiceDetails) {
 		this.productId = productId;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.stock = stock;
 		this.url = url;
+		this.workOrderDetails = workOrderDetails;
+		this.budgetDetails = budgetDetails;
+		this.invoiceDetails = invoiceDetails;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "product_id", unique = true, nullable = false, length = 30)
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Column(name = "product_id", length = 30)
 	public String getProductId() {
 		return this.productId;
 	}
@@ -90,6 +113,38 @@ public class Product implements java.io.Serializable {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	public List<WorkOrderDetail> getWorkOrderDetails() {
+		return this.workOrderDetails;
+	}
+
+	public void setWorkOrderDetails(List<WorkOrderDetail> workOrderDetails) {
+		this.workOrderDetails = workOrderDetails;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	public List<BudgetDetail> getBudgetDetails() {
+		return this.budgetDetails;
+	}
+
+	public void setBudgetDetails(List<BudgetDetail> budgetDetails) {
+		this.budgetDetails = budgetDetails;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	public List<InvoiceDetail> getInvoiceDetails() {
+		return this.invoiceDetails;
+	}
+
+	public void setInvoiceDetails(List<InvoiceDetail> invoiceDetails) {
+		this.invoiceDetails = invoiceDetails;
+	}
+	
+	@Override
+	public String toString() {		
+		return getName();
 	}
 
 }
