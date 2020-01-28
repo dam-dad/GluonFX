@@ -32,15 +32,16 @@ public class ProductBean {
 	
 	public ProductBean(Product p) {
 		this.product = p;
-		id.set(product.getId());
-		productId.set(product.getProductId());
-		name.set(product.getName());
-		description.set(product.getDescription());
-		price.set(product.getPrice());
-		stock.set(product.getStock());
-		url.set(product.getUrl());
+		try {id.set(product.getId());}catch (Exception e) {}
+		try {productId.set(product.getProductId());}catch (Exception e) {}
+		try {name.set(product.getName());}catch (Exception e) {}
+		try {description.set(product.getDescription());}catch (Exception e) {}
+		try {price.set(product.getPrice());}catch (Exception e) {}
+		try {stock.set(product.getStock());}catch (Exception e) {}
+		try {url.set(product.getUrl());}catch (Exception e) {}
+		try {invoiceDetails.set(FXCollections.observableArrayList(product.getInvoiceDetails()));}catch (Exception e) {}
+			
 		
-		invoiceDetails.set(FXCollections.observableArrayList(product.getInvoiceDetails()));
 	}
 	
 	public Product getProduct() {
@@ -59,6 +60,7 @@ public class ProductBean {
 
 	public final void setId(final int id) {
 		this.idProperty().set(id);
+		this.product.setId(id);
 	}
 	
 
@@ -74,6 +76,7 @@ public class ProductBean {
 
 	public final void setProductId(final String productId) {
 		this.productIdProperty().set(productId);
+		this.product.setProductId(productId);
 	}
 	
 
@@ -89,6 +92,7 @@ public class ProductBean {
 
 	public final void setName(final String name) {
 		this.nameProperty().set(name);
+		this.product.setName(name);
 	}
 	
 
@@ -104,6 +108,7 @@ public class ProductBean {
 
 	public final void setDescription(final String description) {
 		this.descriptionProperty().set(description);
+		this.product.setDescription(description);
 	}
 	
 
@@ -119,6 +124,7 @@ public class ProductBean {
 
 	public final void setPrice(final double price) {
 		this.priceProperty().set(price);
+		this.product.setPrice(price);
 	}
 	
 
@@ -134,6 +140,7 @@ public class ProductBean {
 
 	public final void setStock(final int stock) {
 		this.stockProperty().set(stock);
+		this.product.setStock(stock);
 	}
 	
 
@@ -149,6 +156,7 @@ public class ProductBean {
 
 	public final void setUrl(final String url) {
 		this.urlProperty().set(url);
+		this.product.setUrl(url);
 	}
 	
 
@@ -164,10 +172,14 @@ public class ProductBean {
 
 	public final void setInvoiceDetails(final ObservableList<InvoiceDetail> invoiceDetails) {
 		this.invoiceDetailsProperty().set(invoiceDetails);
+		this.product.setInvoiceDetails(invoiceDetails);
 	}
 	
 
-	
+	@Override
+	public String toString() {
+		return getName();
+	}
 
 
 }

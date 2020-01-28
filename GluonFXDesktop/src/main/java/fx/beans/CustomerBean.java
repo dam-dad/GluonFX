@@ -59,6 +59,7 @@ public class CustomerBean {
 
 	public final void setId(final int id) {
 		this.idProperty().set(id);
+		this.customer.setId(id);
 	}
 	
 
@@ -74,6 +75,7 @@ public class CustomerBean {
 
 	public final void setCustomerId(final String customerId) {
 		this.customerIdProperty().set(customerId);
+		this.customer.setCustomerId(customerId);
 	}
 	
 
@@ -89,6 +91,7 @@ public class CustomerBean {
 
 	public final void setName(final String name) {
 		this.nameProperty().set(name);
+		this.customer.setName(name);
 	}
 	
 
@@ -104,6 +107,7 @@ public class CustomerBean {
 
 	public final void setAddress(final String address) {
 		this.addressProperty().set(address);
+		this.customer.setAddress(address);
 	}
 	
 
@@ -119,6 +123,7 @@ public class CustomerBean {
 
 	public final void setCity(final String city) {
 		this.cityProperty().set(city);
+		this.customer.setCity(city);
 	}
 	
 
@@ -134,7 +139,7 @@ public class CustomerBean {
 
 	public final void setCountry(final String country) {
 		this.countryProperty().set(country);
-	}
+		this.customer.setCountry(country);	}
 	
 
 	public final StringProperty emailProperty() {
@@ -149,6 +154,7 @@ public class CustomerBean {
 
 	public final void setEmail(final String email) {
 		this.emailProperty().set(email);
+		this.customer.setEmail(email);
 	}
 	
 
@@ -164,6 +170,7 @@ public class CustomerBean {
 
 	public final void setPhone(final String phone) {
 		this.phoneProperty().set(phone);
+		this.customer.setPhone(phone);
 	}
 	
 
@@ -179,6 +186,7 @@ public class CustomerBean {
 
 	public final void setInvoices(final ObservableList<Invoice> invoices) {
 		this.invoicesProperty().set(invoices);
+		this.customer.setInvoices(invoices);
 	}
 	
 

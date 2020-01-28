@@ -23,10 +23,14 @@ public class InvoiceDetailBean {
 	private DoubleProperty priceUnit = new SimpleDoubleProperty(); 
 	
 	public InvoiceDetailBean(InvoiceDetail i) {	
+		
 		this.invoiceDetail = i;
 		
-		id.set(invoiceDetail.getId());
-	
+		System.out.println("QUE VIENEEEEEEEEEEEEEEEE");
+		System.out.println(invoiceDetail);
+		System.out.println(i);
+		System.out.println(invoiceDetail.getQuantity());
+		
 		try {id.set(invoiceDetail.getId());} catch (Exception e) {}
 		try {invoice.set(invoiceDetail.getInvoice());} catch (Exception e) {}
 		try {product.set(invoiceDetail.getProduct());} catch (Exception e) {}
@@ -52,6 +56,7 @@ public class InvoiceDetailBean {
 
 	public final void setId(final int id) {
 		this.idProperty().set(id);
+		this.invoiceDetail.setId(id);
 	}
 	
 
@@ -67,6 +72,7 @@ public class InvoiceDetailBean {
 
 	public final void setInvoice(final Invoice invoice) {
 		this.invoiceProperty().set(invoice);
+		this.invoiceDetail.setInvoice(invoice);
 	}
 	
 
@@ -82,6 +88,7 @@ public class InvoiceDetailBean {
 
 	public final void setQuantity(final double quantity) {
 		this.quantityProperty().set(quantity);
+		this.invoiceDetail.setQuantity(quantity);
 	}
 	
 
@@ -97,6 +104,7 @@ public class InvoiceDetailBean {
 
 	public final void setPrice(final double price) {
 		this.priceProperty().set(price);
+		this.invoiceDetail.setPrice(price);
 	}
 	
 
@@ -112,6 +120,7 @@ public class InvoiceDetailBean {
 
 	public final void setPriceUnit(final double priceUnit) {
 		this.priceUnitProperty().set(priceUnit);
+		this.invoiceDetail.setPriceUnit(priceUnit);
 	}
 
 	public final ObjectProperty<Product> productProperty() {
@@ -126,6 +135,7 @@ public class InvoiceDetailBean {
 
 	public final void setProduct(final Product product) {
 		this.productProperty().set(product);
+		this.invoiceDetail.setProduct(product);
 	}
 	
 	
