@@ -57,7 +57,7 @@
                         <Label text="Cantidad:" GridPane.rowIndex="4" />
                         <TextDecimal fx:id="txtCantidad" alignment="CENTER" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
                         <Label text="Precio ud." GridPane.rowIndex="2" />
-                        <TextDecimal alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextDecimal fx:id="txtPriceUd" alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                      <opaqueInsets>
                         <Insets />

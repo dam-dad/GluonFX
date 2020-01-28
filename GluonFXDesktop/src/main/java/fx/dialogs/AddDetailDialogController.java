@@ -37,6 +37,8 @@ public class AddDetailDialogController extends Dialog<AddDetailDialogModel> impl
 	private TextDecimal txtStock;
 	@FXML
 	private TextDecimal txtCantidad;
+    @FXML
+    private TextDecimal txtPriceUd;
 	@FXML
 	private TextField txtProdcutId;
 	@FXML
