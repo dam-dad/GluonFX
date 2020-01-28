@@ -46,6 +46,7 @@ public class PayMethodBean {
 
 	public final void setId(final int id) {
 		this.idProperty().set(id);
+		this.payMethod.setId(id);
 	}
 	
 
@@ -61,6 +62,7 @@ public class PayMethodBean {
 
 	public final void setDescription(final String description) {
 		this.descriptionProperty().set(description);
+		this.payMethod.setDescription(description);
 	}
 	
 
@@ -76,6 +78,7 @@ public class PayMethodBean {
 
 	public final void setInvoices(final ObservableList<Invoice> invoices) {
 		this.invoicesProperty().set(invoices);
+		this.payMethod.setInvoices(invoices);
 	}
 	
 

@@ -1,6 +1,7 @@
 package fx.beans;
 
 
+import entities.Company;
 import entities.Concept;
 import entities.Invoice;
 import javafx.beans.property.DoubleProperty;
@@ -56,12 +57,13 @@ public class ConceptBean {
 
 	public final void setId(final int id) {
 		this.idProperty().set(id);
+		concept.setId(id);
 	}
 	
 
 
 	public final StringProperty descriptionProperty() {
-		return this.description;
+		return this.description;		
 	}
 	
 
@@ -74,6 +76,7 @@ public class ConceptBean {
 
 	public final void setDescription(final String description) {
 		this.descriptionProperty().set(description);
+		concept.setDescription(description);
 	}
 	
 
@@ -92,6 +95,7 @@ public class ConceptBean {
 
 	public final void setPrice(final double price) {
 		this.priceProperty().set(price);
+		this.concept.setPrice(price);
 	}
 	
 
@@ -110,8 +114,9 @@ public class ConceptBean {
 
 	public final void setInvoices(final ObservableList<Invoice> invoices) {
 		this.invoicesProperty().set(invoices);
+		this.concept.setInvoices(invoices);
 	}
 	
-
+	
 	
 }

@@ -59,6 +59,7 @@ public class TaxBean {
 
 	public final void setId(final int id) {
 		this.idProperty().set(id);
+		this.tax.setId(id);
 	}
 	
 
@@ -74,6 +75,7 @@ public class TaxBean {
 
 	public final void setTaxId(final String taxId) {
 		this.taxIdProperty().set(taxId);
+		this.tax.setTaxId(taxId);
 	}
 	
 
@@ -89,6 +91,7 @@ public class TaxBean {
 
 	public final void setPercentage(final double percentage) {
 		this.percentageProperty().set(percentage);
+		this.tax.setPercentage(percentage);
 	}
 	
 
@@ -104,6 +107,7 @@ public class TaxBean {
 
 	public final void setDescription(final String description) {
 		this.descriptionProperty().set(description);
+		this.tax.setDescription(description);
 	}
 	
 
@@ -119,6 +123,7 @@ public class TaxBean {
 
 	public final void setInvoices(final ObservableList<Invoice> invoices) {
 		this.invoicesProperty().set(invoices);
+		this.tax.setInvoices(invoices);
 	}
 	
 	

@@ -1,7 +1,9 @@
 package fx.beans;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import entities.Company;
 import entities.Concept;
@@ -28,27 +30,30 @@ public class InvoiceBean {
 	private Invoice invoice; 
 	
 	private IntegerProperty id = new SimpleIntegerProperty();
-	private ObjectProperty<Company> company = new SimpleObjectProperty<Company>(); 
-	private ObjectProperty<Concept> concept = new SimpleObjectProperty<Concept>(); 
-	private ObjectProperty<Customer> customer = new SimpleObjectProperty<Customer>();
-	private ObjectProperty<PayMethod> payMethod= new SimpleObjectProperty<PayMethod>();
-	private ObjectProperty<Tax> tax = new SimpleObjectProperty<Tax>();		
+	private ObjectProperty<CompanyBean> company = new SimpleObjectProperty<CompanyBean>(); 
+	private ObjectProperty<ConceptBean> concept = new SimpleObjectProperty<ConceptBean>(); 
+	private ObjectProperty<CustomerBean> customer = new SimpleObjectProperty<CustomerBean>();
+	private ObjectProperty<PayMethodBean> payMethod= new SimpleObjectProperty<PayMethodBean>();
+	private ObjectProperty<TaxBean> tax = new SimpleObjectProperty<TaxBean>();		
 	private StringProperty invoiceNumber = new SimpleStringProperty();	
 	private ObjectProperty<LocalDate> invoiceDate = new SimpleObjectProperty<LocalDate>();	
 	private IntegerProperty status = new SimpleIntegerProperty();
 	private DoubleProperty price = new SimpleDoubleProperty();
 	private DoubleProperty taxTotal = new SimpleDoubleProperty();
 	private DoubleProperty priceTaxesIncluded = new SimpleDoubleProperty();
-	private ListProperty<InvoiceDetail> invoiceDetails = new SimpleListProperty<InvoiceDetail>();
+	private ListProperty<InvoiceDetailBean> invoiceDetails = new SimpleListProperty<InvoiceDetailBean>();
 	
-	public InvoiceBean(Invoice i) {
-		this.invoice = i; 
+	public InvoiceBean(Invoice invoice) {
 		
-			company.set(invoice.getCompany());
-			concept.set(invoice.getConcept());
-			customer.set(invoice.getCustomer());
-			payMethod.set(invoice.getPayMethod());
-			tax.set(invoice.getTax());
+			this.invoice = invoice; 			
+			try {company.set(new CompanyBean(invoice.getCompany()));
+			}catch (Exception e) {}
+			try {concept.set(new ConceptBean(invoice.getConcept()));}catch (Exception e) {}
+			try {customer.set(new CustomerBean(invoice.getCustomer()));}catch (Exception e) {}
+			try {payMethod.set(new PayMethodBean(invoice.getPayMethod()));}catch (Exception e) {}
+			try {tax.set(new TaxBean(invoice.getTax()));}catch (Exception e) {}
+			
+			
 			invoiceNumber.set(invoice.getInvoiceNumber());
 			invoiceDate.set(localDateConverter(invoice.getInvoiceDate()));
 			status.set(invoice.getStatus());
@@ -56,8 +61,11 @@ public class InvoiceBean {
 			taxTotal.set(invoice.getTaxTotal());
 			priceTaxesIncluded.set(invoice.getPriceTaxesIncluded());
 			
-		
-			invoiceDetails.set(FXCollections.observableArrayList(invoice.getInvoiceDetails()));
+			List<InvoiceDetailBean> list = new ArrayList<InvoiceDetailBean>();
+			for(InvoiceDetail i : invoice.getInvoiceDetails()) {
+				list.add(new InvoiceDetailBean(i));
+			}
+			invoiceDetails.set(FXCollections.observableArrayList(list));
 			
 	
 		
@@ -89,96 +97,102 @@ public class InvoiceBean {
 
 	public final void setId(final int id) {
 		this.idProperty().set(id);
+		this.invoice.setId(id);
 	}
 	
 
 
-	public final ObjectProperty<Company> companyProperty() {
+	public final ObjectProperty<CompanyBean> companyProperty() {
 		return this.company;
 	}
 	
 
 
-	public final Company getCompany() {
+	public final CompanyBean getCompany() {
 		return this.companyProperty().get();
 	}
 	
 
 
-	public final void setCompany(final Company company) {
+	public final void setCompany(final CompanyBean company) {
 		this.companyProperty().set(company);
+		this.invoice.setCompany(company.getCompany());
 	}
 	
 
 
-	public final ObjectProperty<Concept> conceptProperty() {
+	public final ObjectProperty<ConceptBean> conceptProperty() {
 		return this.concept;
 	}
 	
 
 
-	public final Concept getConcept() {
+	public final ConceptBean getConcept() {
 		return this.conceptProperty().get();
 	}
 	
 
 
-	public final void setConcept(final Concept concept) {
+	public final void setConcept(final ConceptBean concept) {
 		this.conceptProperty().set(concept);
+		this.invoice.setConcept(concept.getConcept());
 	}
 	
 
 
-	public final ObjectProperty<Customer> customerProperty() {
+	public final ObjectProperty<CustomerBean> customerProperty() {
 		return this.customer;
 	}
 	
 
 
-	public final Customer getCustomer() {
+	public final CustomerBean getCustomer() {
 		return this.customerProperty().get();
 	}
 	
 
 
-	public final void setCustomer(final Customer customer) {
+	public final void setCustomer(final CustomerBean customer) {
 		this.customerProperty().set(customer);
+		this.invoice.setCustomer(customer.getCustomer());
 	}
 	
 
 
-	public final ObjectProperty<PayMethod> payMethodProperty() {
+	public final ObjectProperty<PayMethodBean> payMethodProperty() {
 		return this.payMethod;
 	}
 	
 
 
-	public final PayMethod getPayMethod() {
+	public final PayMethodBean getPayMethod() {
 		return this.payMethodProperty().get();
 	}
 	
 
 
-	public final void setPayMethod(final PayMethod payMethod) {
+	public final void setPayMethod(final PayMethodBean payMethod) {
 		this.payMethodProperty().set(payMethod);
+		this.invoice.setPayMethod(payMethod.getPayMethod());
 	}
 	
 
 
-	public final ObjectProperty<Tax> taxProperty() {
+	public final ObjectProperty<TaxBean> taxProperty() {
 		return this.tax;
 	}
 	
 
 
-	public final Tax getTax() {
+	public final TaxBean getTax() {
 		return this.taxProperty().get();
 	}
 	
 
 
-	public final void setTax(final Tax tax) {
+	public final void setTax(final TaxBean tax) {
 		this.taxProperty().set(tax);
+		this.invoice.setTax(tax.getTax());
 	}
 	
 
@@ -197,12 +211,14 @@ public class InvoiceBean {
 
 	public final void setInvoiceNumber(final String invoiceNumber) {
 		this.invoiceNumberProperty().set(invoiceNumber);
+		this.invoice.setInvoiceNumber(invoiceNumber);
 	}
 	
 
 
 	public final ObjectProperty<LocalDate> invoiceDateProperty() {
 		return this.invoiceDate;
+		
 	}
 	
 
@@ -214,7 +230,10 @@ public class InvoiceBean {
 
 
 	public final void setInvoiceDate(final LocalDate invoiceDate) {
-		this.invoiceDateProperty().set(invoiceDate);
+		this.invoiceDateProperty().set(invoiceDate);		
+		LocalDate da = invoiceDate;			
+		Date dateA = java.sql.Date.valueOf(da);
+		this.invoice.setInvoiceDate(dateA);	
 	}
 	
 
@@ -233,6 +252,7 @@ public class InvoiceBean {
 
 	public final void setStatus(final int status) {
 		this.statusProperty().set(status);
+		this.invoice.setStatus(status);
 	}
 	
 
@@ -251,6 +271,7 @@ public class InvoiceBean {
 
 	public final void setPrice(final double price) {
 		this.priceProperty().set(price);
+		this.invoice.setPrice(price);
 	}
 	
 
@@ -269,6 +290,7 @@ public class InvoiceBean {
 
 	public final void setTaxTotal(final double taxTotal) {
 		this.taxTotalProperty().set(taxTotal);
+		this.invoice.setTaxTotal(taxTotal);
 	}
 	
 
@@ -287,29 +309,32 @@ public class InvoiceBean {
 
 	public final void setPriceTaxesIncluded(final double priceTaxesIncluded) {
 		this.priceTaxesIncludedProperty().set(priceTaxesIncluded);
+		this.invoice.setPriceTaxesIncluded(priceTaxesIncluded);
 	}
 	
 
 
-	public final ListProperty<InvoiceDetail> invoiceDetailsProperty() {
+	public final ListProperty<InvoiceDetailBean> invoiceDetailsProperty() {
 		return this.invoiceDetails;
 	}
 	
 
 
-	public final ObservableList<InvoiceDetail> getInvoiceDetails() {
+	public final ObservableList<InvoiceDetailBean> getInvoiceDetails() {
 		return this.invoiceDetailsProperty().get();
 	}
 	
 
 
-	public final void setInvoiceDetails(final ObservableList<InvoiceDetail> invoiceDetails) {
+	public final void setInvoiceDetails(final ObservableList<InvoiceDetailBean> invoiceDetails) {
 		this.invoiceDetailsProperty().set(invoiceDetails);
+		
+		List<InvoiceDetail> list = new ArrayList<InvoiceDetail>();  
+		for(InvoiceDetailBean i : invoiceDetails) {
+			list.add(i.getInvoiceDetail());
+		}
+		this.invoice.setInvoiceDetails(list);
 	}
-	
-
-
-	
 	
 
 }

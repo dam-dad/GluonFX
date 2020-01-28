@@ -18,10 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<<<<<<< HEAD
 <?import javafx.scene.text.Font?>
-=======
->>>>>>> 91284fd8ce30edfa51b7f257bb1336c780169861
 
 <VBox fx:id="view" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -51,7 +48,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button fx:id="btnAddInvoice" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button fx:id="btnAddInvoice" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionAddInvoice" prefHeight="40.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <graphic>
                         <ImageView fitHeight="34.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -60,7 +57,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnRemoveInvoice" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button fx:id="btnRemoveInvoice" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionRemoveInvoice" prefHeight="40.0" prefWidth="80.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <graphic>
                         <ImageView fitHeight="34.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -154,7 +151,7 @@
                   </HBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="559.0" VBox.vgrow="ALWAYS">
+                        <HBox fx:id="hboxConcept" alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="559.0" visible="false" VBox.vgrow="ALWAYS">
                            <children>
                               <GridPane alignment="CENTER" gridLinesVisible="true" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="333.0" HBox.hgrow="ALWAYS">
                                  <columnConstraints>
@@ -218,7 +215,7 @@
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button fx:id="btnAddDetail" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0">
+                                          <Button fx:id="btnAddDetail" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionAddDetail" prefHeight="40.0" prefWidth="80.0">
                                              <HBox.margin>
                                                 <Insets right="15.0" />
                                              </HBox.margin>
@@ -230,7 +227,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button fx:id="btnRemoveDetail" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0">
+                                          <Button fx:id="btnRemoveDetail" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionRemoveDetail" prefHeight="40.0" prefWidth="80.0">
                                              <graphic>
                                                 <ImageView fitHeight="34.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>

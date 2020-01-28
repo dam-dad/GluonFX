@@ -58,6 +58,23 @@ public class HibernateController {
 			
 		}
 		
+		/*
+		 * Guarda un o actualizar
+		 */
+		public void saveOrUpdate(Object object) {
+			
+					
+				session.clear();
+				
+				session.beginTransaction();
+				
+				session.saveOrUpdate(object);
+						
+				session.getTransaction().commit();
+		
+			
+		}
+		
 				
 		
 		/*
@@ -84,7 +101,7 @@ public class HibernateController {
 		
 		public void delete (Object object) {
 			
-			//session.clear();
+			session.clear();
 			
 			session.beginTransaction();
 			

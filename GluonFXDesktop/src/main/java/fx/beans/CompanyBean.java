@@ -1,5 +1,7 @@
 package fx.beans;
 
+import java.util.List;
+
 import entities.Company;
 import entities.Invoice;
 import javafx.beans.property.IntegerProperty;
@@ -28,10 +30,13 @@ public class CompanyBean {
 	
 	
 	public CompanyBean(Company c) {
+		System.out.println("UUUUUUUUUUUUUUUUUUUUUUU");
+		System.out.println(c.getName());
 		this.company = c; 
 		id.set(company.getId());
 		companyId.set(company.getCompanyId());
 		name.set(company.getName());
+		System.out.println(name);
 		address.set(company.getAddress());
 		city.set(company.getCity());
 		country.set(company.getCountry());
@@ -63,6 +68,7 @@ public class CompanyBean {
 
 	public final void setId(final int id) {
 		this.idProperty().set(id);
+		this.company.setId(id);
 	}
 	
 
@@ -81,12 +87,13 @@ public class CompanyBean {
 
 	public final void setCompanyId(final String companyId) {
 		this.companyIdProperty().set(companyId);
+		this.company.setCompanyId(companyId);
 	}
 	
 
 
 	public final StringProperty nameProperty() {
-		return this.name;
+		return this.name;		
 	}
 	
 
@@ -99,6 +106,7 @@ public class CompanyBean {
 
 	public final void setName(final String name) {
 		this.nameProperty().set(name);
+		this.company.setName(name);
 	}
 	
 
@@ -117,6 +125,7 @@ public class CompanyBean {
 
 	public final void setAddress(final String address) {
 		this.addressProperty().set(address);
+		this.company.setAddress(address);
 	}
 	
 
@@ -135,6 +144,7 @@ public class CompanyBean {
 
 	public final void setCity(final String city) {
 		this.cityProperty().set(city);
+		this.company.setCity(city);
 	}
 	
 
@@ -153,6 +163,7 @@ public class CompanyBean {
 
 	public final void setCountry(final String country) {
 		this.countryProperty().set(country);
+		this.company.setCountry(country);
 	}
 	
 
@@ -171,6 +182,7 @@ public class CompanyBean {
 
 	public final void setEmail(final String email) {
 		this.emailProperty().set(email);
+		this.company.setEmail(email);
 	}
 	
 
@@ -189,6 +201,7 @@ public class CompanyBean {
 
 	public final void setPhone(final String phone) {
 		this.phoneProperty().set(phone);
+		this.company.setPhone(phone);
 	}
 	
 
@@ -207,6 +220,7 @@ public class CompanyBean {
 
 	public final void setInvoices(final ObservableList<Invoice> invoices) {
 		this.invoicesProperty().set(invoices);
+		company.setInvoices(invoices);
 	}
 	
 
