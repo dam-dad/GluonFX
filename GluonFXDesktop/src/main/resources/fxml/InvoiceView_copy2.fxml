@@ -2,10 +2,12 @@
 
 <?import com.jfoenix.controls.JFXBadge?>
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
@@ -23,7 +25,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #B8B4B3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="view" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #B8B4B3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.25292153589315525, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
          <items>
@@ -358,7 +360,7 @@
                         </ImageView>
                      </children>
                   </VBox>
-                  <VBox prefHeight="598.0" prefWidth="326.0">
+                  <VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="326.0">
                      <children>
                         <VBox prefHeight="180.0" prefWidth="368.0">
                            <children>
@@ -384,7 +386,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
                            </VBox.margin>
                            <children>
                               <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Estado factura               " textFill="#eee7e7">
@@ -398,10 +400,24 @@
                                  <font>
                                     <Font size="18.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets top="1.0" />
+                                 </VBox.margin>
                               </JFXButton>
+                              <VBox prefHeight="29.0" prefWidth="263.0" spacing="5.0">
+                                 <children>
+                                    <JFXCheckBox text="Creada" />
+                                    <JFXCheckBox text="Pendiente" />
+                                    <JFXCheckBox text="Cobrada" />
+                                    <JFXCheckBox text="Atrasada" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </VBox>
                               <Label text="Despliega la lista para comprobar el estado de la factura" textFill="#757171">
                                  <VBox.margin>
-                                    <Insets top="15.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font size="14.0" />
@@ -411,7 +427,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Selección cliente            " textFill="#eee7e7">
+                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="326.0" style="-fx-background-color: darkblue;" text="Selección cliente            " textFill="#eee7e7">
                                  <graphic>
                                     <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -423,15 +439,30 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
+                              <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets right="60.0" top="5.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
                               <Label text="Despliega la lista para comprobar el estado de la factura" textFill="#757171">
                                  <VBox.margin>
-                                    <Insets top="15.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
+                           </VBox.margin>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
@@ -447,17 +478,27 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <JFXCheckBox text="Efectivo" />
+                                    <JFXCheckBox text="Transferencia bancaria" />
+                                    <JFXCheckBox text="Crédito" />
+                                 </children>
+                              </VBox>
                               <Label text="Despliega la lista para comprobar el estado de la factura" textFill="#757171">
                                  <VBox.margin>
-                                    <Insets top="15.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
+                           </VBox.margin>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                        <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="326.0">
                            <children>
                               <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Opcional                     " textFill="#eee7e7">
                                  <graphic>
@@ -471,39 +512,21 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
-                              <Label text="Esta es opcional" textFill="#757171">
+                              <Label prefHeight="0.0" prefWidth="326.0" text="Esta es opcional" textFill="#757171">
                                  <VBox.margin>
-                                    <Insets top="15.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Opcional                    " textFill="#eee7e7">
-                                 <graphic>
-                                    <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/arrow-left-white.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </JFXButton>
-                              <Label text="Esta es opcional" textFill="#757171">
-                                 <VBox.margin>
-                                    <Insets top="15.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
+                           </VBox.margin>
                         </VBox>
                      </children>
                      <HBox.margin>
