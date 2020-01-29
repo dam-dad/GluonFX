@@ -20,6 +20,7 @@ public class AddDetailDialogModel {
 	private ListProperty<ProductBean> listProducts = new SimpleListProperty<ProductBean>(); 
 	private ObjectProperty<ProductBean> productSelected = new SimpleObjectProperty<ProductBean>(); 
 	private DoubleProperty cantidad = new SimpleDoubleProperty(); 
+	private DoubleProperty priceUnit = new SimpleDoubleProperty(); 
 	private DoubleProperty stock = new SimpleDoubleProperty(); 
 	private ObjectProperty<Image> imgProduct = new SimpleObjectProperty<Image>();
 	public final StringProperty productIdProperty() {
@@ -70,6 +71,18 @@ public class AddDetailDialogModel {
 		this.cantidadProperty().set(cantidad);
 	}
 	
+	public final DoubleProperty priceUnitProperty() {
+		return this.priceUnit;
+	}
+	
+	public final double getPriceUnit() {
+		return this.priceUnitProperty().get();
+	}
+	
+	public final void setPriceUnit(final double priceUnit) {
+		this.priceUnitProperty().set(priceUnit);
+	}
+	
 	public final DoubleProperty stockProperty() {
 		return this.stock;
 	}
@@ -95,8 +108,6 @@ public class AddDetailDialogModel {
 	}
 	
 	
-	
-	 
 	
 	
 

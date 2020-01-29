@@ -80,6 +80,7 @@ public class AddDetailDialogController extends Dialog<AddDetailDialogModel> impl
 		    	
 		    	
 		    	detailForDialog.setCantidad(model.getCantidad());
+		    	detailForDialog.setPriceUnit(model.getPriceUnit());
 		    	detailForDialog.setStock(model.getStock());
 		    	detailForDialog.setImgProduct(model.getImgProduct());
 		    	detailForDialog.setListProducts(model.getListProducts());
@@ -114,6 +115,7 @@ public class AddDetailDialogController extends Dialog<AddDetailDialogModel> impl
 		model.listProductsProperty().bindBidirectional(cmbProduct.itemsProperty());		
 		model.productSelectedProperty().bindBidirectional(cmbProduct.valueProperty());
 		model.cantidadProperty().bindBidirectional(txtCantidad.decimalProperty());	
+		model.priceUnitProperty().bindBidirectional(txtPriceUd.decimalProperty());
 		model.imgProductProperty().bindBidirectional(imgProduct.imageProperty());
 		model.stockProperty().bindBidirectional(txtStock.decimalProperty());
 		model.productSelectedProperty().bindBidirectional(cmbProduct.valueProperty());
@@ -139,6 +141,7 @@ public class AddDetailDialogController extends Dialog<AddDetailDialogModel> impl
 		model.setProductId(masterProductBean.getProductId());
 		model.setImgProduct(new Image(masterProductBean.getUrl()));
 		model.setStock(masterProductBean.getStock());
+		model.setPriceUnit(masterProductBean.getPrice());
 		
 		
 		return null;
@@ -146,6 +149,19 @@ public class AddDetailDialogController extends Dialog<AddDetailDialogModel> impl
 	
     @FXML
     private void onClickBtnSearch(ActionEvent event) {
+    	
+		String productId = txtProdcutId.getText().trim();
+
+		try {
+
+			for (ProductBean p : cmbProduct.getItems()) {
+				if (p.getProductId().contentEquals(productId)) {
+					cmbProduct.getSelectionModel().select(p);
+				}
+			}
+
+		} catch (Exception e) {
+		}
 
     }
 
