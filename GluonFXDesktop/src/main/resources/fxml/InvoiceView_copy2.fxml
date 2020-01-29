@@ -478,12 +478,17 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
+<<<<<<< HEAD
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+=======
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+>>>>>>> 2aced78a1448b48e1550a905f889d325524bf967
                                  <children>
                                     <JFXCheckBox text="Efectivo" />
                                     <JFXCheckBox text="Transferencia bancaria" />
                                     <JFXCheckBox text="Crédito" />
                                  </children>
+<<<<<<< HEAD
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -492,6 +497,13 @@
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
+=======
+                              </VBox>
+                              <Label text="Despliega la lista para comprobar el estado de la factura" textFill="#757171">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+>>>>>>> 2aced78a1448b48e1550a905f889d325524bf967
                                  <font>
                                     <Font size="14.0" />
                                  </font>
