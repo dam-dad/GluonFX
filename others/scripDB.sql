@@ -54,13 +54,6 @@ url VARCHAR(500),
 CONSTRAINT pk_product PRIMARY KEY(id)
 );
 
-CREATE TABLE concept(
-id INT AUTO_INCREMENT,
-description VARCHAR(600),
-price DOUBLE DEFAULT 0,
-CONSTRAINT pk_concept PRIMARY KEY(id)
-);
-
 CREATE TABLE invoice(
 id INT AUTO_INCREMENT,
 invoice_number VARCHAR(255) DEFAULT '0',
@@ -77,15 +70,23 @@ price_taxes_included DOUBLE DEFAULT 0,
 CONSTRAINT pk_invoice PRIMARY KEY(id),
 CONSTRAINT fk_ivoice_01 FOREIGN KEY (company_id) REFERENCES company(id),
 CONSTRAINT fk_ivoice_02 FOREIGN KEY (customer_id) REFERENCES customer(id),
-CONSTRAINT fk_ivoice_03 FOREIGN KEY (concept_id) REFERENCES concept(id),
 CONSTRAINT fk_ivoice_04 FOREIGN KEY (pay_method_id) REFERENCES pay_method(id),
 CONSTRAINT fk_ivoice_05 FOREIGN KEY (tax_id) REFERENCES tax(id)
+);
+
+CREATE TABLE concept_invoice(
+id INT AUTO_INCREMENT,
+invoice_id INT,
+description VARCHAR(600),
+price DOUBLE DEFAULT 0,
+CONSTRAINT pk_concept PRIMARY KEY(id),
+CONSTRAINT fk_invoice_concept FOREIGN KEY (invoice_id) REFERENCES invoice(id)
 );
 
 CREATE TABLE invoice_detail(
 id INT AUTO_INCREMENT,
 invoice_id INT,
-product_id INT,
+product_id INT UNIQUE,
 quantity DOUBLE DEFAULT 0,
 price DOUBLE DEFAULT 0,
 price_unit DOUBLE DEFAULT 0,
@@ -111,7 +112,6 @@ price_taxes_included DOUBLE DEFAULT 0,
 CONSTRAINT pk_budget PRIMARY KEY(id),
 CONSTRAINT fk_budget_01 FOREIGN KEY (company_id) REFERENCES company(id),
 CONSTRAINT fk_budget_02 FOREIGN KEY (customer_id) REFERENCES customer(id),
-CONSTRAINT fk_budget_03 FOREIGN KEY (concept_id) REFERENCES concept(id),
 CONSTRAINT fk_budget_05 FOREIGN KEY (tax_id) REFERENCES tax(id)
 );
 
@@ -120,7 +120,7 @@ CONSTRAINT fk_budget_05 FOREIGN KEY (tax_id) REFERENCES tax(id)
 CREATE TABLE budget_detail(
 id INT AUTO_INCREMENT,
 budget_id INT,
-product_id INT,
+product_id INT UNIQUE,
 quantity DOUBLE DEFAULT 0,
 price DOUBLE DEFAULT 0,
 price_unit DOUBLE DEFAULT 0,
@@ -129,6 +129,14 @@ CONSTRAINT fk_budget_details_01 FOREIGN KEY (budget_id) REFERENCES budget(id),
 CONSTRAINT fk_budget_details_02 FOREIGN KEY (product_id) REFERENCES product(id)
 );
 
+CREATE TABLE concept_budget(
+id INT AUTO_INCREMENT,
+budget_id INT UNIQUE,
+description VARCHAR(600),
+price DOUBLE DEFAULT 0,
+CONSTRAINT pk_concept PRIMARY KEY(id),
+CONSTRAINT fk_budget_concept FOREIGN KEY (budget_id) REFERENCES budget(id)
+);
 
 CREATE TABLE work_order(
 id INT AUTO_INCREMENT,
@@ -145,14 +153,13 @@ price_taxes_included DOUBLE DEFAULT 0,
 CONSTRAINT pk_work_order PRIMARY KEY(id),
 CONSTRAINT fk_work_order_01 FOREIGN KEY (company_id) REFERENCES company(id),
 CONSTRAINT fk_work_order_02 FOREIGN KEY (customer_id) REFERENCES customer(id),
-CONSTRAINT fk_work_order_03 FOREIGN KEY (concept_id) REFERENCES concept(id),
 CONSTRAINT fk_work_order_05 FOREIGN KEY (tax_id) REFERENCES tax(id)
 );
 
 CREATE TABLE work_order_detail(
 id INT AUTO_INCREMENT,
 work_order_id INT,
-product_id INT,
+product_id INT UNIQUE,
 quantity DOUBLE DEFAULT 0,
 price DOUBLE DEFAULT 0,
 price_unit DOUBLE DEFAULT 0,
@@ -161,6 +168,47 @@ CONSTRAINT fk_work_order_details_01 FOREIGN KEY (work_order_id) REFERENCES work_
 CONSTRAINT fk_work_order_details_02 FOREIGN KEY (product_id) REFERENCES product(id)
 );
 
+CREATE TABLE concept_work_order(
+id INT AUTO_INCREMENT,
+work_order_id INT,
+description VARCHAR(600),
+price DOUBLE DEFAULT 0,
+CONSTRAINT pk_concept PRIMARY KEY(id),
+CONSTRAINT fk_work_order_concept FOREIGN KEY (work_order_id) REFERENCES work_order(id)
+);
+
+DELIMITER //
+CREATE TRIGGER insert_concept_invoice BEFORE INSERT ON concept_invoice
+	FOR EACH ROW
+      	BEGIN
+      		UPDATE invoice SET price = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) + (NEW.price)) WHERE id = NEW.invoice_id;
+            UPDATE invoice SET tax_total = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM invoice WHERE id = NEW.invoice_id)) / 100) WHERE id = NEW.invoice_id;
+            UPDATE invoice SET price_taxes_included = ((SELECT price + tax_total FROM invoice WHERE id = NEW.invoice_id)) WHERE id = NEW.invoice_id;
+      	END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER insert_concept_work_order BEFORE INSERT ON concept_work_order
+	FOR EACH ROW
+      	BEGIN
+      		UPDATE work_order SET price = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) + (NEW.price)) WHERE id = NEW.work_order_id;
+            UPDATE work_order SET tax_total = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM work_order WHERE id = NEW.work_order_id)) / 100) WHERE id = NEW.work_order_id;
+            UPDATE work_order SET price_taxes_included = ((SELECT price + tax_total FROM work_order WHERE id = NEW.work_order_id)) WHERE id = NEW.work_order_id;
+      	END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER insert_concept_budget BEFORE INSERT ON concept_budget
+	FOR EACH ROW
+      	BEGIN
+      		UPDATE budget SET price = ((SELECT price FROM budget WHERE id = NEW.budget_id) + (NEW.price)) WHERE id = NEW.budget_id;
+            UPDATE budget SET tax_total = ((SELECT price FROM budget WHERE id = NEW.budget_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM budget WHERE id = NEW.budget_id)) / 100) WHERE id = NEW.budget_id;
+            UPDATE budget SET price_taxes_included = ((SELECT price + tax_total FROM budget WHERE id = NEW.budget_id)) WHERE id = NEW.budget_id;
+      	END;
+//
+DELIMITER ;
 
 DELIMITER //
 CREATE TRIGGER insert_invoice_number BEFORE INSERT ON invoice
@@ -171,7 +219,6 @@ CREATE TRIGGER insert_invoice_number BEFORE INSERT ON invoice
 //
 DELIMITER ;
 
---Trigger for budget number
 
 DELIMITER //
 CREATE TRIGGER insert_budget_number BEFORE INSERT ON budget
@@ -188,7 +235,7 @@ DELIMITER //
 CREATE TRIGGER insert_work_order_number BEFORE INSERT ON work_order
 	FOR EACH ROW
       	BEGIN
-                  SET NEW.work_order_number = (SELECT CONCAT_WS('','WO',(SELECT YEAR(NEW.work_order_date)), (SELECT LPAD((MONTH(NEW.work_order_date)),2,'0')), (SELECT LPAD((SELECT COUNT(work_order_number) + 1  FROM work_order WHERE YEAR(work_order_date) = YEAR(NEW.work_order_date) AND MONTH(work_order_date) = MONTH(NEW.work_order_date)),4,'0'))));
+            SET NEW.work_order_number = (SELECT CONCAT_WS('','WO',(SELECT YEAR(NEW.work_order_date)), (SELECT LPAD((MONTH(NEW.work_order_date)),2,'0')), (SELECT LPAD((SELECT COUNT(work_order_number) + 1  FROM work_order WHERE YEAR(work_order_date) = YEAR(NEW.work_order_date) AND MONTH(work_order_date) = MONTH(NEW.work_order_date)),4,'0'))));
       	END;
 //
 DELIMITER ;
@@ -263,7 +310,7 @@ CREATE TRIGGER delete_work_order AFTER delete ON work_order_detail
 DELIMITER ;
 
 DELIMITER //
-CREATE TRIGGER delete_budget AFTER delete ON budget
+CREATE TRIGGER delete_budget AFTER delete ON budget_detail
       FOR EACH ROW
             BEGIN
                   UPDATE budget SET price = ((SELECT price FROM budget WHERE id = OLD.budget_id) - OLD.price) WHERE id = OLD.budget_id;
@@ -334,12 +381,31 @@ INSERT INTO pay_method(description) VALUES ('BANK TRANSFER');
 
 INSERT INTO product (product_id, name, description, price, stock, url) VALUES ('10000191', 'Consolador', 'placentero y pequeño', 9.90, 900, 'www.pornhub.com');
 
-INSERT INTO concept (description) VALUES ('kit de placer'); 
-
 INSERT INTO invoice (company_id, customer_id, invoice_date, concept_id, pay_method_id, tax_id) VALUES (1, 1, '2020-01-20', 1, 1, 1);
+
+INSERT INTO concept_invoice (invoice_id,description,price) VALUES (1,'kit de placer',300); 
 
 INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 1, 3);
 
 INSERT INTO product (product_id, name, description, price,stock, url) VALUES ('10000192', 'Consolador', 'placentero y pequeño', 1.90,700, 'www.pornhub.com');
 
 INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 2, 8);
+
+INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 2, 7);
+
+
+INSERT INTO work_order (company_id, customer_id, work_order_date, concept_id, tax_id) VALUES (1, 1, '2020-01-20', 1, 1);
+
+INSERT INTO concept_work_order (work_order_id,description,price) VALUES (1,'kit de placer',300); 
+
+INSERT INTO work_order_detail (work_order_id, product_id, quantity) VALUES (1, 1, 8);
+
+
+INSERT INTO budget (company_id, customer_id, budget_date, concept_id, tax_id) VALUES (1, 1, '2020-01-20', 1, 1);
+
+INSERT INTO concept_budget (budget_id,description,price) VALUES (1,'kit de placer',300);
+
+INSERT INTO concept_budget (budget_id,description,price) VALUES (1,'kit de placer1',300); 
+
+INSERT INTO budget_detail (budget_id, product_id, quantity) VALUES (1, 1, 8);
+
