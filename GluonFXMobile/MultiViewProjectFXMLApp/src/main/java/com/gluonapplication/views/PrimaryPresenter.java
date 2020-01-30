@@ -1,5 +1,6 @@
 package com.gluonapplication.views;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,7 +51,7 @@ public class PrimaryPresenter {
     private TableView<Invoice> tableInvoices;
 
     @FXML
-    private TableColumn<Invoice, Date> columnDate;
+    private TableColumn<Invoice, LocalDate> columnDate;
 
     @FXML
     private TableColumn<Invoice, Customer> columnCustomer;
@@ -59,7 +60,7 @@ public class PrimaryPresenter {
     private TableColumn<Invoice, Number> columPrice;
 
     @FXML
-    private TableColumn<Invoice, Status> columnStatus;
+    private TableColumn<Invoice, Integer> columnStatus;
 
     @FXML
     private Button btnNewInoive;
@@ -175,6 +176,7 @@ public class PrimaryPresenter {
     HibernateController hibernate = new HibernateController(); 
     
     public void initialize() {
+    	
         primary.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
@@ -186,7 +188,13 @@ public class PrimaryPresenter {
             }
         });
         
+      //table details configuration;
+        tableInvoices.itemsProperty().bindBidirectional(listInvoicesProperty());
         
+      	columnDate.setCellValueFactory(v -> v.getValue().invoiceDate_propProperty());
+      	columnCustomer.setCellValueFactory(v -> v.getValue().customer_propProperty());
+      	columPrice.setCellValueFactory(v -> v.getValue().price_propProperty());
+      
         
         
     }
