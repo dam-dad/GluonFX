@@ -123,6 +123,9 @@ public class PrimaryPresenter {
 
     @FXML
     private Button btnSearchProduct;
+    
+    @FXML
+    private Button btnSaveInvoiceInformation;
 
     @FXML
     private ImageView imgProduct;
@@ -227,6 +230,8 @@ public class PrimaryPresenter {
         	txtNIF.setText(master.getCustomer().getCustomerId());
         	txtPhone.setText(master.getCustomer().getPhone());
         	
+        	//txtConcept.setText(master);
+        	
         	
 //        	//Customer 0 position
 //        	txtCustomerName.setText("");
@@ -293,77 +298,96 @@ public class PrimaryPresenter {
     
 	//Action events
     @FXML
-    void onClickBtnSearchCustomer(ActionEvent event) {
-    	 
+    void onClickBtnSearchCustomer(ActionEvent event) {    	 
     	    	
     	CustomerBean result = null;
-    	
-    	//Search by NIF	
-    	try {
-    		
-    		String nif = txtNIF.getText();
-	   		
-    		for(CustomerBean c : customerBeansList) {
-    			    			
-    			if(c.getCustomerId().contains(nif)) {
-    				result = c;
-    			}
-    			System.out.println(result);
-    		}  
-    		
-		} catch (Exception e) {
-			
-		}
-    	
+    
     	
     	//Search by name
     	try {
     		
     		String name = txtCustomerName.getText();
 	   		
+    		if(name.length() > 0) {
+    	
     		for(CustomerBean c : customerBeansList) {
     			   		
     			
-    			if(c.getCustomerId().contains(name)) {
-    				result = c;
+    			if(c.getName().contains(name)) {
+    				result = c;    			
+    				break;
     			}
-    			
-    			System.out.println(result);
+    		}
+    		
     		}  
     		
 		} catch (Exception e) {
 			
 		}
-    	    	
     	
+    	
+      	//Search by NIF	
+    	try {
+    		
+    		String nif = txtNIF.getText();
+	   		
+    		if(nif.length() > 2) {
+    			
+    			for(CustomerBean c : customerBeansList) {
+	    			        			
+        			if(c.getCustomerId().contains(nif)) {
+        				result = c;   		
+        				
+        				break;
+        			}    		
+        			
+        		}  
+    		}
+    	
+    		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	    	
+    	    	
     	if(result != null) {
-    		 
-    		//mast
+    		
+    		master.setCustomer(result);
     		
     		txtCustomerName.setText(master.getCustomer().getName());
         	txtAddress.setText(master.getCustomer().getAddress());
         	txtNIF.setText(master.getCustomer().getCustomerId());
         	txtPhone.setText(master.getCustomer().getPhone());
     		
+	    		   		
+    	}else {
     		
-//    		try {txtCustomerName.textProperty().unbindBidirectional(master.getCustomer().nameProperty());}catch (Exception e) {}
-//    		try {txtAddress.textProperty().unbindBidirectional(master.getCustomer().addressProperty());}catch (Exception e) {}
-//    		try {txtNIF.textProperty().unbindBidirectional(master.getCustomer().customerIdProperty());}catch (Exception e) {}
-//    		try {txtPhone.textProperty().unbindBidirectional(master.getCompany().phoneProperty());}catch (Exception e) {}
+    		txtCustomerName.setText("");
+        	txtAddress.setText("");
+        	txtNIF.setText("");
+        	txtPhone.setText("");
+        	        
+        	Customer customer = new Customer(); 
+        	customer.setName(txtCustomerName.getText());
+        	customer.setCustomerId(txtNIF.getText());
+        	customer.setAddress(txtAddress.getText());
+        	customer.setPhone(txtPhone.getText());
     		
- //   		master.setCustomer(result);
-    		
-//        	//Customer binds
-//    		txtCustomerName.textProperty().bindBidirectional(master.getCustomer().nameProperty());
-//    		txtAddress.textProperty().bindBidirectional(master.getCustomer().addressProperty());
-//    		txtNIF.textProperty().bindBidirectional(master.getCustomer().customerIdProperty());
-//    		txtPhone.textProperty().bindBidirectional(master.getCompany().phoneProperty());	
-    		   		
+        	System.out.println(customer);
+        	
+        	master.setCustomer(new CustomerBean(customer));
+        	
+        	System.out.println(master.getCustomer().getName());
     	}
-           		
+    	           		
     	
     }
     
+    
+    @FXML
+    void onClickbtnSaveInvoiceInformation(ActionEvent event) {
+
+    }
   
     
 }

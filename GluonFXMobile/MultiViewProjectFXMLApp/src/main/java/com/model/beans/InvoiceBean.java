@@ -44,8 +44,7 @@ public class InvoiceBean {
 	public InvoiceBean(Invoice invoice) {
 		
 			this.invoice = invoice; 			
-			try {company.set(new CompanyBean(invoice.getCompany()));
-			}catch (Exception e) {}
+			try {company.set(new CompanyBean(invoice.getCompany()));	}catch (Exception e) {}		
 			try {conceptId.set(invoice.getConceptId());}catch (Exception e) {}
 			try {customer.set(new CustomerBean(invoice.getCustomer()));}catch (Exception e) {}
 			try {payMethod.set(new PayMethodBean(invoice.getPayMethod()));}catch (Exception e) {}
@@ -58,6 +57,7 @@ public class InvoiceBean {
 			price.set(invoice.getPrice());
 			taxTotal.set(invoice.getTaxTotal());
 			priceTaxesIncluded.set(invoice.getPriceTaxesIncluded());
+			
 			
 			List<InvoiceDetailBean> list = new ArrayList<InvoiceDetailBean>();
 			for(InvoiceDetail i : invoice.getInvoiceDetails()) {
@@ -337,6 +337,29 @@ public class InvoiceBean {
 		}
 		this.invoice.setInvoiceDetails(list);
 	}
+
+
+	public final ListProperty<ConceptInvoiceBean> conceptInvoicesProperty() {
+		return this.conceptInvoices;
+	}
+	
+
+
+	public final ObservableList<ConceptInvoiceBean> getConceptInvoices() {
+		return this.conceptInvoicesProperty().get();
+	}
+	
+
+
+	public final void setConceptInvoices(final ObservableList<ConceptInvoiceBean> conceptInvoices) {
+		this.conceptInvoicesProperty().set(conceptInvoices);
+		List<ConceptInvoice> list = new ArrayList<ConceptInvoice>();  
+		for(ConceptInvoiceBean i : conceptInvoices) {
+			list.add(i.getConcept());
+		}
+		this.invoice.setConceptInvoices(list);
+	}
+	
 
 
 	

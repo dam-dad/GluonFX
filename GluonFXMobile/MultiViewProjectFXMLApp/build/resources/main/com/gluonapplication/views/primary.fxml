@@ -49,7 +49,7 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <Button fx:id="btnNewInoive" layoutX="267.0" layoutY="432.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="54.0" text="Nueva" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="14.0" />
+                                    <Button fx:id="btnNewInoive" layoutX="267.0" layoutY="432.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="54.0" text="Nueva" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="15.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -90,17 +90,18 @@
                                                       <Button fx:id="btnSearchCustomer" mnemonicParsing="false" onAction="#onClickBtnSearchCustomer" text="Buscar" GridPane.columnIndex="2" />
                                                    </children>
                                                 </GridPane>
-                                                <Accordion layoutX="43.6" layoutY="167.6" prefHeight="217.0" prefWidth="254.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="150.0">
-                                                  <panes>
-                                                    <TitledPane animated="false" prefWidth="252.0" style="-fx-background-color: white;" text="Concepto">
-                                                      <content>
-                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="226.0">
+                                                <Button fx:id="btnSaveInvoiceInformation" layoutX="244.0" layoutY="334.0" mnemonicParsing="false" onAction="#onClickbtnSaveInvoiceInformation" prefHeight="54.0" prefWidth="54.0" text="Nueva" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="15.0" />
+                                                <Accordion prefHeight="217.0" prefWidth="254.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="150.0">
+                                                   <panes>
+                                                      <TitledPane animated="false" prefWidth="252.0" style="-fx-background-color: white;" text="Concepto">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="226.0">
                                                                <children>
                                                                   <TextArea fx:id="txtConcept" layoutX="14.0" layoutY="5.0" prefHeight="81.0" prefWidth="208.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                                </children>
                                                             </AnchorPane>
-                                                      </content>
-                                                    </TitledPane>
+                                                         </content>
+                                                      </TitledPane>
                                                       <TitledPane animated="false" minWidth="100.0" prefWidth="252.0" style="-fx-background-color: white;" text="Tipo de impuesto">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="226.0">
@@ -183,7 +184,7 @@
                                                             </AnchorPane>
                                                          </content>
                                                       </TitledPane>
-                                                  </panes>
+                                                   </panes>
                                                 </Accordion>
                                              </children>
                                           </AnchorPane>
