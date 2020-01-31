@@ -1,8 +1,8 @@
 package fx.beans;
 
-
 import entities.Customer;
 import entities.Invoice;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;

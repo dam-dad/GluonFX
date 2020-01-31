@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import entities.InvoiceDetail;
 import entities.Product;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;

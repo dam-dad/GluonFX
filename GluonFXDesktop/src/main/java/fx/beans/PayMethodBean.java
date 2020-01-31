@@ -3,6 +3,7 @@ package fx.beans;
 
 import entities.Invoice;
 import entities.PayMethod;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;

@@ -1,9 +1,9 @@
 package fx.beans;
 
 
-import entities.Company;
-import entities.Concept;
+import entities.ConceptInvoice;
 import entities.Invoice;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
@@ -15,30 +15,29 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ConceptBean {
+public class ConceptInvoiceBean {
 
 	
-	private Concept concept;
+	private ConceptInvoice concept;
+
 	
 	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty description = new SimpleStringProperty();
 	private DoubleProperty price = new SimpleDoubleProperty();
-	private ListProperty<Invoice> invoices = new SimpleListProperty<Invoice>();
 	
-	public ConceptBean(Concept c) {
+	
+	public ConceptInvoiceBean(ConceptInvoice c) {
+				
 		this.concept = c; 
 		id.set(concept.getId());
 		description.set(concept.getDescription());
 		price.set(concept.getPrice());
-				
-		invoices.set(FXCollections.observableArrayList(concept.getInvoices()));
-		
-		
+			
 	
 	}
 	
 	
-	public Concept getConcept() {
+	public ConceptInvoice getConcept() {
 		return concept;
 	}
 
@@ -100,23 +99,6 @@ public class ConceptBean {
 	
 
 
-	public final ListProperty<Invoice> invoicesProperty() {
-		return this.invoices;
-	}
-	
-
-
-	public final ObservableList<Invoice> getInvoices() {
-		return this.invoicesProperty().get();
-	}
-	
-
-
-	public final void setInvoices(final ObservableList<Invoice> invoices) {
-		this.invoicesProperty().set(invoices);
-		this.concept.setInvoices(invoices);
-	}
-	
-	
+		
 	
 }
