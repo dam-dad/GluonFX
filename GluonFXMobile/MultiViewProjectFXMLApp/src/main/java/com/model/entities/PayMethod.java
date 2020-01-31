@@ -1,13 +1,16 @@
 package com.model.entities;
 // Generated 30 ene. 2020 8:50:01 by Hibernate Tools 5.2.12.Final
 
-import java.util.HashSet;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,12 +24,12 @@ public class PayMethod implements java.io.Serializable {
 
 	private Integer id;
 	private String description;
-	private Set<Invoice> invoices = new HashSet<Invoice>(0);
+	private List<Invoice> invoices = new ArrayList<Invoice>(0);
 
 	public PayMethod() {
 	}
 
-	public PayMethod(String description, Set<Invoice> invoices) {
+	public PayMethod(String description, List<Invoice> invoices) {
 		this.description = description;
 		this.invoices = invoices;
 	}
@@ -53,11 +56,11 @@ public class PayMethod implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "payMethod")
-	public Set<Invoice> getInvoices() {
+	public List<Invoice> getInvoices() {
 		return this.invoices;
 	}
 
-	public void setInvoices(Set<Invoice> invoices) {
+	public void setInvoices(List<Invoice> invoices) {
 		this.invoices = invoices;
 	}
 

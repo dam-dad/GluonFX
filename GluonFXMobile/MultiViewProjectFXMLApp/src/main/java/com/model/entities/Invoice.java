@@ -74,67 +74,7 @@ public class Invoice implements java.io.Serializable {
 	public Invoice() {
 	}
 
-	public Invoice(Company company, Customer customer, PayMethod payMethod, Tax tax, String invoiceNumber,
-			Date invoiceDate, Integer status, Integer conceptId, Double price, Double taxTotal,
-			Double priceTaxesIncluded, List<ConceptInvoice> conceptInvoices, List<InvoiceDetail> invoiceDetails) {
-		this.company = company;
-		this.customer = customer;
-		this.payMethod = payMethod;
-		this.tax = tax;
-		this.invoiceNumber = invoiceNumber;
-		this.invoiceDate = invoiceDate;
-		this.status = status;
-		this.conceptId = conceptId;
-		this.price = price;
-		this.taxTotal = taxTotal;
-		this.priceTaxesIncluded = priceTaxesIncluded;
-		this.conceptInvoices = conceptInvoices;
-		this.invoiceDetails = invoiceDetails;
-	}
-	
-	
-
-	public Invoice(Integer id, Company company, Customer customer, PayMethod payMethod, Tax tax, String invoiceNumber,
-			Date invoiceDate, Integer status, Integer conceptId, Double price, Double taxTotal,
-			Double priceTaxesIncluded, List<ConceptInvoice> conceptInvoices, List<InvoiceDetail> invoiceDetails,
-			IntegerProperty id_prop, ObjectProperty<Company> company_prop, ObjectProperty<Customer> customer_prop,
-			ObjectProperty<PayMethod> payMethod_prop, ObjectProperty<Tax> tax_prop, StringProperty invoiceNumber_prop,
-			ObjectProperty<LocalDate> invoiceDate_prop, IntegerProperty status_prop, IntegerProperty conceptId_prop,
-			DoubleProperty price_prop, DoubleProperty taxTotal_prop, DoubleProperty priceTaxesIncluded_prop,
-			ListProperty<ConceptInvoice> conceptInvoices_prop, ListProperty<InvoiceDetail> invoiceDetails_prop) {
-		super();
-		this.id = id;
-		this.company = company;
-		this.customer = customer;
-		this.payMethod = payMethod;
-		this.tax = tax;
-		this.invoiceNumber = invoiceNumber;
-		this.invoiceDate = invoiceDate;
-		this.status = status;
-		this.conceptId = conceptId;
-		this.price = price;
-		this.taxTotal = taxTotal;
-		this.priceTaxesIncluded = priceTaxesIncluded;
-		this.conceptInvoices = conceptInvoices;
-		this.invoiceDetails = invoiceDetails;
 		
-		//JavaFX properties
-		try {this.id_prop.set(id);}catch (Exception e) {};
-		try {this.company_prop.set(company);}catch (Exception e) {};
-		try {this.customer_prop.set(customer);}catch (Exception e) {};
-		try {this.payMethod_prop.set(payMethod);}catch (Exception e) {};
-		try {this.tax_prop.set(tax);}catch (Exception e) {};
-		try {this.invoiceNumber_prop.set(invoiceNumber);}catch (Exception e) {};
-		try {this.invoiceDate_prop.set(localDateToDateConverter(invoiceDate));}catch (Exception e) {};
-		try {this.status_prop.set(status);}catch (Exception e) {};
-		try {this.conceptId_prop.set(conceptId);}catch (Exception e) {};
-		try {this.price_prop.set(price);}catch (Exception e) {};
-		try {this.taxTotal_prop.set(taxTotal);}catch (Exception e) {};
-		try {this.priceTaxesIncluded_prop.set(priceTaxesIncluded);}catch (Exception e) {};
-		try {this.conceptInvoices_prop.set(FXCollections.observableArrayList(conceptInvoices));}catch (Exception e) {};
-		try {this.invoiceDetails_prop.set(FXCollections.observableArrayList(invoiceDetails));}catch (Exception e) {};
-	}
-
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
@@ -176,7 +116,7 @@ public class Invoice implements java.io.Serializable {
 		return this.payMethod;
 	}
 
-	////
+
 	
 	public void setPayMethod(PayMethod payMethod) {
 		this.payMethod = payMethod;
@@ -204,7 +144,7 @@ public class Invoice implements java.io.Serializable {
 		this.invoiceNumber_prop.set(invoiceNumber);
 	}
 
-	///
+	
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "invoice_date", length = 10)
@@ -227,7 +167,7 @@ public class Invoice implements java.io.Serializable {
 		this.status_prop.set(status);
 	}
 	
-	/////
+	
 
 	@Column(name = "concept_id")
 	public Integer getConceptId() {
@@ -260,8 +200,7 @@ public class Invoice implements java.io.Serializable {
 	}
 	
 	
-	///
-
+	
 
 	@Column(name = "price_taxes_included", precision = 22, scale = 0)
 	public Double getPriceTaxesIncluded() {
@@ -273,8 +212,7 @@ public class Invoice implements java.io.Serializable {
 		this.priceTaxesIncluded_prop.set(priceTaxesIncluded);
 	}
 	
-	
-	///
+
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice")
 	public List<ConceptInvoice> getConceptInvoices() {
@@ -287,7 +225,6 @@ public class Invoice implements java.io.Serializable {
 	}
 	
 	
-	//
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice")
 	public List<InvoiceDetail> getInvoiceDetails() {

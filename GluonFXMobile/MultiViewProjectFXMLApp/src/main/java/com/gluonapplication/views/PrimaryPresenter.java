@@ -11,8 +11,11 @@ import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import com.model.beans.CustomerBean;
+import com.model.beans.InvoiceBean;
 import com.model.entities.Customer;
 import com.model.entities.Invoice;
+import com.mysql.cj.conf.StringProperty;
 import com.utils.HibernateController;
 
 import javafx.animation.Animation.Status;
@@ -48,19 +51,19 @@ public class PrimaryPresenter {
     private Tab tabInvoices;
 
     @FXML
-    private TableView<Invoice> tableInvoices;
+    private TableView<InvoiceBean> tableInvoices;
 
     @FXML
-    private TableColumn<Invoice, LocalDate> columnDate;
+    private TableColumn<InvoiceBean, LocalDate> columnDate;
 
     @FXML
-    private TableColumn<Invoice, Customer> columnCustomer;
+    private TableColumn<InvoiceBean, CustomerBean> columnCustomer;
 
     @FXML
-    private TableColumn<Invoice, Number> columPrice;
+    private TableColumn<InvoiceBean, Number> columPrice;
 
     @FXML
-    private TableColumn<Invoice, Integer> columnStatus;
+    private TableColumn<InvoiceBean, Number> columnStatus;
 
     @FXML
     private Button btnNewInoive;
@@ -169,9 +172,8 @@ public class PrimaryPresenter {
 
     
     //Model
-    private ListProperty<Invoice> listInvoices = new SimpleListProperty<>(); 
-    private ObjectProperty<Invoice> invoice = new SimpleObjectProperty<>(); 
-
+    private ListProperty<InvoiceBean> invoiceBeans = new SimpleListProperty<>(); 
+    
     //neccesary
     HibernateController hibernate = new HibernateController(); 
     
@@ -188,21 +190,33 @@ public class PrimaryPresenter {
             }
         });
         
-      //table details configuration;
-        tableInvoices.itemsProperty().bindBidirectional(listInvoicesProperty());
         
-      	columnDate.setCellValueFactory(v -> v.getValue().invoiceDate_propProperty());
-      	columnCustomer.setCellValueFactory(v -> v.getValue().customer_propProperty());
-      	columPrice.setCellValueFactory(v -> v.getValue().price_propProperty());
+                
+       //table details configuration;
+        tableInvoices.itemsProperty().bindBidirectional(invoiceBeans);       
+        
+      	columnDate.setCellValueFactory(v -> v.getValue().invoiceDateProperty());
+      	columnCustomer.setCellValueFactory(v -> v.getValue().customerProperty());
+      	columPrice.setCellValueFactory(v -> v.getValue().priceProperty());
+      	columnStatus.setCellValueFactory(v -> v.getValue().statusProperty());
       
+      	tableInvoices.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> onInvoiceSelected(nv)); 
+    	
+      	
         
-        
+      	
+      	
     }
     
-    private Object onInvoiceSelected(Invoice nv) {
+    private void onInvoiceSelected(InvoiceBean nv) {
+    	
+		txtCustomerName.textProperty().bindBidirectional(nv.getCustomer().nameProperty());
+		txtAddress.textProperty().bindBidirectional(nv.getCustomer().addressProperty());
+		txtNIF.textProperty().bindBidirectional(nv.getCustomer().customerIdProperty());
+		txtPhone.textProperty().bindBidirectional(nv.getCompany().phoneProperty());
 		
-    	System.out.println("Seleccionada");
-		return null;
+		//txtConcept.textProperty().bindBidirectional(n);
+		
 	}
 
 	public PrimaryPresenter() {
@@ -215,43 +229,20 @@ public class PrimaryPresenter {
     public void selectAllInvoices() {
     	
     	List<Invoice> list = hibernate.selectAll("Invoice");
-    	listInvoices.clear();
-    	listInvoices.set(FXCollections.observableArrayList(list));
+    	List<InvoiceBean> listBeans = new ArrayList<>(); 
+    	
+    	for(Invoice i : list){
+    		listBeans.add(new InvoiceBean(i));
+    	}
+    	
+    	invoiceBeans.set(FXCollections.observableArrayList(listBeans));
+    	
     	    	    	
     }
     
     
     
-    //JavFX getters & setters
-
-	public final ListProperty<Invoice> listInvoicesProperty() {
-		return this.listInvoices;
-	}
-	
-
-	public final ObservableList<Invoice> getListInvoices() {
-		return this.listInvoicesProperty().get();
-	}
-	
-
-	public final void setListInvoices(final ObservableList<Invoice> listInvoices) {
-		this.listInvoicesProperty().set(listInvoices);
-	}
-	
-
-	public final ObjectProperty<Invoice> invoiceProperty() {
-		return this.invoice;
-	}
-	
-
-	public final Invoice getInvoice() {
-		return this.invoiceProperty().get();
-	}
-	
-
-	public final void setInvoice(final Invoice invoice) {
-		this.invoiceProperty().set(invoice);
-	}
+    
 	
     
   
