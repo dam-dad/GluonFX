@@ -1,117 +1,187 @@
 package fx.controller;
 
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Set;
 
-import dad.javafx.componentes.TextDecimal;
-import entities.Company;
-import entities.Customer;
-import entities.Invoice;
-import entities.InvoiceDetail;
-import entities.Product;
-import entities.Tax;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
+
 import fx.beans.CompanyBean;
-import fx.beans.ConceptBean;
 import fx.beans.CustomerBean;
 import fx.beans.InvoiceBean;
-import fx.beans.InvoiceDetailBean;
-
 import fx.beans.ProductBean;
-import fx.beans.TaxBean;
-import fx.dialogs.AddDetailDialogController;
-import fx.dialogs.AddDetailDialogModel;
 import hibernate.HibernateController;
-import javafx.fxml.Initializable;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.util.converter.NumberStringConverter;
 
 public class InvoiceController implements Initializable {
 
 	@FXML
-	private VBox view;
-	@FXML
-	private TableView<InvoiceBean> tableInvoices;
-	@FXML
-	private TableColumn<InvoiceBean, String> columnNumeroFactura;
-	@FXML
-	private TableColumn<InvoiceBean, LocalDate> columnFecha;
-	@FXML
-	private TableColumn<InvoiceBean, CustomerBean> columnCliente;
-	@FXML
-	private Button btnAddInvoice;
-	@FXML
-	private Button btnRemoveInvoice;
-	@FXML
-	private ComboBox<CompanyBean> cmbCompany;
-	@FXML
-	private TextField txtInvoiceNumber;
-	@FXML
-	private ComboBox<CustomerBean> cmbCustomer;
-	@FXML
-	private HBox hboxConcept;
-	@FXML
-	private DatePicker dateInvoice;
-	@FXML
-	private TextArea txtConcept;
-	@FXML
-	private TextField priceFld;
-	@FXML
-	private TextField txtPrecio;
-	@FXML
-	private TableView<InvoiceDetailBean> tableDetails;
-	@FXML
-	private TableColumn<InvoiceDetailBean, Product> columnProduct;
-	@FXML
-	private TableColumn<InvoiceDetailBean, Number> ColumnUds;
-	@FXML
-	private TableColumn<InvoiceDetailBean, Number> ColumnPrice;
-	@FXML
-	private TableColumn<InvoiceDetailBean, Number> columnSubtotal;
-	@FXML
-	private Button btnAddDetail;
-	@FXML
-	private Button btnRemoveDetail;
-	@FXML
-	private ComboBox<String> cmbStatus;
-	@FXML
-	private Label lblTaxID;
-	@FXML
-	private TextDecimal txtPrice;
-	@FXML
-	private TextDecimal txtPercent;
-	@FXML
-	private TextDecimal txtTaxTotal;
-	@FXML
-	private TextDecimal txtTotal;
-	@FXML
-	private TextDecimal txtPriceTaxIncluded;
+    private VBox view;
+
+    @FXML
+    private GridPane tableGrid;
+
+    @FXML
+    private TableView<InvoiceBean> tableInvoices;
+
+    @FXML
+    private TableColumn<?, ?> columnNumeroFactura;
+
+    @FXML
+    private TableColumn<?, ?> columnFecha;
+
+    @FXML
+    private TableColumn<?, ?> columnCliente;
+
+    @FXML
+    private JFXButton addInvoice;
+
+    @FXML
+    private JFXButton delInvoice;
+
+    @FXML
+    private JFXButton leftHideBttn;
+
+    @FXML
+    private ImageView leftHideImage;
+
+    @FXML
+    private TextField invoiceIDTxt;
+
+    @FXML
+    private TextField dateTxt;
+
+    @FXML
+    private TextField nameClientTxt;
+
+    @FXML
+    private TextField idClientTxt;
+
+    @FXML
+    private TextField directionclientTxt;
+
+    @FXML
+    private TextField cpClientTxt;
+
+    @FXML
+    private TextField emailClientTxt;
+
+    @FXML
+    private TextField tlpClientTxt;
+
+    @FXML
+    private ImageView companyIcon;
+
+    @FXML
+    private TextArea conceptArea;
+
+    @FXML
+    private JFXTextField priceTxt;
+
+    @FXML
+    private JFXButton addProductBttn;
+
+    @FXML
+    private TableView<?> productsTable;
+
+    @FXML
+    private Label productsTotalLbl;
+
+    @FXML
+    private Label taxLbl;
+
+    @FXML
+    private Label totalLbl;
+
+    @FXML
+    private JFXComboBox<?> taxCombo;
+
+    @FXML
+    private Label taxPercentageLbl;
+
+    @FXML
+    private JFXButton rightHideBttn;
+
+    @FXML
+    private ImageView rightHideImage;
+
+    @FXML
+    private VBox configurationBox;
+
+    @FXML
+    private JFXButton invoiceStatusBttn;
+
+    @FXML
+    private VBox invoiceStatusBox;
+
+    @FXML
+    private JFXCheckBox createdCheck;
+
+    @FXML
+    private JFXCheckBox pendingCheck;
+
+    @FXML
+    private JFXCheckBox chargedCheck;
+
+    @FXML
+    private JFXCheckBox overdueCheck;
+
+    @FXML
+    private JFXButton clientSelectBttn;
+
+    @FXML
+    private VBox clientSelectBox;
+
+    @FXML
+    private ComboBox<?> clientSelectCombo;
+
+    @FXML
+    private JFXButton paymentMethodBttn;
+
+    @FXML
+    private VBox paymentMethodBox;
+
+    @FXML
+    private JFXCheckBox cashCheck;
+
+    @FXML
+    private JFXCheckBox bankTransferCheck;
+
+    @FXML
+    private JFXCheckBox creditCheck;
+
+    @FXML
+    private JFXButton generatePDFBttn;
+    
+    @FXML
+    private TableColumn<?, ?> columnProduct;
+
+    @FXML
+    private TableColumn<?, ?> columnUds;
+
+    @FXML
+    private TableColumn<?, ?> columnPrice;
+
+    @FXML
+    private TableColumn<?, ?> columnSubtotal;
+
+    @FXML
+    private TableColumn<?, ?> columnActions;
+
 	
 	
 	
@@ -149,8 +219,8 @@ public class InvoiceController implements Initializable {
 		
 		//table details configuration;
 		columnProduct.setCellValueFactory(v -> v.getValue().productProperty());
-		ColumnUds.setCellValueFactory(v -> v.getValue().quantityProperty());
-		ColumnPrice.setCellValueFactory(v -> v.getValue().priceUnitProperty());
+		columnUds.setCellValueFactory(v -> v.getValue().quantityProperty());
+		columnPrice.setCellValueFactory(v -> v.getValue().priceUnitProperty());
 		columnSubtotal.setCellValueFactory(v -> v.getValue().priceProperty());
 		
 		
