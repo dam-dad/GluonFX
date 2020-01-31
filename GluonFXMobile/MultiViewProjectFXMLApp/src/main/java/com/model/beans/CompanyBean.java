@@ -31,8 +31,7 @@ public class CompanyBean {
 	
 	
 	public CompanyBean(Company c) {
-		System.out.println("UUUUUUUUUUUUUUUUUUUUUUU");
-		System.out.println(c.getName());
+			
 		this.company = c; 
 		id.set(company.getId());
 		companyId.set(company.getCompanyId());

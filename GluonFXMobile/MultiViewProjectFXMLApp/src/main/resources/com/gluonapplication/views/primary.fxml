@@ -87,7 +87,7 @@
                                                       <TextField fx:id="txtNIF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <TextField fx:id="txtAddress" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                       <TextField fx:id="txtPhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                      <Button fx:id="btnSearchCustomer" mnemonicParsing="false" text="Buscar" GridPane.columnIndex="2" />
+                                                      <Button fx:id="btnSearchCustomer" mnemonicParsing="false" onAction="#onClickBtnSearchCustomer" text="Buscar" GridPane.columnIndex="2" />
                                                    </children>
                                                 </GridPane>
                                                 <Accordion layoutX="43.6" layoutY="167.6" prefHeight="217.0" prefWidth="254.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="150.0">

@@ -53,20 +53,6 @@ public class Budget implements java.io.Serializable {
 	private List<BudgetDetail> budgetDetails = new ArrayList<BudgetDetail>(0);
 
 	
-	//JavaFX properties
-	private IntegerProperty id_prop = new SimpleIntegerProperty(); 
-	private ObjectProperty<Company> company_prop =  new SimpleObjectProperty<>(); 
-	private ObjectProperty<Customer> customer_prop = new SimpleObjectProperty<>(); 
-	private ObjectProperty<Tax> tax_prop = new SimpleObjectProperty<>(); 
-	private StringProperty budgetNumber_prop = new SimpleStringProperty(); 
-	private ObjectProperty<LocalDate> budgetDate_prop = new SimpleObjectProperty<>(); 
-	private IntegerProperty status_prop = new SimpleIntegerProperty();
-	private IntegerProperty conceptId_prop = new SimpleIntegerProperty(); 
-	private DoubleProperty price_prop = new SimpleDoubleProperty(); 
-	private DoubleProperty taxTotal_prop = new SimpleDoubleProperty(); 
-	private DoubleProperty priceTaxesIncluded_prop = new SimpleDoubleProperty(); 
-	private ListProperty<ConceptBudget> conceptBudgets_prop = new SimpleListProperty<>(); 
-	private ListProperty<BudgetDetail> budgetDetails_prop = new SimpleListProperty<>(); 
 	
 	
 
@@ -75,45 +61,6 @@ public class Budget implements java.io.Serializable {
 
 
 	
-	
-	public Budget(Integer id, Company company, Customer customer, Tax tax, String budgetNumber, Date budgetDate,
-			Integer status, Integer conceptId, Double price, Double taxTotal, Double priceTaxesIncluded,
-			List<ConceptBudget> conceptBudgets, List<BudgetDetail> budgetDetails, IntegerProperty id_prop,
-			ObjectProperty<Company> company_prop, ObjectProperty<Customer> customer_prop, ObjectProperty<Tax> tax_prop,
-			StringProperty budgetNumber_prop, ObjectProperty<LocalDate> budgetDate_prop, IntegerProperty status_prop,
-			IntegerProperty conceptId_prop, DoubleProperty price_prop, DoubleProperty taxTotal_prop,
-			DoubleProperty priceTaxesIncluded_prop, ListProperty<ConceptBudget> conceptBudgets_prop,
-			ListProperty<BudgetDetail> budgetDetails_prop) {
-		super();
-		this.id = id;
-		this.company = company;
-		this.customer = customer;
-		this.tax = tax;
-		this.budgetNumber = budgetNumber;
-		this.budgetDate = budgetDate;
-		this.status = status;
-		this.conceptId = conceptId;
-		this.price = price;
-		this.taxTotal = taxTotal;
-		this.priceTaxesIncluded = priceTaxesIncluded;
-		this.conceptBudgets = conceptBudgets;
-		this.budgetDetails = budgetDetails;
-		
-		try {this.id_prop.set(id);} catch (Exception e) {}
-		try {this.company_prop.set(company);} catch (Exception e) {}
-		try {this.customer_prop.set(customer);} catch (Exception e) {}
-		try {this.tax_prop.set(tax);} catch (Exception e) {}
-		try {this.budgetNumber_prop.set(budgetNumber);} catch (Exception e) {}
-		try {this.budgetDate_prop.set(localDateToDateConverter(budgetDate));} catch (Exception e) {}
-		try {this.status_prop.set(status);} catch (Exception e) {}
-		try {this.conceptId_prop.set(conceptId);} catch (Exception e) {}
-		try {this.price_prop.set(price);} catch (Exception e) {}
-		try {this.taxTotal_prop.set(taxTotal);} catch (Exception e) {}
-		try {this.priceTaxesIncluded_prop.set(priceTaxesIncluded);} catch (Exception e) {}
-		try {this.conceptBudgets_prop.set(FXCollections.observableArrayList(conceptBudgets));} catch (Exception e) {}
-		try {this.budgetDetails_prop.set(FXCollections.observableArrayList(budgetDetails));} catch (Exception e) {}
-			
-	}
 
 
 	@Id
@@ -125,8 +72,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
-		this.id_prop.set(id);
+		this.id = id;		
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -137,7 +83,7 @@ public class Budget implements java.io.Serializable {
 
 	public void setCompany(Company company) {
 		this.company = company;
-		this.company_prop.set(company);
+		
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -147,8 +93,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setCustomer(Customer customer) {
-		this.customer = customer;
-		this.customer_prop.set(customer);
+		this.customer = customer;		
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -158,8 +103,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setTax(Tax tax) {
-		this.tax = tax;
-		this.tax_prop.set(tax);
+		this.tax = tax;		
 	}
 
 	@Column(name = "budget_number")
@@ -168,8 +112,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setBudgetNumber(String budgetNumber) {
-		this.budgetNumber = budgetNumber;
-		this.budgetNumber_prop.set(budgetNumber);
+		this.budgetNumber = budgetNumber;		
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -179,8 +122,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setBudgetDate(Date budgetDate) {
-		this.budgetDate = budgetDate;
-		this.budgetDate_prop.set(localDateToDateConverter(budgetDate));
+		this.budgetDate = budgetDate;		
 	}
 
 	@Column(name = "status")
@@ -189,8 +131,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setStatus(Integer status) {
-		this.status = status;
-		this.status_prop.set(status);
+		this.status = status;		
 	}
 
 	@Column(name = "concept_id")
@@ -199,8 +140,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setConceptId(Integer conceptId) {
-		this.conceptId = conceptId;
-		this.conceptId_prop.set(conceptId);
+		this.conceptId = conceptId;		
 	}
 
 	@Column(name = "price", precision = 22, scale = 0)
@@ -209,8 +149,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setPrice(Double price) {
-		this.price = price;
-		this.price_prop.set(price);
+		this.price = price;		
 	}
 
 	@Column(name = "tax_total", precision = 22, scale = 0)
@@ -219,8 +158,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setTaxTotal(Double taxTotal) {
-		this.taxTotal = taxTotal;
-		this.taxTotal_prop.set(taxTotal);
+		this.taxTotal = taxTotal;		
 	}
 
 	@Column(name = "price_taxes_included", precision = 22, scale = 0)
@@ -229,8 +167,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setPriceTaxesIncluded(Double priceTaxesIncluded) {
-		this.priceTaxesIncluded = priceTaxesIncluded;
-		this.priceTaxesIncluded_prop.set(priceTaxesIncluded);
+		this.priceTaxesIncluded = priceTaxesIncluded;		
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "budget")
@@ -239,8 +176,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setConceptBudgets(List<ConceptBudget> conceptBudgets) {
-		this.conceptBudgets = conceptBudgets;
-		this.conceptBudgets_prop.set(FXCollections.observableArrayList(conceptBudgets));
+		this.conceptBudgets = conceptBudgets;		
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "budget")
@@ -249,8 +185,7 @@ public class Budget implements java.io.Serializable {
 	}
 
 	public void setBudgetDetails(List<BudgetDetail> budgetDetails) {
-		this.budgetDetails = budgetDetails;
-		this.budgetDetails_prop.set(FXCollections.observableArrayList(budgetDetails));
+		this.budgetDetails = budgetDetails;		
 	}
 
 	// Converters
@@ -260,77 +195,5 @@ public class Budget implements java.io.Serializable {
 	}
 	
 	
-	//JavaFX Properties
 	
-	public final IntegerProperty id_propProperty() {
-		return this.id_prop;
-	}
-	
-
-	public final ObjectProperty<Company> company_propProperty() {
-		return this.company_prop;
-	}
-	
-
-	public final ObjectProperty<Customer> customer_propProperty() {
-		return this.customer_prop;
-	}
-	
-
-	public final ObjectProperty<Tax> tax_propProperty() {
-		return this.tax_prop;
-	}
-	
-
-	public final StringProperty budgetNumber_propProperty() {
-		return this.budgetNumber_prop;
-	}
-	
-
-	
-	public final ObjectProperty<LocalDate> budgetDate_propProperty() {
-		return this.budgetDate_prop;
-	}
-	
-
-	
-	public final IntegerProperty status_propProperty() {
-		return this.status_prop;
-	}
-	
-	
-	public final IntegerProperty conceptId_propProperty() {
-		return this.conceptId_prop;
-	}
-	
-
-	
-	public final DoubleProperty price_propProperty() {
-		return this.price_prop;
-	}
-	
-
-
-	public final DoubleProperty taxTotal_propProperty() {
-		return this.taxTotal_prop;
-	}
-	
-	
-	public final DoubleProperty priceTaxesIncluded_propProperty() {
-		return this.priceTaxesIncluded_prop;
-	}
-	
-
-
-	public final ListProperty<ConceptBudget> conceptBudgets_propProperty() {
-		return this.conceptBudgets_prop;
-	}
-	
-
-	public final ListProperty<BudgetDetail> budgetDetails_propProperty() {
-		return this.budgetDetails_prop;
-	}
-	
-	
-
 }

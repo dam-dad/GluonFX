@@ -1,4 +1,3 @@
-drop DATABASE 7057507_administration_db;
 CREATE DATABASE 7057507_administration_db;
 
 USE 7057507_administration_db;
@@ -86,7 +85,7 @@ CONSTRAINT fk_invoice_concept FOREIGN KEY (invoice_id) REFERENCES invoice(id)
 CREATE TABLE invoice_detail(
 id INT AUTO_INCREMENT,
 invoice_id INT,
-product_id INT UNIQUE,
+product_id INT ,
 quantity DOUBLE DEFAULT 0,
 price DOUBLE DEFAULT 0,
 price_unit DOUBLE DEFAULT 0,
@@ -120,7 +119,7 @@ CONSTRAINT fk_budget_05 FOREIGN KEY (tax_id) REFERENCES tax(id)
 CREATE TABLE budget_detail(
 id INT AUTO_INCREMENT,
 budget_id INT,
-product_id INT UNIQUE,
+product_id INT ,
 quantity DOUBLE DEFAULT 0,
 price DOUBLE DEFAULT 0,
 price_unit DOUBLE DEFAULT 0,
@@ -131,7 +130,7 @@ CONSTRAINT fk_budget_details_02 FOREIGN KEY (product_id) REFERENCES product(id)
 
 CREATE TABLE concept_budget(
 id INT AUTO_INCREMENT,
-budget_id INT UNIQUE,
+budget_id INT ,
 description VARCHAR(600),
 price DOUBLE DEFAULT 0,
 CONSTRAINT pk_concept PRIMARY KEY(id),
@@ -159,7 +158,7 @@ CONSTRAINT fk_work_order_05 FOREIGN KEY (tax_id) REFERENCES tax(id)
 CREATE TABLE work_order_detail(
 id INT AUTO_INCREMENT,
 work_order_id INT,
-product_id INT UNIQUE,
+product_id INT ,
 quantity DOUBLE DEFAULT 0,
 price DOUBLE DEFAULT 0,
 price_unit DOUBLE DEFAULT 0,
@@ -390,22 +389,4 @@ INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 1, 3);
 INSERT INTO product (product_id, name, description, price,stock, url) VALUES ('10000192', 'Consolador', 'placentero y pequeño', 1.90,700, 'www.pornhub.com');
 
 INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 2, 8);
-
-INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 2, 7);
-
-
-INSERT INTO work_order (company_id, customer_id, work_order_date, concept_id, tax_id) VALUES (1, 1, '2020-01-20', 1, 1);
-
-INSERT INTO concept_work_order (work_order_id,description,price) VALUES (1,'kit de placer',300); 
-
-INSERT INTO work_order_detail (work_order_id, product_id, quantity) VALUES (1, 1, 8);
-
-
-INSERT INTO budget (company_id, customer_id, budget_date, concept_id, tax_id) VALUES (1, 1, '2020-01-20', 1, 1);
-
-INSERT INTO concept_budget (budget_id,description,price) VALUES (1,'kit de placer',300);
-
-INSERT INTO concept_budget (budget_id,description,price) VALUES (1,'kit de placer1',300); 
-
-INSERT INTO budget_detail (budget_id, product_id, quantity) VALUES (1, 1, 8);
 
