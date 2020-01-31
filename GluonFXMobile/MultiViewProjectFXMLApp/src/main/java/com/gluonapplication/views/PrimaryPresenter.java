@@ -11,6 +11,7 @@ import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import com.model.beans.CompanyBean;
 import com.model.beans.CustomerBean;
 import com.model.beans.InvoiceBean;
 import com.model.entities.Customer;
@@ -25,6 +26,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import com.gluonhq.charm.glisten.mvc.View;
@@ -172,7 +174,13 @@ public class PrimaryPresenter {
 
     
     //Model
-    private ListProperty<InvoiceBean> invoiceBeans = new SimpleListProperty<>(); 
+    private ListProperty<InvoiceBean> invoiceBeansList = new SimpleListProperty<>();    
+    private ListProperty<CustomerBean> customerBeansList = new SimpleListProperty<>();
+    
+   
+    
+    
+    private InvoiceBean master;
     
     //neccesary
     HibernateController hibernate = new HibernateController(); 
@@ -193,7 +201,7 @@ public class PrimaryPresenter {
         
                 
        //table details configuration;
-        tableInvoices.itemsProperty().bindBidirectional(invoiceBeans);       
+        tableInvoices.itemsProperty().bindBidirectional(invoiceBeansList);       
         
       	columnDate.setCellValueFactory(v -> v.getValue().invoiceDateProperty());
       	columnCustomer.setCellValueFactory(v -> v.getValue().customerProperty());
@@ -210,18 +218,44 @@ public class PrimaryPresenter {
     
     private void onInvoiceSelected(InvoiceBean nv) {
     	
-		txtCustomerName.textProperty().bindBidirectional(nv.getCustomer().nameProperty());
-		txtAddress.textProperty().bindBidirectional(nv.getCustomer().addressProperty());
-		txtNIF.textProperty().bindBidirectional(nv.getCustomer().customerIdProperty());
-		txtPhone.textProperty().bindBidirectional(nv.getCompany().phoneProperty());
-		
-		//txtConcept.textProperty().bindBidirectional(n);
+
+        	this.master = nv;
+        	    	
+        	
+        	txtCustomerName.setText(master.getCustomer().getName());
+        	txtAddress.setText(master.getCustomer().getAddress());
+        	txtNIF.setText(master.getCustomer().getCustomerId());
+        	txtPhone.setText(master.getCustomer().getPhone());
+        	
+        	
+//        	//Customer 0 position
+//        	txtCustomerName.setText("");
+//        	txtAddress.setText("");
+//        	txtNIF.setText("");
+//        	txtPhone.setText("");
+//        	
+//        	
+//        	//Customer unbinds
+//    		try {txtCustomerName.textProperty().unbindBidirectional(master.getCustomer().nameProperty());}catch (Exception e) {}
+//    		try {txtAddress.textProperty().unbindBidirectional(master.getCustomer().addressProperty());}catch (Exception e) {}
+//    		try {txtNIF.textProperty().unbindBidirectional(master.getCustomer().customerIdProperty());}catch (Exception e) {}
+//    		try {txtPhone.textProperty().unbindBidirectional(master.getCompany().phoneProperty());}catch (Exception e) {}
+//    	
+//        	
+//        	//Customer binds
+//    		txtCustomerName.textProperty().bindBidirectional(master.getCustomer().nameProperty());
+//    		txtAddress.textProperty().bindBidirectional(master.getCustomer().addressProperty());
+//    		txtNIF.textProperty().bindBidirectional(master.getCustomer().customerIdProperty());
+//    		txtPhone.textProperty().bindBidirectional(master.getCompany().phoneProperty());
+        	
+   	
 		
 	}
 
 	public PrimaryPresenter() {
 		hibernate.start();
         selectAllInvoices();
+        selectAllCustomers();
 	}
     
     //My methods  
@@ -235,7 +269,21 @@ public class PrimaryPresenter {
     		listBeans.add(new InvoiceBean(i));
     	}
     	
-    	invoiceBeans.set(FXCollections.observableArrayList(listBeans));
+    	invoiceBeansList.set(FXCollections.observableArrayList(listBeans));
+    	
+    	    	    	
+    }
+    
+    public void selectAllCustomers() {
+    	
+    	List<Customer> list = hibernate.selectAll("Customer");
+    	List<CustomerBean> listBeans = new ArrayList<>(); 
+    	
+    	for(Customer i : list){
+    		listBeans.add(new CustomerBean(i));
+    	}
+    	
+    	customerBeansList.set(FXCollections.observableArrayList(listBeans));
     	
     	    	    	
     }
@@ -243,7 +291,78 @@ public class PrimaryPresenter {
     
     
     
-	
+	//Action events
+    @FXML
+    void onClickBtnSearchCustomer(ActionEvent event) {
+    	 
+    	    	
+    	CustomerBean result = null;
+    	
+    	//Search by NIF	
+    	try {
+    		
+    		String nif = txtNIF.getText();
+	   		
+    		for(CustomerBean c : customerBeansList) {
+    			    			
+    			if(c.getCustomerId().contains(nif)) {
+    				result = c;
+    			}
+    			System.out.println(result);
+    		}  
+    		
+		} catch (Exception e) {
+			
+		}
+    	
+    	
+    	//Search by name
+    	try {
+    		
+    		String name = txtCustomerName.getText();
+	   		
+    		for(CustomerBean c : customerBeansList) {
+    			   		
+    			
+    			if(c.getCustomerId().contains(name)) {
+    				result = c;
+    			}
+    			
+    			System.out.println(result);
+    		}  
+    		
+		} catch (Exception e) {
+			
+		}
+    	    	
+    	
+    	if(result != null) {
+    		 
+    		//mast
+    		
+    		txtCustomerName.setText(master.getCustomer().getName());
+        	txtAddress.setText(master.getCustomer().getAddress());
+        	txtNIF.setText(master.getCustomer().getCustomerId());
+        	txtPhone.setText(master.getCustomer().getPhone());
+    		
+    		
+//    		try {txtCustomerName.textProperty().unbindBidirectional(master.getCustomer().nameProperty());}catch (Exception e) {}
+//    		try {txtAddress.textProperty().unbindBidirectional(master.getCustomer().addressProperty());}catch (Exception e) {}
+//    		try {txtNIF.textProperty().unbindBidirectional(master.getCustomer().customerIdProperty());}catch (Exception e) {}
+//    		try {txtPhone.textProperty().unbindBidirectional(master.getCompany().phoneProperty());}catch (Exception e) {}
+    		
+ //   		master.setCustomer(result);
+    		
+//        	//Customer binds
+//    		txtCustomerName.textProperty().bindBidirectional(master.getCustomer().nameProperty());
+//    		txtAddress.textProperty().bindBidirectional(master.getCustomer().addressProperty());
+//    		txtNIF.textProperty().bindBidirectional(master.getCustomer().customerIdProperty());
+//    		txtPhone.textProperty().bindBidirectional(master.getCompany().phoneProperty());	
+    		   		
+    	}
+           		
+    	
+    }
     
   
     
