@@ -87,10 +87,10 @@
                                                       <TextField fx:id="txtNIF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <TextField fx:id="txtAddress" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                       <TextField fx:id="txtPhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                      <Button fx:id="btnSearchCustomer" mnemonicParsing="false" onAction="#onClickBtnSearchCustomer" text="Buscar" GridPane.columnIndex="2" />
+                                                      <Button fx:id="btnSearchCustomer" mnemonicParsing="false" onAction="#onClickBtnSearchCustomer" prefHeight="51.0" prefWidth="51.0" text="Buscar" GridPane.columnIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+                                                      <Button fx:id="btnSaveInvoiceInformation" mnemonicParsing="false" onAction="#onClickbtnSaveInvoiceInformation" prefHeight="51.0" prefWidth="51.0" text="Save" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
                                                    </children>
                                                 </GridPane>
-                                                <Button fx:id="btnSaveInvoiceInformation" layoutX="244.0" layoutY="334.0" mnemonicParsing="false" onAction="#onClickbtnSaveInvoiceInformation" prefHeight="54.0" prefWidth="54.0" text="Nueva" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="15.0" />
                                                 <Accordion prefHeight="217.0" prefWidth="254.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="150.0">
                                                    <panes>
                                                       <TitledPane animated="false" prefWidth="252.0" style="-fx-background-color: white;" text="Concepto">
@@ -128,7 +128,7 @@
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="226.0">
                                                                <children>
-                                                                  <GridPane fx:id="radioCredit" layoutY="1.0">
+                                                                  <GridPane layoutY="1.0">
                                                                      <columnConstraints>
                                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                                                                      </columnConstraints>
@@ -138,13 +138,13 @@
                                                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" text="Crédito" GridPane.rowIndex="2">
+                                                                        <RadioButton fx:id="radioCredit" mnemonicParsing="false" text="Crédito" visible="false" GridPane.rowIndex="2">
                                                                            <toggleGroup>
                                                                               <ToggleGroup fx:id="tooglePayMethod" />
                                                                            </toggleGroup>
                                                                         </RadioButton>
-                                                                        <RadioButton fx:id="radioCash" mnemonicParsing="false" text="Efectivo" toggleGroup="$tooglePayMethod" GridPane.rowIndex="1" />
-                                                                        <RadioButton fx:id="radioTransfer" mnemonicParsing="false" text="Transferencia" toggleGroup="$tooglePayMethod" />
+                                                                        <RadioButton fx:id="radioCash" mnemonicParsing="false" text="Efectivo" toggleGroup="$tooglePayMethod" visible="false" GridPane.rowIndex="1" />
+                                                                        <RadioButton fx:id="radioTransfer" mnemonicParsing="false" text="Transferencia" toggleGroup="$tooglePayMethod" visible="false" />
                                                                      </children>
                                                                      <padding>
                                                                         <Insets left="5.0" />
@@ -198,7 +198,7 @@
                                                    <children>
                                                       <Label text="Buscar:" />
                                                       <TextField fx:id="txtSearchProduct" maxWidth="250.0" promptText="Introduce nombre o código" HBox.hgrow="ALWAYS" />
-                                                      <Button fx:id="btnSearchProduct" mnemonicParsing="false" text="Buscar" />
+                                                      <Button fx:id="btnSearchProduct" mnemonicParsing="false" onAction="#onClickBtnSearchProduct" text="Buscar" />
                                                    </children>
                                                 </HBox>
                                                 <GridPane layoutX="148.6" layoutY="59.0" prefWidth="159.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="139.5000061035156" AnchorPane.rightAnchor="14.899993896484375" AnchorPane.topAnchor="49.39999999999998">

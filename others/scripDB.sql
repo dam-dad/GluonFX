@@ -376,15 +376,21 @@ INSERT INTO customer (customer_id, name, address, city, country, email, phone) V
 
 INSERT INTO tax (tax_id, percentage, description) VALUES ('IGIC', 7, 'IMPUESTO CANARIO BASE'); 
 
+INSERT INTO tax (tax_id, percentage, description) VALUES ('IVA', 21, 'IMPUESTO GODO'); 
+
 INSERT INTO pay_method(description) VALUES ('BANK TRANSFER'); 
 
 INSERT INTO product (product_id, name, description, price, stock, url) VALUES ('10000191', 'Consolador', 'placentero y pequeño', 9.90, 900, 'www.pornhub.com');
 
 INSERT INTO invoice (company_id, customer_id, invoice_date, concept_id, pay_method_id, tax_id) VALUES (1, 1, '2020-01-20', 1, 1, 1);
 
+INSERT INTO invoice (company_id, customer_id, invoice_date, concept_id, pay_method_id, tax_id) VALUES (1, 1, '2020-01-20', 1, 1, 1);
+
 INSERT INTO concept_invoice (invoice_id,description,price) VALUES (1,'kit de placer',300); 
 
 INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 1, 3);
+
+INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (2, 1, 10);
 
 INSERT INTO product (product_id, name, description, price,stock, url) VALUES ('10000192', 'Consolador', 'placentero y pequeño', 1.90,700, 'www.pornhub.com');
 

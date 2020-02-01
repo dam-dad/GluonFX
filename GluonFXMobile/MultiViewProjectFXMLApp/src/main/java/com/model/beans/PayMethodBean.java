@@ -83,4 +83,8 @@ public class PayMethodBean {
 	}
 	
 
+	@Override
+	public String toString() {		
+		return getDescription();
+	}
 }
