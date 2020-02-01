@@ -26,7 +26,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<View fx:id="primary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="335.0" stylesheets="@../Documents/Workspaces/Gluon/MultiViewProjectFXML/MultiViewProjectFXMLApp/src/main/resources/com/gluonapplication/views/primary.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gluonapplication.views.PrimaryPresenter">
+<View fx:id="primary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="335.0" stylesheets="@../Documents/Workspaces/Gluon/MultiViewProjectFXML/MultiViewProjectFXMLApp/src/main/resources/com/gluonapplication/views/primary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gluonapplication.views.PrimaryPresenter">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
          <children>
@@ -34,9 +34,9 @@
               <tabs>
                 <Tab fx:id="tabInvoices" text="Mis facturas">
                      <content>
-                        <VBox minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="100.0">
+                        <VBox minHeight="150.0" minWidth="0.0" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" VBox.vgrow="ALWAYS">
+                              <AnchorPane minHeight="150.0" minWidth="0.0" prefHeight="511.0" prefWidth="322.0" VBox.vgrow="ALWAYS">
                                  <children>
                                     <TableView fx:id="tableInvoices" layoutX="14.0" layoutY="14.0" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="325.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                       <columns>
@@ -49,7 +49,11 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <Button fx:id="btnNewInoive" layoutX="267.0" layoutY="432.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="54.0" text="Nueva" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="15.0" />
+                                    <VBox alignment="BOTTOM_RIGHT" layoutX="6.0" layoutY="30.0" prefHeight="463.0" prefWidth="322.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="30.0">
+                                       <children>
+                                          <Button fx:id="btnNewInoive" mnemonicParsing="false" prefHeight="54.0" prefWidth="54.0" text="Nueva" />
+                                       </children>
+                                    </VBox>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -124,7 +128,7 @@
                                                             </AnchorPane>
                                                          </content>
                                                       </TitledPane>
-                                                      <TitledPane animated="false" prefWidth="252.0" style="-fx-background-color: white;" text="Método de pago">
+                                                      <TitledPane fx:id="payMethodTitle" animated="false" prefWidth="252.0" style="-fx-background-color: white;" text="Método de pago" visible="false">
                                                          <content>
                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="226.0">
                                                                <children>
@@ -138,13 +142,13 @@
                                                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioCredit" mnemonicParsing="false" text="Crédito" visible="false" GridPane.rowIndex="2">
+                                                                        <RadioButton fx:id="radioCredit" mnemonicParsing="false" text="Crédito" GridPane.rowIndex="2">
                                                                            <toggleGroup>
                                                                               <ToggleGroup fx:id="tooglePayMethod" />
                                                                            </toggleGroup>
                                                                         </RadioButton>
-                                                                        <RadioButton fx:id="radioCash" mnemonicParsing="false" text="Efectivo" toggleGroup="$tooglePayMethod" visible="false" GridPane.rowIndex="1" />
-                                                                        <RadioButton fx:id="radioTransfer" mnemonicParsing="false" text="Transferencia" toggleGroup="$tooglePayMethod" visible="false" />
+                                                                        <RadioButton fx:id="radioCash" mnemonicParsing="false" text="Efectivo" toggleGroup="$tooglePayMethod" GridPane.rowIndex="1" />
+                                                                        <RadioButton fx:id="radioTransfer" mnemonicParsing="false" text="Transferencia" toggleGroup="$tooglePayMethod" />
                                                                      </children>
                                                                      <padding>
                                                                         <Insets left="5.0" />
@@ -203,23 +207,23 @@
                                                 </HBox>
                                                 <GridPane layoutX="148.6" layoutY="59.0" prefWidth="159.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="139.5000061035156" AnchorPane.rightAnchor="14.899993896484375" AnchorPane.topAnchor="49.39999999999998">
                                                    <columnConstraints>
-                                                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" />
                                                    </columnConstraints>
                                                    <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+                                                      <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
                                                       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                       <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
                                                    </rowConstraints>
                                                    <children>
                                                       <GridPane gridLinesVisible="true" hgap="5.0" vgap="5.0">
                                                          <columnConstraints>
-                                                            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" />
                                                          </columnConstraints>
                                                          <rowConstraints>
-                                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" valignment="CENTER" />
                                                          </rowConstraints>
                                                          <children>
-                                                            <ImageView fx:id="imgProduct" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                                                            <ImageView fx:id="imgProduct" fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
                                                                <image>
                                                                   <Image url="@GOPR6775.JPG" />
                                                                </image>
