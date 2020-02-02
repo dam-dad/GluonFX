@@ -23,11 +23,13 @@ public class PayMethodBean {
 	private ListProperty<Invoice> invoices = new SimpleListProperty<Invoice>();
 	
 	public PayMethodBean(PayMethod p) {
+		
 		this.payMethod = p;
-		id.set(payMethod.getId());
-		description.set(payMethod.getDescription());
-				
-		invoices.set(FXCollections.observableArrayList(payMethod.getInvoices()));
+		try {id.set(payMethod.getId());}catch (Exception e) {}
+		try {description.set(payMethod.getDescription());}catch (Exception e) {}
+		try {invoices.set(FXCollections.observableArrayList(payMethod.getInvoices()));}catch (Exception e) {}
+		
+	
 		
 	}
 	

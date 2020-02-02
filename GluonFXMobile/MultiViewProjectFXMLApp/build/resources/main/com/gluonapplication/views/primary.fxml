@@ -49,14 +49,14 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <Button fx:id="btnNewInoive" layoutX="267.0" layoutY="432.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="54.0" text="Nueva" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="15.0" />
+                                    <Button fx:id="btnNewInvoice" layoutX="267.0" layoutY="432.0" mnemonicParsing="false" onAction="#onClickBtnNewInvoice" prefHeight="54.0" prefWidth="54.0" text="Nueva" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="15.0" />
                                  </children>
                               </AnchorPane>
                            </children>
                         </VBox>
                      </content>
                 </Tab>
-                <Tab fx:id="tabCurrentInvoice" text="Factura">
+                <Tab fx:id="tabCurrentInvoice" disable="true" text="Factura">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -138,13 +138,13 @@
                                                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioCredit" mnemonicParsing="false" text="Crédito" visible="false" GridPane.rowIndex="2">
+                                                                        <RadioButton fx:id="radioCredit" mnemonicParsing="false" text="Crédito" GridPane.rowIndex="2">
                                                                            <toggleGroup>
                                                                               <ToggleGroup fx:id="tooglePayMethod" />
                                                                            </toggleGroup>
                                                                         </RadioButton>
-                                                                        <RadioButton fx:id="radioCash" mnemonicParsing="false" text="Efectivo" toggleGroup="$tooglePayMethod" visible="false" GridPane.rowIndex="1" />
-                                                                        <RadioButton fx:id="radioTransfer" mnemonicParsing="false" text="Transferencia" toggleGroup="$tooglePayMethod" visible="false" />
+                                                                        <RadioButton fx:id="radioCash" mnemonicParsing="false" text="Efectivo" toggleGroup="$tooglePayMethod" GridPane.rowIndex="1" />
+                                                                        <RadioButton fx:id="radioTransfer" mnemonicParsing="false" text="Transferencia" toggleGroup="$tooglePayMethod" />
                                                                      </children>
                                                                      <padding>
                                                                         <Insets left="5.0" />
@@ -250,7 +250,7 @@
                                                                   <TextField fx:id="txtQuantity" prefHeight="25.0" prefWidth="53.0" />
                                                                </children>
                                                             </HBox>
-                                                            <Button fx:id="btnAddDetail" mnemonicParsing="false" text="Añadir" />
+                                                            <Button fx:id="btnAddDetail" mnemonicParsing="false" onAction="#onClickBtnAddDetail" text="Añadir" />
                                                          </children>
                                                       </VBox>
                                                    </children>
@@ -268,11 +268,10 @@
                                                    <children>
                                                       <TableView fx:id="tableDetails" prefHeight="275.0" prefWidth="294.0" VBox.vgrow="ALWAYS">
                                                         <columns>
-                                                          <TableColumn fx:id="columnProduct" prefWidth="68.00000154972076" text="Artículo" />
-                                                          <TableColumn fx:id="columnUds" prefWidth="38.0" text="Uds." />
-                                                            <TableColumn fx:id="columnPriceUnit" prefWidth="51.99999237060547" text="Precio" />
-                                                            <TableColumn fx:id="ColumnSubtotal" prefWidth="51.99999237060547" text="Subtotal" />
-                                                            <TableColumn fx:id="columnAcciones" prefWidth="51.99999237060547" text="Acciones" />
+                                                          <TableColumn fx:id="columnProduct" prefWidth="113.00000154972076" text="Artículo" />
+                                                          <TableColumn fx:id="columnUds" prefWidth="33.99999237060547" text="Uds." />
+                                                            <TableColumn fx:id="columnPriceUnit" prefWidth="60.0" text="Precio" />
+                                                            <TableColumn fx:id="ColumnSubtotal" prefWidth="86.0" text="Subtotal" />
                                                         </columns>
                                                          <columnResizePolicy>
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
