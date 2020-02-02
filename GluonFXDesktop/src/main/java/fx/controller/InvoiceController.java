@@ -353,12 +353,12 @@ public class InvoiceController implements Initializable {
 				dateTxt.setText(LocalDate.now().toString());
 				invoiceIDTxt.setText("");
 				totalLbl.setText("0");
-				txtPrice.setDecimal(0);
-				txtPercent.setDecimal(0);
-				txtPriceTaxIncluded.setDecimal(0);
+				taxLbl.setText("0");
+				taxPercentageLbl.setText("0");
+				totalLbl.setText("0");
 				lblTaxID.setText("Impuesto");
-				txtConcept.setText("");
-				txtPrecio.setText("");
+				conceptArea.setText("");
+				priceTxt.setText("");
 
 				// Unbindings
 				try {
@@ -408,7 +408,7 @@ public class InvoiceController implements Initializable {
 				} catch (Exception e) {
 				}
 				try {
-					txtConcept.textProperty().unbindBidirectional(masterInvoiceBean.getConceptId().descriptionProperty());
+					conceptArea.textProperty().unbindBidirectional(masterInvoiceBean.getconcep);
 				} catch (Exception e) {
 				}
 				try {
