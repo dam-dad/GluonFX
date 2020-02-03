@@ -2,7 +2,6 @@ CREATE DATABASE 7057507_administration_db;
 
 USE 7057507_administration_db;
 
-
 CREATE TABLE company(
 id INT AUTO_INCREMENT,
 company_id VARCHAR(255),
@@ -31,7 +30,7 @@ CONSTRAINT pk_customer PRIMARY KEY(id)
 CREATE TABLE tax(
 id INT AUTO_INCREMENT,
 tax_id VARCHAR(30),
-percentage DOUBLE DEFAULT 0,
+percentage DOUBLE(16,2) DEFAULT 0,
 description VARCHAR(255),
 CONSTRAINT pk_tax PRIMARY KEY(id)
 );
@@ -47,7 +46,7 @@ id INT AUTO_INCREMENT,
 product_id VARCHAR(30),
 name VARCHAR(255),
 description VARCHAR(500),
-price DOUBLE DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
 stock INT DEFAULT 0,
 url VARCHAR(500),
 CONSTRAINT pk_product PRIMARY KEY(id)
@@ -62,10 +61,10 @@ invoice_date DATE,
 status int DEFAULT 0,
 concept_id INT,
 pay_method_id INT,
-price DOUBLE DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
 tax_id INT,
-tax_total DOUBLE DEFAULT 0,
-price_taxes_included DOUBLE DEFAULT 0,
+tax_total DOUBLE(16,2) DEFAULT 0,
+price_taxes_included DOUBLE(16,2) DEFAULT 0,
 CONSTRAINT pk_invoice PRIMARY KEY(id),
 CONSTRAINT fk_ivoice_01 FOREIGN KEY (company_id) REFERENCES company(id),
 CONSTRAINT fk_ivoice_02 FOREIGN KEY (customer_id) REFERENCES customer(id),
@@ -77,7 +76,7 @@ CREATE TABLE concept_invoice(
 id INT AUTO_INCREMENT,
 invoice_id INT,
 description VARCHAR(600),
-price DOUBLE DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
 CONSTRAINT pk_concept PRIMARY KEY(id),
 CONSTRAINT fk_invoice_concept FOREIGN KEY (invoice_id) REFERENCES invoice(id)
 );
@@ -86,9 +85,9 @@ CREATE TABLE invoice_detail(
 id INT AUTO_INCREMENT,
 invoice_id INT,
 product_id INT ,
-quantity DOUBLE DEFAULT 0,
-price DOUBLE DEFAULT 0,
-price_unit DOUBLE DEFAULT 0,
+quantity DOUBLE(16,2) DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
+price_unit DOUBLE(16,2) DEFAULT 0,
 CONSTRAINT pk_invoice_details_01 PRIMARY KEY(id),
 CONSTRAINT fk_invoice_details_01 FOREIGN KEY (invoice_id) REFERENCES invoice(id),
 CONSTRAINT fk_invoice_details_02 FOREIGN KEY (product_id) REFERENCES product(id)
@@ -104,10 +103,10 @@ customer_id INT,
 budget_date DATE,
 status int DEFAULT 0,
 concept_id INT,
-price DOUBLE DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
 tax_id INT,
-tax_total DOUBLE DEFAULT 0,
-price_taxes_included DOUBLE DEFAULT 0,
+tax_total DOUBLE(16,2) DEFAULT 0,
+price_taxes_included DOUBLE(16,2) DEFAULT 0,
 CONSTRAINT pk_budget PRIMARY KEY(id),
 CONSTRAINT fk_budget_01 FOREIGN KEY (company_id) REFERENCES company(id),
 CONSTRAINT fk_budget_02 FOREIGN KEY (customer_id) REFERENCES customer(id),
@@ -120,9 +119,9 @@ CREATE TABLE budget_detail(
 id INT AUTO_INCREMENT,
 budget_id INT,
 product_id INT ,
-quantity DOUBLE DEFAULT 0,
-price DOUBLE DEFAULT 0,
-price_unit DOUBLE DEFAULT 0,
+quantity DOUBLE(16,2) DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
+price_unit DOUBLE(16,2) DEFAULT 0,
 CONSTRAINT pk_budget_details_01 PRIMARY KEY(id),
 CONSTRAINT fk_budget_details_01 FOREIGN KEY (budget_id) REFERENCES budget(id),
 CONSTRAINT fk_budget_details_02 FOREIGN KEY (product_id) REFERENCES product(id)
@@ -132,7 +131,7 @@ CREATE TABLE concept_budget(
 id INT AUTO_INCREMENT,
 budget_id INT ,
 description VARCHAR(600),
-price DOUBLE DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
 CONSTRAINT pk_concept PRIMARY KEY(id),
 CONSTRAINT fk_budget_concept FOREIGN KEY (budget_id) REFERENCES budget(id)
 );
@@ -145,10 +144,10 @@ customer_id INT,
 work_order_date DATE,
 status int DEFAULT 0,
 concept_id INT,
-price DOUBLE DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
 tax_id INT,
-tax_total DOUBLE DEFAULT 0,
-price_taxes_included DOUBLE DEFAULT 0,
+tax_total DOUBLE(16,2) DEFAULT 0,
+price_taxes_included DOUBLE(16,2) DEFAULT 0,
 CONSTRAINT pk_work_order PRIMARY KEY(id),
 CONSTRAINT fk_work_order_01 FOREIGN KEY (company_id) REFERENCES company(id),
 CONSTRAINT fk_work_order_02 FOREIGN KEY (customer_id) REFERENCES customer(id),
@@ -159,9 +158,9 @@ CREATE TABLE work_order_detail(
 id INT AUTO_INCREMENT,
 work_order_id INT,
 product_id INT ,
-quantity DOUBLE DEFAULT 0,
-price DOUBLE DEFAULT 0,
-price_unit DOUBLE DEFAULT 0,
+quantity DOUBLE(16,2) DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
+price_unit DOUBLE(16,2) DEFAULT 0,
 CONSTRAINT pk_work_order_details_01 PRIMARY KEY(id),
 CONSTRAINT fk_work_order_details_01 FOREIGN KEY (work_order_id) REFERENCES work_order(id),
 CONSTRAINT fk_work_order_details_02 FOREIGN KEY (product_id) REFERENCES product(id)
@@ -171,7 +170,7 @@ CREATE TABLE concept_work_order(
 id INT AUTO_INCREMENT,
 work_order_id INT,
 description VARCHAR(600),
-price DOUBLE DEFAULT 0,
+price DOUBLE(16,2) DEFAULT 0,
 CONSTRAINT pk_concept PRIMARY KEY(id),
 CONSTRAINT fk_work_order_concept FOREIGN KEY (work_order_id) REFERENCES work_order(id)
 );
@@ -180,9 +179,9 @@ DELIMITER //
 CREATE TRIGGER insert_concept_invoice BEFORE INSERT ON concept_invoice
 	FOR EACH ROW
       	BEGIN
-      		UPDATE invoice SET price = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) + (NEW.price)) WHERE id = NEW.invoice_id;
-            UPDATE invoice SET tax_total = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM invoice WHERE id = NEW.invoice_id)) / 100) WHERE id = NEW.invoice_id;
-            UPDATE invoice SET price_taxes_included = ((SELECT price + tax_total FROM invoice WHERE id = NEW.invoice_id)) WHERE id = NEW.invoice_id;
+      	      UPDATE invoice SET price = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) + (NEW.price)) WHERE id = NEW.invoice_id;
+                  UPDATE invoice SET tax_total = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM invoice WHERE id = NEW.invoice_id)) / 100) WHERE id = NEW.invoice_id;
+                  UPDATE invoice SET price_taxes_included = ((SELECT price + tax_total FROM invoice WHERE id = NEW.invoice_id)) WHERE id = NEW.invoice_id;
       	END;
 //
 DELIMITER ;
@@ -191,9 +190,9 @@ DELIMITER //
 CREATE TRIGGER insert_concept_work_order BEFORE INSERT ON concept_work_order
 	FOR EACH ROW
       	BEGIN
-      		UPDATE work_order SET price = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) + (NEW.price)) WHERE id = NEW.work_order_id;
-            UPDATE work_order SET tax_total = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM work_order WHERE id = NEW.work_order_id)) / 100) WHERE id = NEW.work_order_id;
-            UPDATE work_order SET price_taxes_included = ((SELECT price + tax_total FROM work_order WHERE id = NEW.work_order_id)) WHERE id = NEW.work_order_id;
+                  UPDATE work_order SET price = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) + (NEW.price)) WHERE id = NEW.work_order_id;
+                  UPDATE work_order SET tax_total = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM work_order WHERE id = NEW.work_order_id)) / 100) WHERE id = NEW.work_order_id;
+                  UPDATE work_order SET price_taxes_included = ((SELECT price + tax_total FROM work_order WHERE id = NEW.work_order_id)) WHERE id = NEW.work_order_id;
       	END;
 //
 DELIMITER ;
@@ -203,8 +202,8 @@ CREATE TRIGGER insert_concept_budget BEFORE INSERT ON concept_budget
 	FOR EACH ROW
       	BEGIN
       		UPDATE budget SET price = ((SELECT price FROM budget WHERE id = NEW.budget_id) + (NEW.price)) WHERE id = NEW.budget_id;
-            UPDATE budget SET tax_total = ((SELECT price FROM budget WHERE id = NEW.budget_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM budget WHERE id = NEW.budget_id)) / 100) WHERE id = NEW.budget_id;
-            UPDATE budget SET price_taxes_included = ((SELECT price + tax_total FROM budget WHERE id = NEW.budget_id)) WHERE id = NEW.budget_id;
+                  UPDATE budget SET tax_total = ((SELECT price FROM budget WHERE id = NEW.budget_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM budget WHERE id = NEW.budget_id)) / 100) WHERE id = NEW.budget_id;
+                  UPDATE budget SET price_taxes_included = ((SELECT price + tax_total FROM budget WHERE id = NEW.budget_id)) WHERE id = NEW.budget_id;
       	END;
 //
 DELIMITER ;
@@ -234,7 +233,7 @@ DELIMITER //
 CREATE TRIGGER insert_work_order_number BEFORE INSERT ON work_order
 	FOR EACH ROW
       	BEGIN
-            SET NEW.work_order_number = (SELECT CONCAT_WS('','WO',(SELECT YEAR(NEW.work_order_date)), (SELECT LPAD((MONTH(NEW.work_order_date)),2,'0')), (SELECT LPAD((SELECT COUNT(work_order_number) + 1  FROM work_order WHERE YEAR(work_order_date) = YEAR(NEW.work_order_date) AND MONTH(work_order_date) = MONTH(NEW.work_order_date)),4,'0'))));
+                  SET NEW.work_order_number = (SELECT CONCAT_WS('','WO',(SELECT YEAR(NEW.work_order_date)), (SELECT LPAD((MONTH(NEW.work_order_date)),2,'0')), (SELECT LPAD((SELECT COUNT(work_order_number) + 1  FROM work_order WHERE YEAR(work_order_date) = YEAR(NEW.work_order_date) AND MONTH(work_order_date) = MONTH(NEW.work_order_date)),4,'0'))));
       	END;
 //
 DELIMITER ;
@@ -273,6 +272,7 @@ CREATE TRIGGER update_work_order BEFORE UPDATE ON work_order_detail
 //
 DELIMITER ;
 
+
 DELIMITER //
 CREATE TRIGGER update_budget BEFORE UPDATE ON budget_detail
       FOR EACH ROW
@@ -284,6 +284,43 @@ CREATE TRIGGER update_budget BEFORE UPDATE ON budget_detail
             END;
 //
 DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER update_detail_tax BEFORE UPDATE ON invoice
+      FOR EACH ROW
+            BEGIN
+                  IF (NEW.tax_id!=(SELECT tax_id FROM invoice WHERE id=NEW.id)) THEN     
+                        SET NEW.tax_total = (OLD.price * (SELECT percentage FROM tax WHERE id = NEW.tax_id) / 100);
+                        SET NEW.price_taxes_included = OLD.price + NEW.tax_total;
+                  END IF;
+            END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER update_work_order_tax BEFORE UPDATE ON work_order
+      FOR EACH ROW
+            BEGIN                      
+                  IF (NEW.tax_id!=(SELECT tax_id FROM work_order WHERE id=NEW.tax_id)) THEN     
+                        SET NEW.tax_total = (OLD.price * (SELECT percentage FROM tax WHERE id = NEW.tax_id) / 100);
+                        SET NEW.price_taxes_included = OLD.price + NEW.tax_total;
+                  END IF;
+            END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER update_budget_tax BEFORE UPDATE ON budget
+      FOR EACH ROW
+            BEGIN                      
+                  IF (NEW.tax_id!=(SELECT tax_id FROM budget WHERE id=NEW.tax_id)) THEN     
+                        SET NEW.tax_total = (OLD.price * (SELECT percentage FROM tax WHERE id = NEW.tax_id) / 100);
+                        SET NEW.price_taxes_included = OLD.price + NEW.tax_total;
+                  END IF;
+            END;
+//
+DELIMITER ;
+
 
 DELIMITER //
 CREATE TRIGGER delete_detail AFTER delete ON invoice_detail
@@ -378,7 +415,11 @@ INSERT INTO tax (tax_id, percentage, description) VALUES ('IGIC', 7, 'IMPUESTO C
 
 INSERT INTO tax (tax_id, percentage, description) VALUES ('IVA', 21, 'IMPUESTO GODO'); 
 
-INSERT INTO pay_method(description) VALUES ('BANK TRANSFER'); 
+INSERT INTO pay_method(description) VALUES ('Tansferencia'); 
+
+INSERT INTO pay_method(description) VALUES ('Efectivo'); 
+
+INSERT INTO pay_method(description) VALUES ('Crédito'); 
 
 INSERT INTO product (product_id, name, description, price, stock, url) VALUES ('10000191', 'Consolador', 'placentero y pequeño', 9.90, 900, 'www.pornhub.com');
 
@@ -395,4 +436,3 @@ INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (2, 1, 10);
 INSERT INTO product (product_id, name, description, price,stock, url) VALUES ('10000192', 'Consolador', 'placentero y pequeño', 1.90,700, 'www.pornhub.com');
 
 INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 2, 8);
-

@@ -1,18 +1,11 @@
 package entities;
-// Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
-
+// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,35 +15,28 @@ import javax.persistence.Table;
 @Table(name = "concept", catalog = "7057507_administration_db")
 public class Concept implements java.io.Serializable {
 
-	private Integer id;
+	private Integer conceptId;
 	private String description;
 	private Double price;
-	private List<Budget> budgets = new ArrayList<Budget>(0);
-	private List<Invoice> invoices = new ArrayList<Invoice>(0);
-	private List<WorkOrder> workOrders = new ArrayList<WorkOrder>(0);
 
 	public Concept() {
 	}
 
-	public Concept(String description, Double price, List<Budget> budgets, List<Invoice> invoices,
-			List<WorkOrder> workOrders) {
+	public Concept(String description, Double price) {
 		this.description = description;
 		this.price = price;
-		this.budgets = budgets;
-		this.invoices = invoices;
-		this.workOrders = workOrders;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
+	@Column(name = "concept_id", unique = true, nullable = false)
+	public Integer getConceptId() {
+		return this.conceptId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setConceptId(Integer conceptId) {
+		this.conceptId = conceptId;
 	}
 
 	@Column(name = "description", length = 600)
@@ -69,33 +55,6 @@ public class Concept implements java.io.Serializable {
 
 	public void setPrice(Double price) {
 		this.price = price;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "concept")
-	public List<Budget> getBudgets() {
-		return this.budgets;
-	}
-
-	public void setBudgets(List<Budget> budgets) {
-		this.budgets = budgets;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "concept")
-	public List<Invoice> getInvoices() {
-		return this.invoices;
-	}
-
-	public void setInvoices(List<Invoice> invoices) {
-		this.invoices = invoices;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "concept")
-	public List<WorkOrder> getWorkOrders() {
-		return this.workOrders;
-	}
-
-	public void setWorkOrders(List<WorkOrder> workOrders) {
-		this.workOrders = workOrders;
 	}
 
 }

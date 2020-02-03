@@ -1,10 +1,8 @@
 package fx.beans;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+<<<<<<< HEAD:GluonFXDesktop_nuevo/src/main/java/fx/beans/InvoiceBean.java
 import entities.Company;
 import entities.Concept;
 import entities.Customer;
@@ -12,23 +10,36 @@ import entities.Invoice;
 import entities.InvoiceDetail;
 import entities.PayMethod;
 import entities.Tax;
+=======
+<<<<<<< HEAD
+import entities.Invoice;
+=======
+import entities.ConceptInvoice;
+import entities.Invoice;
+import entities.InvoiceDetail;
+
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
+>>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/fx/beans/InvoiceBean.java
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class InvoiceBean {
-		
+	
 	private Invoice invoice; 
 	
+<<<<<<< HEAD
+	private IntegerProperty invoiceId = new SimpleIntegerProperty();
+	private StringProperty invoiceNumber = new SimpleStringProperty();
+	private StringProperty companyId = new SimpleStringProperty();
+	private StringProperty customerId = new SimpleStringProperty();
+	private ObjectProperty<Date> invoiceDate = new SimpleObjectProperty<Date>();
+=======
 	private IntegerProperty id = new SimpleIntegerProperty();
 	private ObjectProperty<CompanyBean> company = new SimpleObjectProperty<CompanyBean>(); 
 	private ObjectProperty<ConceptBean> concept = new SimpleObjectProperty<ConceptBean>(); 
@@ -37,10 +48,16 @@ public class InvoiceBean {
 	private ObjectProperty<TaxBean> tax = new SimpleObjectProperty<TaxBean>();		
 	private StringProperty invoiceNumber = new SimpleStringProperty();	
 	private ObjectProperty<LocalDate> invoiceDate = new SimpleObjectProperty<LocalDate>();	
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	private IntegerProperty status = new SimpleIntegerProperty();
+	private IntegerProperty conceptId = new SimpleIntegerProperty();
+	private IntegerProperty payMethod= new SimpleIntegerProperty();	
 	private DoubleProperty price = new SimpleDoubleProperty();
+	private StringProperty taxId = new SimpleStringProperty();
 	private DoubleProperty taxTotal = new SimpleDoubleProperty();
 	private DoubleProperty priceTaxesIncluded = new SimpleDoubleProperty();
+<<<<<<< HEAD
+=======
 	private ListProperty<InvoiceDetailBean> invoiceDetails = new SimpleListProperty<InvoiceDetailBean>();
 	
 	public InvoiceBean(Invoice invoice) {
@@ -70,59 +87,85 @@ public class InvoiceBean {
 	
 		
 	}
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	
+	public InvoiceBean(Invoice i) {
+		this.invoice = i; 
+		invoiceId.set(invoice.getInvoiceId());
+		invoiceNumber.set(invoice.getInvoiceNumber());
+		companyId.set(invoice.getCompanyId());
+		customerId.set(invoice.getCustomerId());
+		invoiceDate.set(invoice.getInvoiceDate());
+		status.set(invoice.getStatus());
+		conceptId.set(invoice.getConceptId());
+		payMethod.set(invoice.getPayMethodId());
+		price.set(invoice.getPrice());
+		taxId.set(invoice.getTaxId());
+		taxTotal.set(invoice.getTaxTotal());
+		priceTaxesIncluded.set(invoice.getPriceTaxesIncluded());	
+	}
 	
 	public Invoice getInvoice() {
 		return invoice;
 	}
-	
-	
-	public LocalDate localDateConverter(Date date) {		
-		LocalDate dateA= new java.sql.Date(date.getTime()).toLocalDate();
-		return dateA; 
-	}
 
-
-	public final IntegerProperty idProperty() {
-		return this.id;
+	public final IntegerProperty invoiceIdProperty() {
+		return this.invoiceId;
 	}
 	
 
-
-	public final int getId() {
-		return this.idProperty().get();
+	public final int getInvoiceId() {
+		return this.invoiceIdProperty().get();
 	}
 	
 
-
-	public final void setId(final int id) {
-		this.idProperty().set(id);
-		this.invoice.setId(id);
+	public final void setInvoiceId(final int invoiceId) {
+		this.invoiceIdProperty().set(invoiceId);
 	}
 	
 
-
-	public final ObjectProperty<CompanyBean> companyProperty() {
-		return this.company;
+	public final StringProperty invoiceNumberProperty() {
+		return this.invoiceNumber;
 	}
 	
 
-
-	public final CompanyBean getCompany() {
-		return this.companyProperty().get();
+	public final String getInvoiceNumber() {
+		return this.invoiceNumberProperty().get();
 	}
 	
 
-
-	public final void setCompany(final CompanyBean company) {
-		this.companyProperty().set(company);
-		this.invoice.setCompany(company.getCompany());
+	public final void setInvoiceNumber(final String invoiceNumber) {
+		this.invoiceNumberProperty().set(invoiceNumber);
 	}
 	
 
+<<<<<<< HEAD
+	public final StringProperty companyIdProperty() {
+		return this.companyId;
+	}
+	
+
+	public final String getCompanyId() {
+		return this.companyIdProperty().get();
+	}
+	
+
+	public final void setCompanyId(final String companyId) {
+		this.companyIdProperty().set(companyId);
+	}
+	
+
+<<<<<<< HEAD:GluonFXDesktop_nuevo/src/main/java/fx/beans/InvoiceBean.java
 
 	public final ObjectProperty<ConceptBean> conceptProperty() {
 		return this.concept;
+=======
+	public final StringProperty customerIdProperty() {
+		return this.customerId;
+=======
+	public final IntegerProperty conceptIdProperty() {
+		return this.conceptId;
+>>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/fx/beans/InvoiceBean.java
 	}
 	
 
@@ -142,188 +185,143 @@ public class InvoiceBean {
 
 	public final ObjectProperty<CustomerBean> customerProperty() {
 		return this.customer;
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	}
 	
 
-
-	public final CustomerBean getCustomer() {
-		return this.customerProperty().get();
+	public final String getCustomerId() {
+		return this.customerIdProperty().get();
 	}
 	
 
-
-	public final void setCustomer(final CustomerBean customer) {
-		this.customerProperty().set(customer);
-		this.invoice.setCustomer(customer.getCustomer());
+	public final void setCustomerId(final String customerId) {
+		this.customerIdProperty().set(customerId);
 	}
 	
 
-
-	public final ObjectProperty<PayMethodBean> payMethodProperty() {
-		return this.payMethod;
-	}
-	
-
-
-	public final PayMethodBean getPayMethod() {
-		return this.payMethodProperty().get();
-	}
-	
-
-
-	public final void setPayMethod(final PayMethodBean payMethod) {
-		this.payMethodProperty().set(payMethod);
-		this.invoice.setPayMethod(payMethod.getPayMethod());
-	}
-	
-
-
-	public final ObjectProperty<TaxBean> taxProperty() {
-		return this.tax;
-	}
-	
-
-
-	public final TaxBean getTax() {
-		return this.taxProperty().get();
-	}
-	
-
-
-	public final void setTax(final TaxBean tax) {
-		this.taxProperty().set(tax);
-		this.invoice.setTax(tax.getTax());
-	}
-	
-
-
-	public final StringProperty invoiceNumberProperty() {
-		return this.invoiceNumber;
-	}
-	
-
-
-	public final String getInvoiceNumber() {
-		return this.invoiceNumberProperty().get();
-	}
-	
-
-
-	public final void setInvoiceNumber(final String invoiceNumber) {
-		this.invoiceNumberProperty().set(invoiceNumber);
-		this.invoice.setInvoiceNumber(invoiceNumber);
-	}
-	
-
-
-	public final ObjectProperty<LocalDate> invoiceDateProperty() {
+	public final ObjectProperty<Date> invoiceDateProperty() {
 		return this.invoiceDate;
-		
 	}
 	
 
-
-	public final LocalDate getInvoiceDate() {
+	public final Date getInvoiceDate() {
 		return this.invoiceDateProperty().get();
 	}
 	
 
-
-	public final void setInvoiceDate(final LocalDate invoiceDate) {
-		this.invoiceDateProperty().set(invoiceDate);		
-		LocalDate da = invoiceDate;			
-		Date dateA = java.sql.Date.valueOf(da);
-		this.invoice.setInvoiceDate(dateA);	
+	public final void setInvoiceDate(final Date invoiceDate) {
+		this.invoiceDateProperty().set(invoiceDate);
 	}
 	
-
 
 	public final IntegerProperty statusProperty() {
 		return this.status;
 	}
 	
 
-
 	public final int getStatus() {
 		return this.statusProperty().get();
 	}
 	
 
-
 	public final void setStatus(final int status) {
 		this.statusProperty().set(status);
-		this.invoice.setStatus(status);
 	}
 	
 
+	public final IntegerProperty conceptIdProperty() {
+		return this.conceptId;
+	}
+	
+
+	public final int getConceptId() {
+		return this.conceptIdProperty().get();
+	}
+	
+
+	public final void setConceptId(final int conceptId) {
+		this.conceptIdProperty().set(conceptId);
+	}
+	
+
+	public final IntegerProperty payMethodProperty() {
+		return this.payMethod;
+	}
+	
+
+	public final int getPayMethod() {
+		return this.payMethodProperty().get();
+	}
+	
+
+	public final void setPayMethod(final int payMethod) {
+		this.payMethodProperty().set(payMethod);
+	}
+	
 
 	public final DoubleProperty priceProperty() {
 		return this.price;
 	}
 	
 
-
 	public final double getPrice() {
 		return this.priceProperty().get();
 	}
 	
 
-
 	public final void setPrice(final double price) {
 		this.priceProperty().set(price);
-		this.invoice.setPrice(price);
 	}
 	
 
+	public final StringProperty taxIdProperty() {
+		return this.taxId;
+	}
+	
+
+	public final String getTaxId() {
+		return this.taxIdProperty().get();
+	}
+	
+
+	public final void setTaxId(final String taxId) {
+		this.taxIdProperty().set(taxId);
+	}
+	
 
 	public final DoubleProperty taxTotalProperty() {
 		return this.taxTotal;
 	}
 	
 
-
 	public final double getTaxTotal() {
 		return this.taxTotalProperty().get();
 	}
 	
 
-
 	public final void setTaxTotal(final double taxTotal) {
 		this.taxTotalProperty().set(taxTotal);
-		this.invoice.setTaxTotal(taxTotal);
 	}
 	
-
 
 	public final DoubleProperty priceTaxesIncludedProperty() {
 		return this.priceTaxesIncluded;
 	}
 	
 
-
 	public final double getPriceTaxesIncluded() {
 		return this.priceTaxesIncludedProperty().get();
 	}
 	
 
-
 	public final void setPriceTaxesIncluded(final double priceTaxesIncluded) {
 		this.priceTaxesIncludedProperty().set(priceTaxesIncluded);
-		this.invoice.setPriceTaxesIncluded(priceTaxesIncluded);
 	}
 	
-
-
-	public final ListProperty<InvoiceDetailBean> invoiceDetailsProperty() {
-		return this.invoiceDetails;
-	}
 	
-
-
-	public final ObservableList<InvoiceDetailBean> getInvoiceDetails() {
-		return this.invoiceDetailsProperty().get();
-	}
 	
+<<<<<<< HEAD
+=======
 
 
 	public final void setInvoiceDetails(final ObservableList<InvoiceDetailBean> invoiceDetails) {
@@ -335,6 +333,13 @@ public class InvoiceBean {
 		}
 		this.invoice.setInvoiceDetails(list);
 	}
+<<<<<<< HEAD:GluonFXDesktop_nuevo/src/main/java/fx/beans/InvoiceBean.java
+=======
+
+
+	
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
+>>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/fx/beans/InvoiceBean.java
 	
 
 }

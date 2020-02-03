@@ -1,15 +1,22 @@
 package entities;
+<<<<<<< HEAD:GluonFXDesktop_nuevo/src/main/java/entities/PayMethod.java
 // Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
+=======
+<<<<<<< HEAD
+// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
+=======
+// Generated 30 ene. 2020 8:50:01 by Hibernate Tools 5.2.12.Final
+
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
+>>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/PayMethod.java
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,28 +26,26 @@ import javax.persistence.Table;
 @Table(name = "pay_method", catalog = "7057507_administration_db")
 public class PayMethod implements java.io.Serializable {
 
-	private Integer id;
+	private Integer payMethodId;
 	private String description;
-	private List<Invoice> invoices = new ArrayList<Invoice>(0);
 
 	public PayMethod() {
 	}
 
-	public PayMethod(String description, List<Invoice> invoices) {
+	public PayMethod(String description) {
 		this.description = description;
-		this.invoices = invoices;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
+	@Column(name = "pay_method_id", unique = true, nullable = false)
+	public Integer getPayMethodId() {
+		return this.payMethodId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setPayMethodId(Integer payMethodId) {
+		this.payMethodId = payMethodId;
 	}
 
 	@Column(name = "description")
@@ -50,15 +55,6 @@ public class PayMethod implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "payMethod")
-	public List<Invoice> getInvoices() {
-		return this.invoices;
-	}
-
-	public void setInvoices(List<Invoice> invoices) {
-		this.invoices = invoices;
 	}
 
 }

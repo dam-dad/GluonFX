@@ -1,18 +1,18 @@
 package entities;
+<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Customer.java
 // Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
+=======
+<<<<<<< HEAD
+// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
+=======
+// Generated 30 ene. 2020 8:50:01 by Hibernate Tools 5.2.12.Final
+>>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Customer.java
 
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,7 +22,6 @@ import javax.persistence.Table;
 @Table(name = "customer", catalog = "7057507_administration_db")
 public class Customer implements java.io.Serializable {
 
-	private Integer id;
 	private String customerId;
 	private String name;
 	private String address;
@@ -30,15 +29,43 @@ public class Customer implements java.io.Serializable {
 	private String country;
 	private String email;
 	private String phone;
+<<<<<<< HEAD
+=======
 	private List<Invoice> invoices = new ArrayList<Invoice>(0);
 	private List<Budget> budgets = new ArrayList<Budget>(0);
 	private List<WorkOrder> workOrders = new ArrayList<WorkOrder>(0);
+<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Customer.java
+=======
+	
+	private IntegerProperty id_prop = new SimpleIntegerProperty(); 
+	private StringProperty customerId_prop = new SimpleStringProperty();
+	private StringProperty name_prop = new SimpleStringProperty();
+	private StringProperty address_prop = new SimpleStringProperty();
+	private StringProperty city_prop = new SimpleStringProperty();
+	private StringProperty country_prop = new SimpleStringProperty();
+	private StringProperty email_prop = new SimpleStringProperty();
+	private StringProperty phone_prop = new SimpleStringProperty();
+	private ListProperty<Invoice> invoices_prop = new SimpleListProperty<>();  
+	private ListProperty<Budget> budgets_prop = new SimpleListProperty<>(); 
+	private ListProperty<WorkOrder> workOrders_prop = new SimpleListProperty<>(); 
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
+>>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Customer.java
 
 	public Customer() {
 	}
 
+<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Customer.java
 	public Customer(String customerId, String name, String address, String city, String country, String email,
 			String phone, List<Invoice> invoices, List<Budget> budgets, List<WorkOrder> workOrders) {
+=======
+<<<<<<< HEAD
+	public Customer(String customerId) {
+		this.customerId = customerId;
+	}
+
+	public Customer(String customerId, String name, String address, String city, String country, String email,
+			String phone) {
+>>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Customer.java
 		this.customerId = customerId;
 		this.name = name;
 		this.address = address;
@@ -46,14 +73,24 @@ public class Customer implements java.io.Serializable {
 		this.country = country;
 		this.email = email;
 		this.phone = phone;
+<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Customer.java
 		this.invoices = invoices;
 		this.budgets = budgets;
 		this.workOrders = workOrders;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
+=======
+	}
 
+=======
+	
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
+>>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Customer.java
+	@Id
+
+<<<<<<< HEAD
+	@Column(name = "customer_id", unique = true, nullable = false)
+=======
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -64,6 +101,7 @@ public class Customer implements java.io.Serializable {
 	}
 
 	@Column(name = "customer_id")
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	public String getCustomerId() {
 		return this.customerId;
 	}
@@ -126,6 +164,8 @@ public class Customer implements java.io.Serializable {
 		this.phone = phone;
 	}
 
+<<<<<<< HEAD
+=======
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
 	public List<Invoice> getInvoices() {
 		return this.invoices;
@@ -158,5 +198,10 @@ public class Customer implements java.io.Serializable {
 	public String toString() {		
 		return getName();
 	}
+<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Customer.java
 
+=======
+	
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
+>>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Customer.java
 }
