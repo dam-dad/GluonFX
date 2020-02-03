@@ -1,14 +1,11 @@
 package entities;
-// Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
+// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,9 +15,8 @@ import javax.persistence.Table;
 @Table(name = "invoice_detail", catalog = "7057507_administration_db")
 public class InvoiceDetail implements java.io.Serializable {
 
-	private Integer id;
-	private Invoice invoice;
-	private Product product;
+	private InvoiceDetailId id;
+	private Integer invoiceId;
 	private Double quantity;
 	private Double price;
 	private Double priceUnit;
@@ -28,44 +24,38 @@ public class InvoiceDetail implements java.io.Serializable {
 	public InvoiceDetail() {
 	}
 
-	public InvoiceDetail(Invoice invoice, Product product, Double quantity, Double price, Double priceUnit) {
-		this.invoice = invoice;
-		this.product = product;
+	public InvoiceDetail(InvoiceDetailId id) {
+		this.id = id;
+	}
+
+	public InvoiceDetail(InvoiceDetailId id, Integer invoiceId, Double quantity, Double price, Double priceUnit) {
+		this.id = id;
+		this.invoiceId = invoiceId;
 		this.quantity = quantity;
 		this.price = price;
 		this.priceUnit = priceUnit;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@EmbeddedId
 
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
+	@AttributeOverrides({
+			@AttributeOverride(name = "invoiceDetailId", column = @Column(name = "invoice_detail_id", nullable = false)),
+			@AttributeOverride(name = "productId", column = @Column(name = "product_id", nullable = false, length = 30)) })
+	public InvoiceDetailId getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(InvoiceDetailId id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "invoice_id")
-	public Invoice getInvoice() {
-		return this.invoice;
+	@Column(name = "invoice_id")
+	public Integer getInvoiceId() {
+		return this.invoiceId;
 	}
 
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id")
-	public Product getProduct() {
-		return this.product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setInvoiceId(Integer invoiceId) {
+		this.invoiceId = invoiceId;
 	}
 
 	@Column(name = "quantity", precision = 22, scale = 0)

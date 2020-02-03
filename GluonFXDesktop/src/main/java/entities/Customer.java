@@ -1,18 +1,9 @@
 package entities;
-// Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
-
+// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "customer", catalog = "7057507_administration_db")
 public class Customer implements java.io.Serializable {
 
-	private Integer id;
 	private String customerId;
 	private String name;
 	private String address;
@@ -30,15 +20,16 @@ public class Customer implements java.io.Serializable {
 	private String country;
 	private String email;
 	private String phone;
-	private List<Invoice> invoices = new ArrayList<Invoice>(0);
-	private List<Budget> budgets = new ArrayList<Budget>(0);
-	private List<WorkOrder> workOrders = new ArrayList<WorkOrder>(0);
 
 	public Customer() {
 	}
 
+	public Customer(String customerId) {
+		this.customerId = customerId;
+	}
+
 	public Customer(String customerId, String name, String address, String city, String country, String email,
-			String phone, List<Invoice> invoices, List<Budget> budgets, List<WorkOrder> workOrders) {
+			String phone) {
 		this.customerId = customerId;
 		this.name = name;
 		this.address = address;
@@ -46,24 +37,11 @@ public class Customer implements java.io.Serializable {
 		this.country = country;
 		this.email = email;
 		this.phone = phone;
-		this.invoices = invoices;
-		this.budgets = budgets;
-		this.workOrders = workOrders;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	@Column(name = "customer_id")
+	@Column(name = "customer_id", unique = true, nullable = false)
 	public String getCustomerId() {
 		return this.customerId;
 	}
@@ -124,39 +102,6 @@ public class Customer implements java.io.Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-	public List<Invoice> getInvoices() {
-		return this.invoices;
-	}
-
-	public void setInvoices(List<Invoice> invoices) {
-		this.invoices = invoices;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-	public List<Budget> getBudgets() {
-		return this.budgets;
-	}
-
-	public void setBudgets(List<Budget> budgets) {
-		this.budgets = budgets;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-	public List<WorkOrder> getWorkOrders() {
-		return this.workOrders;
-	}
-
-	public void setWorkOrders(List<WorkOrder> workOrders) {
-		this.workOrders = workOrders;
-	}
-	
-	
-	@Override
-	public String toString() {		
-		return getName();
 	}
 
 }

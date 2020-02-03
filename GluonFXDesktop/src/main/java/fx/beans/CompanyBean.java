@@ -1,24 +1,15 @@
 package fx.beans;
 
-import java.util.List;
-
 import entities.Company;
-import entities.Invoice;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class CompanyBean {
 	
 	
+	
 	private Company company;
 	
-	private IntegerProperty id = new SimpleIntegerProperty();
 	private StringProperty companyId = new SimpleStringProperty(); 
 	private StringProperty name = new SimpleStringProperty(); 
 	private StringProperty address = new SimpleStringProperty(); 
@@ -26,51 +17,23 @@ public class CompanyBean {
 	private StringProperty country = new SimpleStringProperty(); 
 	private StringProperty email = new SimpleStringProperty(); 
 	private StringProperty phone = new SimpleStringProperty(); 
-	private ListProperty<Invoice> invoices = new SimpleListProperty<Invoice>(); 
 	
 	
 	public CompanyBean(Company c) {
-		System.out.println("UUUUUUUUUUUUUUUUUUUUUUU");
-		System.out.println(c.getName());
 		this.company = c; 
-		id.set(company.getId());
 		companyId.set(company.getCompanyId());
 		name.set(company.getName());
-		System.out.println(name);
 		address.set(company.getAddress());
 		city.set(company.getCity());
 		country.set(company.getCountry());
 		email.set(company.getEmail());
 		phone.set(company.getPhone());		
-		
-		invoices.set( FXCollections.observableArrayList(company.getInvoices()));
 	}
 	
 	
 	public Company getCompany() {
 		return company;
 	}
-
-
-	
-
-	public final IntegerProperty idProperty() {
-		return this.id;
-	}
-	
-
-
-	public final int getId() {
-		return this.idProperty().get();
-	}
-	
-
-
-	public final void setId(final int id) {
-		this.idProperty().set(id);
-		this.company.setId(id);
-	}
-	
 
 
 	public final StringProperty companyIdProperty() {
@@ -87,13 +50,12 @@ public class CompanyBean {
 
 	public final void setCompanyId(final String companyId) {
 		this.companyIdProperty().set(companyId);
-		this.company.setCompanyId(companyId);
 	}
 	
 
 
 	public final StringProperty nameProperty() {
-		return this.name;		
+		return this.name;
 	}
 	
 
@@ -106,7 +68,6 @@ public class CompanyBean {
 
 	public final void setName(final String name) {
 		this.nameProperty().set(name);
-		this.company.setName(name);
 	}
 	
 
@@ -125,7 +86,6 @@ public class CompanyBean {
 
 	public final void setAddress(final String address) {
 		this.addressProperty().set(address);
-		this.company.setAddress(address);
 	}
 	
 
@@ -144,7 +104,6 @@ public class CompanyBean {
 
 	public final void setCity(final String city) {
 		this.cityProperty().set(city);
-		this.company.setCity(city);
 	}
 	
 
@@ -163,7 +122,6 @@ public class CompanyBean {
 
 	public final void setCountry(final String country) {
 		this.countryProperty().set(country);
-		this.company.setCountry(country);
 	}
 	
 
@@ -182,7 +140,6 @@ public class CompanyBean {
 
 	public final void setEmail(final String email) {
 		this.emailProperty().set(email);
-		this.company.setEmail(email);
 	}
 	
 
@@ -201,35 +158,8 @@ public class CompanyBean {
 
 	public final void setPhone(final String phone) {
 		this.phoneProperty().set(phone);
-		this.company.setPhone(phone);
 	}
 	
-
-
-	public final ListProperty<Invoice> invoicesProperty() {
-		return this.invoices;
-	}
-	
-
-
-	public final ObservableList<Invoice> getInvoices() {
-		return this.invoicesProperty().get();
-	}
-	
-
-
-	public final void setInvoices(final ObservableList<Invoice> invoices) {
-		this.invoicesProperty().set(invoices);
-		company.setInvoices(invoices);
-	}
-	
-
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return getName();
-	}
 	
 
 }

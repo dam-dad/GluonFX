@@ -1,14 +1,11 @@
 package entities;
-// Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
+// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,9 +15,8 @@ import javax.persistence.Table;
 @Table(name = "work_order_detail", catalog = "7057507_administration_db")
 public class WorkOrderDetail implements java.io.Serializable {
 
-	private Integer id;
-	private Product product;
-	private WorkOrder workOrder;
+	private WorkOrderDetailId id;
+	private Integer workOrderId;
 	private Double quantity;
 	private Double price;
 	private Double priceUnit;
@@ -28,44 +24,38 @@ public class WorkOrderDetail implements java.io.Serializable {
 	public WorkOrderDetail() {
 	}
 
-	public WorkOrderDetail(Product product, WorkOrder workOrder, Double quantity, Double price, Double priceUnit) {
-		this.product = product;
-		this.workOrder = workOrder;
+	public WorkOrderDetail(WorkOrderDetailId id) {
+		this.id = id;
+	}
+
+	public WorkOrderDetail(WorkOrderDetailId id, Integer workOrderId, Double quantity, Double price, Double priceUnit) {
+		this.id = id;
+		this.workOrderId = workOrderId;
 		this.quantity = quantity;
 		this.price = price;
 		this.priceUnit = priceUnit;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@EmbeddedId
 
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
+	@AttributeOverrides({
+			@AttributeOverride(name = "orderDetailId", column = @Column(name = "order_detail_id", nullable = false)),
+			@AttributeOverride(name = "productId", column = @Column(name = "product_id", nullable = false, length = 30)) })
+	public WorkOrderDetailId getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(WorkOrderDetailId id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id")
-	public Product getProduct() {
-		return this.product;
+	@Column(name = "work_order_id")
+	public Integer getWorkOrderId() {
+		return this.workOrderId;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "work_order_id")
-	public WorkOrder getWorkOrder() {
-		return this.workOrder;
-	}
-
-	public void setWorkOrder(WorkOrder workOrder) {
-		this.workOrder = workOrder;
+	public void setWorkOrderId(Integer workOrderId) {
+		this.workOrderId = workOrderId;
 	}
 
 	@Column(name = "quantity", precision = 22, scale = 0)

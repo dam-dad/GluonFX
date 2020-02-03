@@ -7,6 +7,7 @@ import fx.controller.StartController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utils.PDFGenerator;
 
 public class App extends Application {
 	

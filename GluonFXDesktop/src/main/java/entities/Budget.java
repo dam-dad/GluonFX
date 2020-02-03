@@ -1,18 +1,12 @@
 package entities;
-// Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
+// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,87 +18,45 @@ import javax.persistence.TemporalType;
 @Table(name = "budget", catalog = "7057507_administration_db")
 public class Budget implements java.io.Serializable {
 
-	private Integer id;
-	private Company company;
-	private Concept concept;
-	private Customer customer;
-	private Tax tax;
+	private Integer budgetId;
 	private String budgetNumber;
+	private String companyId;
+	private String customerId;
 	private Date budgetDate;
 	private Integer status;
+	private Integer conceptId;
 	private Double price;
+	private String taxId;
 	private Double taxTotal;
 	private Double priceTaxesIncluded;
-	private List<BudgetDetail> budgetDetails = new ArrayList<BudgetDetail>(0);
 
 	public Budget() {
 	}
 
-	public Budget(Company company, Concept concept, Customer customer, Tax tax, String budgetNumber, Date budgetDate,
-			Integer status, Double price, Double taxTotal, Double priceTaxesIncluded, List<BudgetDetail> budgetDetails) {
-		this.company = company;
-		this.concept = concept;
-		this.customer = customer;
-		this.tax = tax;
+	public Budget(String budgetNumber, String companyId, String customerId, Date budgetDate, Integer status,
+			Integer conceptId, Double price, String taxId, Double taxTotal, Double priceTaxesIncluded) {
 		this.budgetNumber = budgetNumber;
+		this.companyId = companyId;
+		this.customerId = customerId;
 		this.budgetDate = budgetDate;
 		this.status = status;
+		this.conceptId = conceptId;
 		this.price = price;
+		this.taxId = taxId;
 		this.taxTotal = taxTotal;
 		this.priceTaxesIncluded = priceTaxesIncluded;
-		this.budgetDetails = budgetDetails;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
+	@Column(name = "budget_id", unique = true, nullable = false)
+	public Integer getBudgetId() {
+		return this.budgetId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "company_id")
-	public Company getCompany() {
-		return this.company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "concept_id")
-	public Concept getConcept() {
-		return this.concept;
-	}
-
-	public void setConcept(Concept concept) {
-		this.concept = concept;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "customer_id")
-	public Customer getCustomer() {
-		return this.customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tax_id")
-	public Tax getTax() {
-		return this.tax;
-	}
-
-	public void setTax(Tax tax) {
-		this.tax = tax;
+	public void setBudgetId(Integer budgetId) {
+		this.budgetId = budgetId;
 	}
 
 	@Column(name = "budget_number")
@@ -114,6 +66,24 @@ public class Budget implements java.io.Serializable {
 
 	public void setBudgetNumber(String budgetNumber) {
 		this.budgetNumber = budgetNumber;
+	}
+
+	@Column(name = "company_id")
+	public String getCompanyId() {
+		return this.companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	@Column(name = "customer_id")
+	public String getCustomerId() {
+		return this.customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -135,6 +105,15 @@ public class Budget implements java.io.Serializable {
 		this.status = status;
 	}
 
+	@Column(name = "concept_id")
+	public Integer getConceptId() {
+		return this.conceptId;
+	}
+
+	public void setConceptId(Integer conceptId) {
+		this.conceptId = conceptId;
+	}
+
 	@Column(name = "price", precision = 22, scale = 0)
 	public Double getPrice() {
 		return this.price;
@@ -142,6 +121,15 @@ public class Budget implements java.io.Serializable {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	@Column(name = "tax_id", length = 30)
+	public String getTaxId() {
+		return this.taxId;
+	}
+
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
 	}
 
 	@Column(name = "tax_total", precision = 22, scale = 0)
@@ -160,15 +148,6 @@ public class Budget implements java.io.Serializable {
 
 	public void setPriceTaxesIncluded(Double priceTaxesIncluded) {
 		this.priceTaxesIncluded = priceTaxesIncluded;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "budget")
-	public List<BudgetDetail> getBudgetDetails() {
-		return this.budgetDetails;
-	}
-
-	public void setBudgetDetails(List<BudgetDetail> budgetDetails) {
-		this.budgetDetails = budgetDetails;
 	}
 
 }
