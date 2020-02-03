@@ -1,3 +1,5 @@
+DROP DATABASE 7057507_administration_db;
+
 CREATE DATABASE 7057507_administration_db;
 
 USE 7057507_administration_db;

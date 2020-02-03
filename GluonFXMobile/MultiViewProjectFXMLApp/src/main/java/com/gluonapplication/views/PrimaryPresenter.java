@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
+import com.gluonhq.charm.glisten.control.Alert;
 import com.gluonhq.charm.glisten.control.AppBar;
+import com.gluonhq.charm.glisten.control.Dialog;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.model.beans.CustomerBean;
@@ -29,12 +31,13 @@ import com.model.entities.Tax;
 import com.utils.HibernateController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
@@ -45,6 +48,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 
 public class PrimaryPresenter {
@@ -177,21 +181,22 @@ public class PrimaryPresenter {
 
 	// Model
 	private PrimaryModel model = new PrimaryModel();
-	private InvoiceBean invoiceMaster; // Is the selected invoice in the model, but is easy to work this injected
-										// object
+	private InvoiceBean invoiceMaster; // Is the selected invoice in the model, but is easy to work this injected object
+										
 
 	// neccesary
 	HibernateController hibernate = new HibernateController();
 
 	public void initialize() {
-
+		
+	
 		primary.showingProperty().addListener((obs, oldValue, newValue) -> {
 			if (newValue) {
 				AppBar appBar = MobileApplication.getInstance().getAppBar();
 				appBar.setNavIcon(
 						MaterialDesignIcon.MENU.button(e -> MobileApplication.getInstance().getDrawer().open()));
 				appBar.setTitleText("Facturas");
-				appBar.getActionItems()
+				appBar.getActionItems()				
 						.add(MaterialDesignIcon.PICTURE_AS_PDF.button(e -> System.out.println("Search")));
 			}
 		});
@@ -273,7 +278,46 @@ public class PrimaryPresenter {
 		txtQuantity.textProperty().addListener((o, ov, nv) -> onQuantityChanged(ov, nv));
 		
 		
-		tableDetails.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> onDetailSelected(nv));
+		//tableDetails.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> onDetailSelected(nv));
+		//tableDetails.onMouseClickedProperty().addListener((o, ov, nv) -> onMousePressed(nv));
+		//tableDetails.onMousePressedProperty().addListener((o, ov, nv) -> onMousePressed(nv));
+		//tableDetails.onMouseReleasedProperty().addListener((o, ov, nv) -> onMousePressed(nv));
+	
+		tableDetails.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+
+	        long startTime;
+
+	        @Override
+	        public void handle(MouseEvent event) {
+	            if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+	                startTime = System.currentTimeMillis();
+	            } else if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
+	                if (System.currentTimeMillis() - startTime > 1 * 1500) {
+	                    //Call dialog
+	                	deleteDetail();
+	                	
+	                	
+	                } else
+	                    System.out.println("Pressed for " + (System.currentTimeMillis() - startTime) + " milliseconds");
+	            }
+	        }
+	    });
+		
+	}
+
+
+
+	private void onMousePressed(EventHandler<? super MouseEvent> nv) {
+
+		System.out.println("HOLAAAAAAAAAAAAAAA");
+		
+		long startTime = System.currentTimeMillis();
+		if (System.currentTimeMillis() - startTime > 2 * 1000) {
+			System.out.println(
+					"Pressed for at least 2 seconds (" + (System.currentTimeMillis() - startTime) + " milliseconds)");
+		} else {
+			System.out.println("Pressed for " + (System.currentTimeMillis() - startTime) + " milliseconds");
+		}
 
 	}
 
@@ -377,17 +421,17 @@ public class PrimaryPresenter {
 	
 	private void onDetailSelected(InvoiceDetailBean nv) {
 		
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Eliminar detalle");
-		alert.setHeaderText("Eliminar detalle");
-		alert.setContentText("¿Seguro que desea eliminarlo?");
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
-		    // ... user chose OK
-		} else {
-		    alert.close();
-		}
+//		Alert alert = new Alert(AlertType.CONFIRMATION);
+//		alert.setTitle("Eliminar detalle");
+//		alert.setHeaderText("Eliminar detalle");
+//		alert.setContentText("¿Seguro que desea eliminarlo?");
+//
+//		Optional<ButtonType> result = alert.showAndWait();
+//		if (result.get() == ButtonType.OK){
+//		    // ... user chose OK
+//		} else {
+//		    alert.close();
+//		}
 	}
 	
 	/*
@@ -816,6 +860,37 @@ public class PrimaryPresenter {
 			tableInvoices.getSelectionModel().select(selectedIndex);
 		}
 
+	}
+	
+	
+	public void deleteDetail() {
+		
+		InvoiceDetail invoiceDetail = null;
+		
+		try {
+			
+			invoiceDetail = model.getDetailSelected().getInvoiceDetail();
+						
+		} catch (Exception e) {
+			
+		}
+		
+		if(invoiceDetail != null) {
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION, "¿Desea eliminar el detalle seleccionado?");						
+			alert.setGraphic(null);
+			 
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				
+			    hibernate.delete(invoiceDetail);
+			    updateContent();
+			} else {
+			  
+			}
+		}
+		
+		
 	}
 
 	/**
