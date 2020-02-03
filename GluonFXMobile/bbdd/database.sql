@@ -419,9 +419,9 @@ INSERT INTO pay_method(description) VALUES ('Tansferencia');
 
 INSERT INTO pay_method(description) VALUES ('Efectivo'); 
 
-INSERT INTO pay_method(description) VALUES ('Crédito'); 
+INSERT INTO pay_method(description) VALUES ('CrÃ©dito'); 
 
-INSERT INTO product (product_id, name, description, price, stock, url) VALUES ('10000191', 'Consolador', 'placentero y pequeño', 9.90, 900, 'www.pornhub.com');
+INSERT INTO product (product_id, name, description, price, stock, url) VALUES ('10000191', 'Consolador', 'placentero y pequeÃ±o', 9.90, 900, 'www.pornhub.com');
 
 INSERT INTO invoice (company_id, customer_id, invoice_date, concept_id, pay_method_id, tax_id) VALUES (1, 1, '2020-01-20', 1, 1, 1);
 
@@ -433,6 +433,6 @@ INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 1, 3);
 
 INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (2, 1, 10);
 
-INSERT INTO product (product_id, name, description, price,stock, url) VALUES ('10000192', 'Consolador', 'placentero y pequeño', 1.90,700, 'www.pornhub.com');
+INSERT INTO product (product_id, name, description, price,stock, url) VALUES ('10000192', 'Consolador', 'placentero y pequeÃ±o', 1.90,700, 'www.pornhub.com');
 
 INSERT INTO invoice_detail (invoice_id, product_id, quantity) VALUES (1, 2, 8);

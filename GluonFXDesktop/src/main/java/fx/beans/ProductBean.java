@@ -1,6 +1,7 @@
 package fx.beans;
 
 import entities.Product;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;

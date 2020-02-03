@@ -1,26 +1,46 @@
 package fx.beans;
 
+<<<<<<< HEAD:GluonFXDesktop/src/main/java/fx/beans/ConceptBean.java
 import entities.Concept;
+=======
+
+import entities.ConceptInvoice;
+import entities.Invoice;
+
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003:GluonFXDesktop/src/main/java/fx/beans/ConceptInvoiceBean.java
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+<<<<<<< HEAD:GluonFXDesktop/src/main/java/fx/beans/ConceptBean.java
 public class ConceptBean {
+=======
+public class ConceptInvoiceBean {
+
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003:GluonFXDesktop/src/main/java/fx/beans/ConceptInvoiceBean.java
 	
-	private Concept concept;
+	private ConceptInvoice concept;
+
 	
 	private IntegerProperty conceptId = new SimpleIntegerProperty();
 	private DoubleProperty price = new SimpleDoubleProperty();
 	
-	public ConceptBean(Concept c) {
+	
+	public ConceptInvoiceBean(ConceptInvoice c) {
+				
 		this.concept = c; 
 		conceptId.set(concept.getConceptId());
 		price.set(concept.getPrice());
+<<<<<<< HEAD:GluonFXDesktop/src/main/java/fx/beans/ConceptBean.java
+=======
+			
+	
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003:GluonFXDesktop/src/main/java/fx/beans/ConceptInvoiceBean.java
 	}
 	
 	
-	public Concept getConcept() {
+	public ConceptInvoice getConcept() {
 		return concept;
 	}
 
@@ -59,8 +79,14 @@ public class ConceptBean {
 		this.priceProperty().set(price);
 	}
 	
+<<<<<<< HEAD:GluonFXDesktop/src/main/java/fx/beans/ConceptBean.java
 	
 	
+=======
+
+
+		
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003:GluonFXDesktop/src/main/java/fx/beans/ConceptInvoiceBean.java
 	
 
 }

@@ -19,7 +19,7 @@ public class InvoiceDetailBean {
 	
 	private IntegerProperty id = new SimpleIntegerProperty(); 
 	private ObjectProperty<Invoice> invoice = new SimpleObjectProperty<Invoice>(); 
-	private ObjectProperty<Product> product = new SimpleObjectProperty<>();
+	private ObjectProperty<ProductBean> product = new SimpleObjectProperty<>();
 	private DoubleProperty quantity = new SimpleDoubleProperty(); 
 	private DoubleProperty price = new SimpleDoubleProperty(); 
 	private DoubleProperty priceUnit = new SimpleDoubleProperty(); 
@@ -35,7 +35,7 @@ public class InvoiceDetailBean {
 		
 		try {id.set(invoiceDetail.getId());} catch (Exception e) {}
 		try {invoice.set(invoiceDetail.getInvoice());} catch (Exception e) {}
-		try {product.set(invoiceDetail.getProduct());} catch (Exception e) {}
+		try {product.set(new ProductBean(invoiceDetail.getProduct()));} catch (Exception e) {}
 		try {quantity.set(invoiceDetail.getQuantity());} catch (Exception e) {}
 		try {price.set(invoiceDetail.getPrice());} catch (Exception e) {}
 		try {priceUnit.set(invoiceDetail.getPriceUnit());} catch (Exception e) {}
@@ -125,19 +125,19 @@ public class InvoiceDetailBean {
 		this.invoiceDetail.setPriceUnit(priceUnit);
 	}
 
-	public final ObjectProperty<Product> productProperty() {
+	public final ObjectProperty<ProductBean> productProperty() {
 		return this.product;
 	}
 	
 
-	public final Product getProduct() {
+	public final ProductBean getProduct() {
 		return this.productProperty().get();
 	}
 	
 
-	public final void setProduct(final Product product) {
+	public final void setProduct(final ProductBean product) {
 		this.productProperty().set(product);
-		this.invoiceDetail.setProduct(product);
+		this.invoiceDetail.setProduct(product.getProduct());
 	}
 	
 	

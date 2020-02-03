@@ -1,6 +1,13 @@
 package fx.beans;
 
+<<<<<<< HEAD
+=======
+
+
+import entities.Invoice;
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 import entities.Tax;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;

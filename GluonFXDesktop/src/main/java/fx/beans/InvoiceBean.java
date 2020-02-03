@@ -2,7 +2,14 @@ package fx.beans;
 
 import java.util.Date;
 
+<<<<<<< HEAD
 import entities.Invoice;
+=======
+import entities.ConceptInvoice;
+import entities.Invoice;
+import entities.InvoiceDetail;
+
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -16,11 +23,22 @@ public class InvoiceBean {
 	
 	private Invoice invoice; 
 	
+<<<<<<< HEAD
 	private IntegerProperty invoiceId = new SimpleIntegerProperty();
 	private StringProperty invoiceNumber = new SimpleStringProperty();
 	private StringProperty companyId = new SimpleStringProperty();
 	private StringProperty customerId = new SimpleStringProperty();
 	private ObjectProperty<Date> invoiceDate = new SimpleObjectProperty<Date>();
+=======
+	private IntegerProperty id = new SimpleIntegerProperty();
+	private ObjectProperty<CompanyBean> company = new SimpleObjectProperty<CompanyBean>(); 
+	private IntegerProperty conceptId = new SimpleIntegerProperty();
+	private ObjectProperty<CustomerBean> customer = new SimpleObjectProperty<CustomerBean>();
+	private ObjectProperty<PayMethodBean> payMethod= new SimpleObjectProperty<PayMethodBean>();
+	private ObjectProperty<TaxBean> tax = new SimpleObjectProperty<TaxBean>();		
+	private StringProperty invoiceNumber = new SimpleStringProperty();	
+	private ObjectProperty<LocalDate> invoiceDate = new SimpleObjectProperty<LocalDate>();	
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	private IntegerProperty status = new SimpleIntegerProperty();
 	private IntegerProperty conceptId = new SimpleIntegerProperty();
 	private IntegerProperty payMethod= new SimpleIntegerProperty();	
@@ -28,6 +46,45 @@ public class InvoiceBean {
 	private StringProperty taxId = new SimpleStringProperty();
 	private DoubleProperty taxTotal = new SimpleDoubleProperty();
 	private DoubleProperty priceTaxesIncluded = new SimpleDoubleProperty();
+<<<<<<< HEAD
+=======
+	private ListProperty<InvoiceDetailBean> invoiceDetails = new SimpleListProperty<InvoiceDetailBean>();
+	private ListProperty<ConceptInvoiceBean> conceptInvoices = new SimpleListProperty<>();
+	
+	public InvoiceBean(Invoice invoice) {
+		
+			this.invoice = invoice; 			
+			try {company.set(new CompanyBean(invoice.getCompany()));
+			}catch (Exception e) {}
+			try {conceptId.set(invoice.getConceptId());}catch (Exception e) {}
+			try {customer.set(new CustomerBean(invoice.getCustomer()));}catch (Exception e) {}
+			try {payMethod.set(new PayMethodBean(invoice.getPayMethod()));}catch (Exception e) {}
+			try {tax.set(new TaxBean(invoice.getTax()));}catch (Exception e) {}
+			
+			
+			invoiceNumber.set(invoice.getInvoiceNumber());
+			invoiceDate.set(localDateConverter(invoice.getInvoiceDate()));
+			status.set(invoice.getStatus());
+			price.set(invoice.getPrice());
+			taxTotal.set(invoice.getTaxTotal());
+			priceTaxesIncluded.set(invoice.getPriceTaxesIncluded());
+			
+			List<InvoiceDetailBean> list = new ArrayList<InvoiceDetailBean>();
+			for(InvoiceDetail i : invoice.getInvoiceDetails()) {
+				list.add(new InvoiceDetailBean(i));
+			}
+			invoiceDetails.set(FXCollections.observableArrayList(list));
+			
+			
+			List<ConceptInvoiceBean> listB = new ArrayList<ConceptInvoiceBean>();
+			for(ConceptInvoice c: invoice.getConceptInvoices()) {
+				listB.add(new ConceptInvoiceBean(c));
+			}
+			conceptInvoices.set(FXCollections.observableArrayList(listB));
+	
+		
+	}
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	
 	public InvoiceBean(Invoice i) {
 		this.invoice = i; 
@@ -79,6 +136,7 @@ public class InvoiceBean {
 	}
 	
 
+<<<<<<< HEAD
 	public final StringProperty companyIdProperty() {
 		return this.companyId;
 	}
@@ -96,6 +154,28 @@ public class InvoiceBean {
 
 	public final StringProperty customerIdProperty() {
 		return this.customerId;
+=======
+	public final IntegerProperty conceptIdProperty() {
+		return this.conceptId;
+	}
+	
+
+
+	public final int getConceptId() {
+		return this.conceptIdProperty().get();
+	}
+	
+
+
+	public final void setConceptId(final int conceptId) {
+		this.conceptIdProperty().set(conceptId);
+		this.invoice.setConceptId(conceptId);
+	}
+	
+
+	public final ObjectProperty<CustomerBean> customerProperty() {
+		return this.customer;
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	}
 	
 
@@ -230,6 +310,23 @@ public class InvoiceBean {
 	
 	
 	
+<<<<<<< HEAD
+=======
+
+
+	public final void setInvoiceDetails(final ObservableList<InvoiceDetailBean> invoiceDetails) {
+		this.invoiceDetailsProperty().set(invoiceDetails);
+		
+		List<InvoiceDetail> list = new ArrayList<InvoiceDetail>();  
+		for(InvoiceDetailBean i : invoiceDetails) {
+			list.add(i.getInvoiceDetail());
+		}
+		this.invoice.setInvoiceDetails(list);
+	}
+
+
+	
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	
 
 }

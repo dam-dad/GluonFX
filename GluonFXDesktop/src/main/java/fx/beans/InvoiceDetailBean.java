@@ -1,7 +1,15 @@
 package fx.beans;
 
+<<<<<<< HEAD
 import entities.InvoiceDetail;
 import entities.InvoiceDetailId;
+=======
+
+import entities.Invoice;
+import entities.InvoiceDetail;
+import entities.Product;
+
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;

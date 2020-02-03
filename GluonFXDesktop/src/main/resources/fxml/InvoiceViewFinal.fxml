@@ -29,9 +29,9 @@
    <children>
       <SplitPane dividerPositions="0.25292153589315525, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
          <items>
-            <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="145.0" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: white;">
+            <HBox fx:id="leftHideBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="180.0" minWidth="145.0" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: white;">
                <children>
-                  <GridPane fx:id="tableGrid" alignment="TOP_CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" minWidth="125.0" prefHeight="600.0" prefWidth="300.0" vgap="5.0">
+                  <GridPane fx:id="tableGrid" alignment="TOP_CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="125.0" minWidth="125.0" prefHeight="600.0" prefWidth="300.0" vgap="5.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -53,12 +53,12 @@
                         </TableView>
                         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="195.0" spacing="5.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="214.0" style="-fx-background-color: darkblue;" text="Añadir factura" textFill="#eee7e7">
+                              <JFXButton fx:id="addInvoice" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="214.0" style="-fx-background-color: darkblue;" text="Añadir factura" textFill="#eee7e7">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="224.0" style="-fx-background-color: darkblue;" text="Eliminar factura" textFill="#eee7e7">
+                              <JFXButton fx:id="delInvoice" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="224.0" style="-fx-background-color: darkblue;" text="Eliminar factura" textFill="#eee7e7">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -72,9 +72,9 @@
                   </GridPane>
                   <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="20.0">
                      <children>
-                        <JFXButton maxWidth="1.7976931348623157E308" text=" ">
+                        <JFXButton fx:id="leftHideBttn" maxWidth="1.7976931348623157E308" text=" ">
                            <graphic>
-                              <ImageView fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="leftHideImage" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/close.png" />
                                  </image>
@@ -194,12 +194,12 @@
                                           <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                        </GridPane.margin>
                                     </JFXBadge>
-                                    <TextField prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: no;" GridPane.columnIndex="1" />
-                                    <TextField style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <TextField style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <TextField style="-fx-background-color: no;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="nameClientTxt" editable="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: no;" GridPane.columnIndex="1" />
+                                    <TextField fx:id="idClientTxt" editable="false" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="directionclientTxt" editable="false" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="cpClientTxt" editable="false" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="emailClientTxt" editable="false" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="tlpClientTxt" editable="false" style="-fx-background-color: no;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                  </children>
                               </GridPane>
                            </children>
@@ -225,7 +225,7 @@
                            </HBox.margin>
                            <children>
                               <Label text="Concepto" />
-                              <TextArea maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="400.0" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;" VBox.vgrow="NEVER" />
+                              <TextArea fx:id="conceptArea" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="478.0" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;" VBox.vgrow="NEVER" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
@@ -247,7 +247,7 @@
                   </HBox>
                   <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="586.0">
                      <children>
-                        <JFXButton contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="30.0" text=" ">
+                        <JFXButton fx:id="addProductBttn" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="30.0" text=" ">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -273,11 +273,11 @@
                      <children>
                         <TableView fx:id="productsTable" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: grey; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
                            <columns>
-                              <TableColumn prefWidth="75.0" style="-fx-background-color: white;" text="Productos" />
-                              <TableColumn prefWidth="75.0" style="-fx-background-color: white;" text="Unidades" />
-                              <TableColumn prefWidth="75.0" style="-fx-background-color: white;" text="Producto" />
-                              <TableColumn prefWidth="75.0" style="-fx-background-color: white;" text="Subtotal" />
-                              <TableColumn prefWidth="75.0" style="-fx-background-color: white;" text="Acciones" />
+                              <TableColumn fx:id="columnProduct" prefWidth="75.0" style="-fx-background-color: white;" text="Productos" />
+                              <TableColumn fx:id="columnUds" prefWidth="75.0" style="-fx-background-color: white;" text="Unidades" />
+                              <TableColumn fx:id="columnPrice" prefWidth="75.0" style="-fx-background-color: white;" text="Producto" />
+                              <TableColumn fx:id="columnSubtotal" prefWidth="75.0" style="-fx-background-color: white;" text="Subtotal" />
+                              <TableColumn fx:id="columnActions" prefWidth="75.0" style="-fx-background-color: white;" text="Acciones" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -373,9 +373,9 @@
                <children>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="20.0" HBox.hgrow="NEVER">
                      <children>
-                        <JFXButton maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="17.0" text=" ">
+                        <JFXButton fx:id="rightHideBttn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="15.0" prefWidth="0.0" text=" ">
                            <graphic>
-                              <ImageView fitHeight="17.0" fitWidth="18.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="rightHideImage" fitHeight="17.0" fitWidth="18.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/close.png" />
                                  </image>
@@ -386,7 +386,7 @@
                   </VBox>
                   <VBox maxHeight="-Infinity" minWidth="125.0" prefHeight="598.0" prefWidth="326.0">
                      <children>
-                        <VBox prefHeight="180.0" prefWidth="368.0">
+                        <VBox fx:id="configurationBox" prefHeight="180.0" prefWidth="368.0">
                            <children>
                               <Label text="Configuración">
                                  <font>
@@ -410,7 +410,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Selección cliente            " textFill="#eee7e7">
+                              <JFXButton fx:id="invoiceStatusBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Estado de factura         " textFill="#eee7e7">
                                  <graphic>
                                     <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -422,12 +422,12 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
-                              <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="263.0" spacing="5.0">
+                              <VBox fx:id="invoiceStatusBox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="263.0" spacing="5.0">
                                  <children>
-                                    <JFXCheckBox text="Creada" />
-                                    <JFXCheckBox text="Pendiente" />
-                                    <JFXCheckBox text="Cobrada" />
-                                    <JFXCheckBox text="Atrasada" />
+                                    <JFXCheckBox fx:id="createdCheck" text="Creada" />
+                                    <JFXCheckBox fx:id="pendingCheck" text="Pendiente" />
+                                    <JFXCheckBox fx:id="chargedCheck" text="Cobrada" />
+                                    <JFXCheckBox fx:id="overdueCheck" text="Atrasada" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
@@ -448,7 +448,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Métodos de pago        " textFill="#eee7e7">
+                              <JFXButton fx:id="clientSelectBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Selección cliente        " textFill="#eee7e7">
                                  <graphic>
                                     <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -460,9 +460,9 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
-                              <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="316.0">
+                              <VBox fx:id="clientSelectBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="316.0">
                                  <children>
-                                    <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS">
+                                    <ComboBox fx:id="clientSelectCombo" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS">
                                        <VBox.margin>
                                           <Insets right="60.0" top="5.0" />
                                        </VBox.margin>
@@ -487,7 +487,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Métodos de pago      " textFill="#eee7e7">
+                              <JFXButton fx:id="paymentMethodBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Métodos de pago      " textFill="#eee7e7">
                                  <graphic>
                                     <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -499,11 +499,11 @@
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
-                              <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="316.0" spacing="5.0">
+                              <VBox fx:id="paymentMethodBox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="316.0" spacing="5.0">
                                  <children>
-                                    <JFXCheckBox text="Efectivo" />
-                                    <JFXCheckBox text="Transferencia bancaria" />
-                                    <JFXCheckBox text="Crédito" />
+                                    <JFXCheckBox fx:id="cashCheck" text="Efectivo" />
+                                    <JFXCheckBox fx:id="bankTransferCheck" text="Transferencia bancaria" />
+                                    <JFXCheckBox fx:id="creditCheck" text="Crédito" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
@@ -524,7 +524,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="56.0" prefWidth="263.0" style="-fx-background-color: darkblue;" text="Generar PDF               " textFill="#eee7e7">
+                              <JFXButton fx:id="generatePDFBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="56.0" prefWidth="263.0" style="-fx-background-color: darkblue;" text="Generar PDF               " textFill="#eee7e7">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

@@ -1,10 +1,19 @@
 package entities;
+<<<<<<< HEAD
 // Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
+=======
+// Generated 30 ene. 2020 8:50:01 by Hibernate Tools 5.2.12.Final
+
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 

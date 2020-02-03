@@ -45,8 +45,7 @@ public class HibernateController {
 		 * Guarda un objeto
 		 */
 		public void save(Object object) {
-			
-					
+								
 				session.clear();
 				
 				session.beginTransaction();
@@ -81,9 +80,7 @@ public class HibernateController {
 		 * Actualiza un objeto
 		 */
 		
-		public void update (Object object) {
-			
-			
+		public void update (Object object) {						
 			
 			session.clear();
 			
@@ -120,7 +117,7 @@ public class HibernateController {
 		public List selectAll(String entityName) {
 			
 			
-			//session.clear();
+			session.clear();
 			
 			session.beginTransaction();
 			

@@ -29,17 +29,17 @@ public class CustomerBean {
 	
 	public CustomerBean(Customer c) {		
 		this.customer = c; 
-		id.set(customer.getId());
-		customerId.set(customer.getCustomerId());
-		name.set(customer.getName());
-		address.set(customer.getAddress());
-		city.set(customer.getCity());
-		country.set(customer.getCountry());
-		email.set(customer.getEmail());
-		phone.set(customer.getPhone());	
-
 		
-		invoices.set(FXCollections.observableArrayList(customer.getInvoices()));
+		try {id.set(customer.getId());}catch (Exception e) {}
+		try {customerId.set(customer.getCustomerId());}catch (Exception e) {}
+		try {name.set(customer.getName());}catch (Exception e) {}
+		try {address.set(customer.getAddress());}catch (Exception e) {}
+		try {city.set(customer.getCity());}catch (Exception e) {}
+		try {country.set(customer.getCountry());}catch (Exception e) {}
+		try {email.set(customer.getEmail());}catch (Exception e) {}
+		try {phone.set(customer.getPhone());	}catch (Exception e) {}			
+		try {invoices.set(FXCollections.observableArrayList(customer.getInvoices()));}catch (Exception e) {}
+				
 
 	}
 	

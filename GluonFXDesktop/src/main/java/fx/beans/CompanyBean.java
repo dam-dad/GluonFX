@@ -1,6 +1,15 @@
 package fx.beans;
 
 import entities.Company;
+<<<<<<< HEAD
+=======
+import entities.Invoice;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
