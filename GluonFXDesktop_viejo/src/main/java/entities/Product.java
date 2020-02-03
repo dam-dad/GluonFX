@@ -1,18 +1,18 @@
 package entities;
-<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Product.java
 // Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
 
-=======
-<<<<<<< HEAD
-// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
-=======
-// Generated 30 ene. 2020 8:50:01 by Hibernate Tools 5.2.12.Final
->>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
->>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Product.java
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,31 +22,13 @@ import javax.persistence.Table;
 @Table(name = "product", catalog = "7057507_administration_db")
 public class Product implements java.io.Serializable {
 
+	private Integer id;
 	private String productId;
 	private String name;
 	private String description;
 	private Double price;
 	private Integer stock;
 	private String url;
-<<<<<<< HEAD
-
-	public Product() {
-	}
-
-	public Product(String productId) {
-		this.productId = productId;
-	}
-
-	public Product(String productId, String name, String description, Double price, Integer stock, String url) {
-		this.productId = productId;
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.stock = stock;
-		this.url = url;
-	}
-
-=======
 	private List<WorkOrderDetail> workOrderDetails = new ArrayList<WorkOrderDetail>(0);
 	private List<BudgetDetail> budgetDetails = new ArrayList<BudgetDetail>(0);
 	private List<InvoiceDetail> invoiceDetails = new ArrayList<InvoiceDetail>(0);
@@ -54,7 +36,6 @@ public class Product implements java.io.Serializable {
 	public Product() {
 	}
 
-<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Product.java
 	public Product(String productId, String name, String description, Double price, Integer stock, String url,
 			List<WorkOrderDetail> workOrderDetails, List<BudgetDetail> budgetDetails, List<InvoiceDetail> invoiceDetails) {
 		this.productId = productId;
@@ -68,15 +49,9 @@ public class Product implements java.io.Serializable {
 		this.invoiceDetails = invoiceDetails;
 	}
 
-=======
-	
->>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
->>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Product.java
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
-<<<<<<< HEAD
-	@Column(name = "product_id", unique = true, nullable = false, length = 30)
-=======
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -87,7 +62,6 @@ public class Product implements java.io.Serializable {
 	}
 
 	@Column(name = "product_id", length = 30)
->>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	public String getProductId() {
 		return this.productId;
 	}
@@ -141,8 +115,6 @@ public class Product implements java.io.Serializable {
 		this.url = url;
 	}
 
-<<<<<<< HEAD
-=======
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 	public List<WorkOrderDetail> getWorkOrderDetails() {
 		return this.workOrderDetails;
@@ -175,47 +147,4 @@ public class Product implements java.io.Serializable {
 		return getName();
 	}
 
-<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Product.java
-=======
-	public final StringProperty name_propProperty() {
-		return this.name_prop;
-	}
-	
-
-	public final StringProperty description_propProperty() {
-		return this.description_prop;
-	}
-	
-	
-	public final DoubleProperty price_propProperty() {
-		return this.price_prop;
-	}
-	
-
-	public final IntegerProperty stock_proProperty() {
-		return this.stock_pro;
-	}
-	
-
-	public final StringProperty url_propProperty() {
-		return this.url_prop;
-	}
-	
-	
-	public final ListProperty<WorkOrderDetail> workOrderDetails_propProperty() {
-		return this.workOrderDetails_prop;
-	}
-	
-
-	public final ListProperty<BudgetDetail> budgetDetails_propProperty() {
-		return this.budgetDetails_prop;
-	}
-	
-
-	public final ListProperty<InvoiceDetail> invoiceDetails_propProperty() {
-		return this.invoiceDetails_prop;
-	}
-	
->>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
->>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Product.java
 }

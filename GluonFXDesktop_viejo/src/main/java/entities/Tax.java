@@ -1,18 +1,18 @@
 package entities;
-<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Tax.java
 // Generated 25 ene. 2020 22:19:24 by Hibernate Tools 5.2.12.Final
 
-=======
-<<<<<<< HEAD
-// Generated 24 ene. 2020 9:53:08 by Hibernate Tools 5.2.12.Final
-=======
-// Generated 30 ene. 2020 8:50:01 by Hibernate Tools 5.2.12.Final
->>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
->>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Tax.java
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,31 +22,17 @@ import javax.persistence.Table;
 @Table(name = "tax", catalog = "7057507_administration_db")
 public class Tax implements java.io.Serializable {
 
+	private Integer id;
 	private String taxId;
 	private Double percentage;
 	private String description;
-<<<<<<< HEAD
-=======
 	private List<Budget> budgets = new ArrayList<Budget>(0);
 	private List<WorkOrder> workOrders = new ArrayList<WorkOrder>(0);
 	private List<Invoice> invoices = new ArrayList<Invoice>(0);
-<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Tax.java
-=======
-	
-	private IntegerProperty id_prop = new SimpleIntegerProperty();
-	private StringProperty taxId_prop = new SimpleStringProperty(); 
-	private DoubleProperty percentage_prop = new SimpleDoubleProperty(); 
-	private StringProperty description_prop = new SimpleStringProperty(); 
-	private ListProperty<Budget> budgets_prop = new SimpleListProperty<>();
-	private ListProperty<WorkOrder> workOrders_prop = new SimpleListProperty<>();
-	private ListProperty<Invoice> invoices_prop = new SimpleListProperty<>();
->>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
->>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Tax.java
 
 	public Tax() {
 	}
 
-<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Tax.java
 	public Tax(String taxId, Double percentage, String description, List<Budget> budgets, List<WorkOrder> workOrders,
 			List<Invoice> invoices) {
 		this.taxId = taxId;
@@ -57,26 +43,9 @@ public class Tax implements java.io.Serializable {
 		this.invoices = invoices;
 	}
 
-=======
-<<<<<<< HEAD
-	public Tax(String taxId) {
-		this.taxId = taxId;
-	}
-
-	public Tax(String taxId, Double percentage, String description) {
-		this.taxId = taxId;
-		this.percentage = percentage;
-		this.description = description;
-	}
-
-=======
->>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
->>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Tax.java
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
-<<<<<<< HEAD
-	@Column(name = "tax_id", unique = true, nullable = false, length = 30)
-=======
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -87,7 +56,6 @@ public class Tax implements java.io.Serializable {
 	}
 
 	@Column(name = "tax_id", length = 30)
->>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 	public String getTaxId() {
 		return this.taxId;
 	}
@@ -114,8 +82,6 @@ public class Tax implements java.io.Serializable {
 		this.description = description;
 	}
 
-<<<<<<< HEAD
-=======
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tax")
 	public List<Budget> getBudgets() {
 		return this.budgets;
@@ -147,9 +113,4 @@ public class Tax implements java.io.Serializable {
 	public String toString() {			
 		return String.valueOf(getPercentage());
 	}
-<<<<<<< HEAD:GluonFXDesktop_viejo/src/main/java/entities/Tax.java
-=======
-	
->>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
->>>>>>> 90b2be75c01262763035c56e8493c45fa000fd63:GluonFXDesktop/src/main/java/entities/Tax.java
 }

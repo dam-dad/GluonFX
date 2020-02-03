@@ -39,23 +39,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.13</version>
 		</dependency>
-		<!-- ITEXT PDF -->
-		<dependency>
-    		<groupId>org.apache.pdfbox</groupId>
-    		<artifactId>pdfbox</artifactId>
-    		<version>2.0.18</version>
-		</dependency>
-		<dependency>
-  			<groupId>com.github.dhorions</groupId>
-  			<artifactId>boxable</artifactId>
-  			<version>1.5</version>
-		</dependency>
-		<dependency>
-    		<groupId>com.itextpdf</groupId>
-    		<artifactId>itextpdf</artifactId>
-    		<version>5.5.13.1</version>
-		</dependency>
-		
 		<!-- JAXB -->
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
@@ -72,10 +55,15 @@
 			<artifactId>jfoenix</artifactId>
 			<version>9.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>dad.javafx</groupId>
+			<artifactId>Componentes</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 	</dependencies>
-	<repositories>
+		<repositories>
 		<repository>
-			<id>Componentes</id>
+			<id>componentes-repo</id>
 			<url>https://github.com/moimah/Componentes/tree/master/repository</url>
 		</repository>
 	</repositories>
