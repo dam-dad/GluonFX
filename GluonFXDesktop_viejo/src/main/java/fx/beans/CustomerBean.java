@@ -1,23 +1,22 @@
 package fx.beans;
 
-
 import entities.Customer;
+<<<<<<< HEAD
+=======
 import entities.Invoice;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
+>>>>>>> dae55e6b1c545256e284754ebc17ecc715251003
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class CustomerBean {
 
-
 	private Customer customer; 
 	
-	private IntegerProperty id = new SimpleIntegerProperty(); 
 	private StringProperty customerId = new SimpleStringProperty(); 
 	private StringProperty name = new SimpleStringProperty(); 
 	private StringProperty address = new SimpleStringProperty(); 
@@ -25,11 +24,9 @@ public class CustomerBean {
 	private StringProperty country = new SimpleStringProperty(); 
 	private StringProperty email = new SimpleStringProperty(); 
 	private StringProperty phone = new SimpleStringProperty(); 
-	private ListProperty<Invoice> invoices = new SimpleListProperty<Invoice>(); 
 	
 	public CustomerBean(Customer c) {		
 		this.customer = c; 
-		id.set(customer.getId());
 		customerId.set(customer.getCustomerId());
 		name.set(customer.getName());
 		address.set(customer.getAddress());
@@ -37,31 +34,11 @@ public class CustomerBean {
 		country.set(customer.getCountry());
 		email.set(customer.getEmail());
 		phone.set(customer.getPhone());	
-
-		
-		invoices.set(FXCollections.observableArrayList(customer.getInvoices()));
-
 	}
 	
 	public Customer getCustomer() {
 		return customer;
 	}
-
-	public final IntegerProperty idProperty() {
-		return this.id;
-	}
-	
-
-	public final int getId() {
-		return this.idProperty().get();
-	}
-	
-
-	public final void setId(final int id) {
-		this.idProperty().set(id);
-		this.customer.setId(id);
-	}
-	
 
 	public final StringProperty customerIdProperty() {
 		return this.customerId;
@@ -75,7 +52,6 @@ public class CustomerBean {
 
 	public final void setCustomerId(final String customerId) {
 		this.customerIdProperty().set(customerId);
-		this.customer.setCustomerId(customerId);
 	}
 	
 
@@ -91,7 +67,6 @@ public class CustomerBean {
 
 	public final void setName(final String name) {
 		this.nameProperty().set(name);
-		this.customer.setName(name);
 	}
 	
 
@@ -107,7 +82,6 @@ public class CustomerBean {
 
 	public final void setAddress(final String address) {
 		this.addressProperty().set(address);
-		this.customer.setAddress(address);
 	}
 	
 
@@ -123,7 +97,6 @@ public class CustomerBean {
 
 	public final void setCity(final String city) {
 		this.cityProperty().set(city);
-		this.customer.setCity(city);
 	}
 	
 
@@ -139,7 +112,7 @@ public class CustomerBean {
 
 	public final void setCountry(final String country) {
 		this.countryProperty().set(country);
-		this.customer.setCountry(country);	}
+	}
 	
 
 	public final StringProperty emailProperty() {
@@ -154,7 +127,6 @@ public class CustomerBean {
 
 	public final void setEmail(final String email) {
 		this.emailProperty().set(email);
-		this.customer.setEmail(email);
 	}
 	
 
@@ -170,31 +142,8 @@ public class CustomerBean {
 
 	public final void setPhone(final String phone) {
 		this.phoneProperty().set(phone);
-		this.customer.setPhone(phone);
 	}
 	
-
-	public final ListProperty<Invoice> invoicesProperty() {
-		return this.invoices;
-	}
-	
-
-	public final ObservableList<Invoice> getInvoices() {
-		return this.invoicesProperty().get();
-	}
-	
-
-	public final void setInvoices(final ObservableList<Invoice> invoices) {
-		this.invoicesProperty().set(invoices);
-		this.customer.setInvoices(invoices);
-	}
-	
-
-	@Override
-	public String toString() {		
-		return getName();
-	}
-
 	
 
 }

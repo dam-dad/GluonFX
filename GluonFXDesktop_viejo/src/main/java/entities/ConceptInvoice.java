@@ -1,4 +1,4 @@
-package com.model.entities;
+package entities;
 // Generated 30 ene. 2020 8:50:01 by Hibernate Tools 5.2.12.Final
 import javax.persistence.Column;
 import javax.persistence.Entity;
