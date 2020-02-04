@@ -248,7 +248,7 @@
                   </HBox>
                   <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="586.0">
                      <children>
-                        <JFXButton fx:id="addProductBttn" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="30.0" text=" ">
+                        <JFXButton fx:id="addProductBttn" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onActionAddDetail" prefHeight="29.0" prefWidth="30.0" text=" ">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

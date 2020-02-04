@@ -10,17 +10,19 @@
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
-		<mapping class="entities.Company" />
-		<mapping class="entities.Customer" />
-		<mapping class="entities.Tax" />
-		<mapping class="entities.PayMethod" />
-		<mapping class="entities.Product" />
-		<mapping class="entities.Concept" />
-		<mapping class="entities.Invoice" />
-		<mapping class="entities.InvoiceDetail" />
-		<mapping class="entities.Budget" />
-		<mapping class="entities.BudgetDetail" />
-		<mapping class="entities.WorkOrder" />
-		<mapping class="entities.WorkOrderDetail" />
+		<mapping class="model.entities.Company" />
+		<mapping class="model.entities.Customer" />
+		<mapping class="model.entities.Tax" />
+		<mapping class="model.entities.PayMethod" />
+		<mapping class="model.entities.Product" />
+		<mapping class="model.entities.ConceptBudget" />
+		<mapping class="model.entities.ConceptInvoice" />
+		<mapping class="model.entities.ConceptWorkOrder" />
+		<mapping class="model.entities.Invoice" />
+		<mapping class="model.entities.InvoiceDetail" />
+		<mapping class="model.entities.Budget" />
+		<mapping class="model.entities.BudgetDetail" />
+		<mapping class="model.entities.WorkOrder" />
+		<mapping class="model.entities.WorkOrderDetail" />
 	</session-factory>
 </hibernate-configuration>
