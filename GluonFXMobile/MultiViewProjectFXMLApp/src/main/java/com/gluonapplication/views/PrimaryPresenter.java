@@ -193,7 +193,9 @@ public class PrimaryPresenter {
 	
 	private Company DEFAULT_COMPANY; 
 	private Tax DEFAULT_TAX;
-
+	private PayMethod DEFAULT_PAY_METHOD;
+	
+	
 	// neccesary
 	HibernateController hibernate = new HibernateController();
 
@@ -857,9 +859,11 @@ public class PrimaryPresenter {
 			listBeans.add(new PayMethodBean(p));
 		}
 
+		DEFAULT_PAY_METHOD = list.get(0);
 		
 		model.setPayMethodsList(FXCollections.observableArrayList(listBeans));
 
+		
 	}
 	
 	
@@ -895,19 +899,10 @@ public class PrimaryPresenter {
 		invoice.setPriceTaxesIncluded(0.0);
 		invoice.setTaxTotal(0.0);
 		invoice.setTax(DEFAULT_TAX);
-		invoice.setStatus(0);
-		invoice.setCompany(DEFAULT_COMPANY);		
-		
-		System.out.println(DEFAULT_TAX.getDescription());
-		
+		invoice.setCompany(DEFAULT_COMPANY);
+		invoice.setPayMethod(DEFAULT_PAY_METHOD);
+		invoice.setStatus(0);		
 		hibernate.save(invoice);
-//		
-//		ConceptInvoice conceptInvoice = new ConceptInvoice();			
-//		conceptInvoice.setDescription("desde hibernate");
-//		conceptInvoice.setPrice(0.0);
-//		conceptInvoice.setInvoice(invoice);
-//		
-//		hibernate.save(conceptInvoice);
 		
 		updateContent();
 		
@@ -939,6 +934,7 @@ public class PrimaryPresenter {
 		selectAllTaxes();
 		selectAllPayMethods();
 		selectAllProducts();
+		selectAllCompanies();
 
 		// After update the content check if invoice was selected and select again
 		if (selected) {

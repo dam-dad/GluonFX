@@ -57,7 +57,7 @@ CONSTRAINT pk_product PRIMARY KEY(id)
 CREATE TABLE invoice(
 id INT AUTO_INCREMENT,
 invoice_number VARCHAR(255) DEFAULT '0',
-company_id INT,
+company_id INT DEFAULT 1,
 customer_id INT,
 invoice_date DATE,
 status int DEFAULT 0,
@@ -181,9 +181,9 @@ DELIMITER //
 CREATE TRIGGER insert_concept_invoice BEFORE INSERT ON concept_invoice
 	FOR EACH ROW
       	BEGIN
-      	      UPDATE invoice SET price = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) + (NEW.price)) WHERE id = NEW.invoice_id;
-                  UPDATE invoice SET tax_total = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM invoice WHERE id = NEW.invoice_id)) / 100) WHERE id = NEW.invoice_id;
-                  UPDATE invoice SET price_taxes_included = ((SELECT price + tax_total FROM invoice WHERE id = NEW.invoice_id)) WHERE id = NEW.invoice_id;
+      		UPDATE invoice SET price = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) + (NEW.price)) WHERE id = NEW.invoice_id;
+            UPDATE invoice SET tax_total = ((SELECT price FROM invoice WHERE id = NEW.invoice_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM invoice WHERE id = NEW.invoice_id)) / 100) WHERE id = NEW.invoice_id;
+            UPDATE invoice SET price_taxes_included = ((SELECT price + tax_total FROM invoice WHERE id = NEW.invoice_id)) WHERE id = NEW.invoice_id;
       	END;
 //
 DELIMITER ;
@@ -192,9 +192,9 @@ DELIMITER //
 CREATE TRIGGER insert_concept_work_order BEFORE INSERT ON concept_work_order
 	FOR EACH ROW
       	BEGIN
-                  UPDATE work_order SET price = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) + (NEW.price)) WHERE id = NEW.work_order_id;
-                  UPDATE work_order SET tax_total = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM work_order WHERE id = NEW.work_order_id)) / 100) WHERE id = NEW.work_order_id;
-                  UPDATE work_order SET price_taxes_included = ((SELECT price + tax_total FROM work_order WHERE id = NEW.work_order_id)) WHERE id = NEW.work_order_id;
+      		UPDATE work_order SET price = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) + (NEW.price)) WHERE id = NEW.work_order_id;
+            UPDATE work_order SET tax_total = ((SELECT price FROM work_order WHERE id = NEW.work_order_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM work_order WHERE id = NEW.work_order_id)) / 100) WHERE id = NEW.work_order_id;
+            UPDATE work_order SET price_taxes_included = ((SELECT price + tax_total FROM work_order WHERE id = NEW.work_order_id)) WHERE id = NEW.work_order_id;
       	END;
 //
 DELIMITER ;
@@ -204,8 +204,8 @@ CREATE TRIGGER insert_concept_budget BEFORE INSERT ON concept_budget
 	FOR EACH ROW
       	BEGIN
       		UPDATE budget SET price = ((SELECT price FROM budget WHERE id = NEW.budget_id) + (NEW.price)) WHERE id = NEW.budget_id;
-                  UPDATE budget SET tax_total = ((SELECT price FROM budget WHERE id = NEW.budget_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM budget WHERE id = NEW.budget_id)) / 100) WHERE id = NEW.budget_id;
-                  UPDATE budget SET price_taxes_included = ((SELECT price + tax_total FROM budget WHERE id = NEW.budget_id)) WHERE id = NEW.budget_id;
+            UPDATE budget SET tax_total = ((SELECT price FROM budget WHERE id = NEW.budget_id) * (SELECT percentage FROM tax WHERE id = (SELECT tax_id FROM budget WHERE id = NEW.budget_id)) / 100) WHERE id = NEW.budget_id;
+            UPDATE budget SET price_taxes_included = ((SELECT price + tax_total FROM budget WHERE id = NEW.budget_id)) WHERE id = NEW.budget_id;
       	END;
 //
 DELIMITER ;
@@ -235,7 +235,7 @@ DELIMITER //
 CREATE TRIGGER insert_work_order_number BEFORE INSERT ON work_order
 	FOR EACH ROW
       	BEGIN
-                  SET NEW.work_order_number = (SELECT CONCAT_WS('','WO',(SELECT YEAR(NEW.work_order_date)), (SELECT LPAD((MONTH(NEW.work_order_date)),2,'0')), (SELECT LPAD((SELECT COUNT(work_order_number) + 1  FROM work_order WHERE YEAR(work_order_date) = YEAR(NEW.work_order_date) AND MONTH(work_order_date) = MONTH(NEW.work_order_date)),4,'0'))));
+            SET NEW.work_order_number = (SELECT CONCAT_WS('','WO',(SELECT YEAR(NEW.work_order_date)), (SELECT LPAD((MONTH(NEW.work_order_date)),2,'0')), (SELECT LPAD((SELECT COUNT(work_order_number) + 1  FROM work_order WHERE YEAR(work_order_date) = YEAR(NEW.work_order_date) AND MONTH(work_order_date) = MONTH(NEW.work_order_date)),4,'0'))));
       	END;
 //
 DELIMITER ;
@@ -274,7 +274,6 @@ CREATE TRIGGER update_work_order BEFORE UPDATE ON work_order_detail
 //
 DELIMITER ;
 
-
 DELIMITER //
 CREATE TRIGGER update_budget BEFORE UPDATE ON budget_detail
       FOR EACH ROW
@@ -286,43 +285,6 @@ CREATE TRIGGER update_budget BEFORE UPDATE ON budget_detail
             END;
 //
 DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER update_detail_tax BEFORE UPDATE ON invoice
-      FOR EACH ROW
-            BEGIN
-                  IF (NEW.tax_id!=(SELECT tax_id FROM invoice WHERE id=NEW.id)) THEN     
-                        SET NEW.tax_total = (OLD.price * (SELECT percentage FROM tax WHERE id = NEW.tax_id) / 100);
-                        SET NEW.price_taxes_included = OLD.price + NEW.tax_total;
-                  END IF;
-            END;
-//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER update_work_order_tax BEFORE UPDATE ON work_order
-      FOR EACH ROW
-            BEGIN                      
-                  IF (NEW.tax_id!=(SELECT tax_id FROM work_order WHERE id=NEW.tax_id)) THEN     
-                        SET NEW.tax_total = (OLD.price * (SELECT percentage FROM tax WHERE id = NEW.tax_id) / 100);
-                        SET NEW.price_taxes_included = OLD.price + NEW.tax_total;
-                  END IF;
-            END;
-//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER update_budget_tax BEFORE UPDATE ON budget
-      FOR EACH ROW
-            BEGIN                      
-                  IF (NEW.tax_id!=(SELECT tax_id FROM budget WHERE id=NEW.tax_id)) THEN     
-                        SET NEW.tax_total = (OLD.price * (SELECT percentage FROM tax WHERE id = NEW.tax_id) / 100);
-                        SET NEW.price_taxes_included = OLD.price + NEW.tax_total;
-                  END IF;
-            END;
-//
-DELIMITER ;
-
 
 DELIMITER //
 CREATE TRIGGER delete_detail AFTER delete ON invoice_detail
