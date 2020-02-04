@@ -39,7 +39,7 @@ jfxmobile {
     }
     android {
         manifest = 'src/android/AndroidManifest.xml'
-        compileSdkVersion = 26
+        compileSdkVersion = '26'
         buildToolsVersion = '26.0.0'
     }
     ios {
@@ -54,3 +54,5 @@ jfxmobile {
         ]
     }
 }
+
+

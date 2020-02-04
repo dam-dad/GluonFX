@@ -453,7 +453,7 @@ public class PrimaryPresenter {
 //		Alert alert = new Alert(AlertType.CONFIRMATION);
 //		alert.setTitle("Eliminar detalle");
 //		alert.setHeaderText("Eliminar detalle");
-//		alert.setContentText("¿Seguro que desea eliminarlo?");
+//		alert.setContentText("Seguro que desea eliminarlo");
 //
 //		Optional<ButtonType> result = alert.showAndWait();
 //		if (result.get() == ButtonType.OK){
@@ -763,7 +763,7 @@ public class PrimaryPresenter {
 			model.getListProducts().clear();
 			model.setListProducts(FXCollections.observableArrayList(listFinded));
 
-			System.out.println("AÑADIDA");
+			System.out.println("ANADIDA");
 
 		} catch (Exception e) {
 
@@ -952,7 +952,7 @@ public class PrimaryPresenter {
 		
 		if(invoice != null) {
 
-			Alert alert = new Alert(AlertType.CONFIRMATION, "¿Desea eliminar el detalle seleccionado?");						
+			Alert alert = new Alert(AlertType.CONFIRMATION, "Desea eliminar el detalle seleccionado");						
 			alert.setGraphic(null);
 			 
 			Optional<ButtonType> result = alert.showAndWait();
@@ -981,7 +981,7 @@ public class PrimaryPresenter {
 		
 		if(invoiceDetail != null) {
 			
-			Alert alert = new Alert(AlertType.CONFIRMATION, "¿Desea eliminar el detalle seleccionado?");						
+			Alert alert = new Alert(AlertType.CONFIRMATION, "Desea eliminar el detalle seleccionado");						
 			alert.setGraphic(null);
 			 
 			Optional<ButtonType> result = alert.showAndWait();
