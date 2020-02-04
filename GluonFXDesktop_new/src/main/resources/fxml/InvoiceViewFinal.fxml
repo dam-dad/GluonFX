@@ -329,7 +329,7 @@
                                     <Insets right="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <JFXComboBox fx:id="taxCombo" focusColor="#d9d6d6" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="72.0" promptText="IVA" style="-fx-border-color: grey; -fx-border-radius: 10;" unFocusColor="#d9d6d6" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                              <JFXComboBox fx:id="taxCombo" focusColor="#d9d6d6" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="72.0" promptText="IGIC" style="-fx-border-color: grey; -fx-border-radius: 10;" unFocusColor="#d9d6d6" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
