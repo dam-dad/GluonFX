@@ -86,6 +86,8 @@ public class PrimaryModel {
 	
 	
 	private ListProperty<CustomerBean> listCustomers = new SimpleListProperty<>(); 
+	
+	private ListProperty<CompanyBean> listCompanies = new SimpleListProperty<>();
 
 	public final ListProperty<InvoiceBean> listInvoicesProperty() {
 		return this.listInvoices;
@@ -557,6 +559,24 @@ public class PrimaryModel {
 	public final void setListCustomers(final ObservableList<CustomerBean> listCustomers) {
 		this.listCustomersProperty().set(listCustomers);
 	}
+
+
+	public final ListProperty<CompanyBean> listCompaniesProperty() {
+		return this.listCompanies;
+	}
+	
+
+
+	public final ObservableList<CompanyBean> getListCompanies() {
+		return this.listCompaniesProperty().get();
+	}
+	
+
+
+	public final void setListCompanies(final ObservableList<CompanyBean> listCompanies) {
+		this.listCompaniesProperty().set(listCompanies);
+	}
+	
 	
 	
 	

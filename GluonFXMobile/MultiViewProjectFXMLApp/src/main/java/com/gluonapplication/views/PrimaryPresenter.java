@@ -4,9 +4,15 @@ import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.sound.midi.Soundbank;
+
+import org.hibernate.mapping.Array;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.Alert;
@@ -14,6 +20,7 @@ import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.Dialog;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import com.model.beans.CompanyBean;
 import com.model.beans.CustomerBean;
 import com.model.beans.InvoiceBean;
 import com.model.beans.InvoiceDetailBean;
@@ -21,6 +28,7 @@ import com.model.beans.PayMethodBean;
 import com.model.beans.PrimaryModel;
 import com.model.beans.ProductBean;
 import com.model.beans.TaxBean;
+import com.model.entities.Company;
 import com.model.entities.ConceptInvoice;
 import com.model.entities.Customer;
 import com.model.entities.Invoice;
@@ -182,7 +190,9 @@ public class PrimaryPresenter {
 	// Model
 	private PrimaryModel model = new PrimaryModel();
 	private InvoiceBean invoiceMaster; // Is the selected invoice in the model, but is easy to work this injected object
-										
+	
+	private Company DEFAULT_COMPANY; 
+	private Tax DEFAULT_TAX;
 
 	// neccesary
 	HibernateController hibernate = new HibernateController();
@@ -277,6 +287,36 @@ public class PrimaryPresenter {
 		textFieldFormmater(txtQuantity);
 		txtQuantity.textProperty().addListener((o, ov, nv) -> onQuantityChanged(ov, nv));
 		
+		tableInvoices.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+
+			long startTime;
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+					
+					startTime = System.currentTimeMillis();
+						
+				} else if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
+
+					if (System.currentTimeMillis() - startTime > 1 * 800) {
+
+						deleteInvoice();
+
+					} else {
+						
+						System.out.println(startTime);
+						System.out.println("Pressed for " + (System.currentTimeMillis() - startTime) + " milliseconds");
+					}
+
+				}
+			}
+		});
+
+		
+		
+		
+		
 		
 		//tableDetails.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> onDetailSelected(nv));
 		//tableDetails.onMouseClickedProperty().addListener((o, ov, nv) -> onMousePressed(nv));
@@ -285,41 +325,33 @@ public class PrimaryPresenter {
 	
 		tableDetails.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
 
-	        long startTime;
+			long startTime;
 
-	        @Override
-	        public void handle(MouseEvent event) {
-	            if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
-	                startTime = System.currentTimeMillis();
-	            } else if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
-	                if (System.currentTimeMillis() - startTime > 1 * 1500) {
-	                    //Call dialog
-	                	deleteDetail();
-	                	
-	                	
-	                } else
-	                    System.out.println("Pressed for " + (System.currentTimeMillis() - startTime) + " milliseconds");
-	            }
-	        }
-	    });
-		
-	}
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+					
+					startTime = System.currentTimeMillis();
+						
+				} else if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
 
+					if (System.currentTimeMillis() - startTime > 1 * 800) {
 
+						deleteDetail();
 
-	private void onMousePressed(EventHandler<? super MouseEvent> nv) {
+					} else {
+						
+						System.out.println(startTime);
+						System.out.println("Pressed for " + (System.currentTimeMillis() - startTime) + " milliseconds");
+					}
 
-		System.out.println("HOLAAAAAAAAAAAAAAA");
-		
-		long startTime = System.currentTimeMillis();
-		if (System.currentTimeMillis() - startTime > 2 * 1000) {
-			System.out.println(
-					"Pressed for at least 2 seconds (" + (System.currentTimeMillis() - startTime) + " milliseconds)");
-		} else {
-			System.out.println("Pressed for " + (System.currentTimeMillis() - startTime) + " milliseconds");
-		}
+				}
+			}
+		});
 
 	}
+
+
 
 
 
@@ -339,6 +371,7 @@ public class PrimaryPresenter {
 		model.setCustomerName("");
 		model.setCustomerAddress("");
 		model.setCustomerPhone("");
+		model.setCustomerNIF("");
 		model.setConceptDescription("");
 
 		// Set customer information
@@ -617,11 +650,7 @@ public class PrimaryPresenter {
 	@FXML
 	void onClickBtnNewInvoice(ActionEvent event) {
 		
-		Invoice invoice = new Invoice();
-		invoice.setInvoiceDate(new java.util.Date());
-		
-		hibernate.save(invoice);
-		updateContent();
+		createNewInvoice();
 		
 	}
 	
@@ -801,7 +830,8 @@ public class PrimaryPresenter {
 		for (Tax t : list) {
 			listBeans.add(new TaxBean(t));
 		}
-
+		
+		DEFAULT_TAX = list.get(0);
 		model.setListTaxes(FXCollections.observableArrayList(listBeans));
 
 	}
@@ -827,9 +857,64 @@ public class PrimaryPresenter {
 			listBeans.add(new PayMethodBean(p));
 		}
 
+		
 		model.setPayMethodsList(FXCollections.observableArrayList(listBeans));
 
 	}
+	
+	
+	public void selectAllCompanies() {
+		
+		List<Company> list = hibernate.selectAll("Company");
+		List<CompanyBean> listBeans = new ArrayList<>();
+		
+		for(Company c : list) {
+			listBeans.add(new CompanyBean(c));			
+		}
+		
+		DEFAULT_COMPANY = list.get(0);
+		model.setListCompanies(FXCollections.observableArrayList(listBeans));
+		
+		
+		
+		
+	}
+	
+	
+	
+	public void createNewInvoice() {
+		
+		Invoice invoice = new Invoice();
+		
+		Date today = Calendar.getInstance().getTime();
+		invoice.setInvoiceDate(today);		
+			
+		invoice.setInvoiceDate(new Date());	
+		invoice.setConceptId(1);
+		invoice.setPrice(0.0);
+		invoice.setPriceTaxesIncluded(0.0);
+		invoice.setTaxTotal(0.0);
+		invoice.setTax(DEFAULT_TAX);
+		invoice.setStatus(0);
+		invoice.setCompany(DEFAULT_COMPANY);		
+		
+		System.out.println(DEFAULT_TAX.getDescription());
+		
+		hibernate.save(invoice);
+//		
+//		ConceptInvoice conceptInvoice = new ConceptInvoice();			
+//		conceptInvoice.setDescription("desde hibernate");
+//		conceptInvoice.setPrice(0.0);
+//		conceptInvoice.setInvoice(invoice);
+//		
+//		hibernate.save(conceptInvoice);
+		
+		updateContent();
+		
+	}
+	
+	
+	
 
 	public void updateContent() {
 
@@ -860,6 +945,35 @@ public class PrimaryPresenter {
 			tableInvoices.getSelectionModel().select(selectedIndex);
 		}
 
+	}
+	
+	
+	public void deleteInvoice() {
+		
+		Invoice invoice = null;
+		
+		try {
+			
+			invoice = invoiceMaster.getInvoice();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		if(invoice != null) {
+
+			Alert alert = new Alert(AlertType.CONFIRMATION, "¿Desea eliminar el detalle seleccionado?");						
+			alert.setGraphic(null);
+			 
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){				
+			    hibernate.delete(invoice);
+			    updateContent();
+			} else {
+			  
+			}
+		}
+		
 	}
 	
 	

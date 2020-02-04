@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -84,8 +85,15 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
-		this.id_prop.set(id);
+		try {
+			
+			this.id = id;
+			this.id_prop.set(id);
+			
+		} catch (Exception e) {
+			
+		}
+		
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -95,8 +103,12 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setCompany(Company company) {
-		this.company = company;
-		this.company_prop.set(company);
+		try {
+			this.company = company;
+			this.company_prop.set(company);
+		} catch (Exception e) {		
+		}
+	
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -106,8 +118,13 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setCustomer(Customer customer) {
-		this.customer = customer;
-		this.customer_prop.set(customer);
+		try {
+			this.customer = customer;
+			this.customer_prop.set(customer);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -119,8 +136,13 @@ public class Invoice implements java.io.Serializable {
 
 	
 	public void setPayMethod(PayMethod payMethod) {
-		this.payMethod = payMethod;
-		this.payMethod_prop.set(payMethod);
+		try {
+			this.payMethod = payMethod;
+			this.payMethod_prop.set(payMethod);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -130,8 +152,13 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setTax(Tax tax) {
-		this.tax = tax;
-		this.tax_prop.set(tax);
+		try {
+			this.tax = tax;
+			this.tax_prop.set(tax);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	@Column(name = "invoice_number")
@@ -140,8 +167,13 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setInvoiceNumber(String invoiceNumber) {
-		this.invoiceNumber = invoiceNumber;
-		this.invoiceNumber_prop.set(invoiceNumber);
+		try {
+			this.invoiceNumber = invoiceNumber;
+			this.invoiceNumber_prop.set(invoiceNumber);			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	
@@ -153,8 +185,13 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setInvoiceDate(Date invoiceDate) {
-		this.invoiceDate = invoiceDate;
-		this.invoiceDate_prop.set(localDateToDateConverter(invoiceDate));
+		try {
+			this.invoiceDate = invoiceDate;
+			this.invoiceDate_prop.set(localDateToDateConverter(invoiceDate));			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	@Column(name = "status")
@@ -163,8 +200,13 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setStatus(Integer status) {
-		this.status = status;
-		this.status_prop.set(status);
+		try {
+			this.status = status;
+			this.status_prop.set(status);			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	
@@ -175,8 +217,13 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setConceptId(Integer conceptId) {
-		this.conceptId = conceptId;
-		this.conceptId_prop.set(conceptId);
+		try {
+			this.conceptId = conceptId;
+			this.conceptId_prop.set(conceptId);			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	@Column(name = "price", precision = 22, scale = 0)
@@ -185,8 +232,13 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setPrice(Double price) {
-		this.price = price;
-		this.price_prop.set(price);
+		try {
+			this.price = price;
+			this.price_prop.set(price);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	@Column(name = "tax_total", precision = 22, scale = 0)
@@ -195,8 +247,13 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setTaxTotal(Double taxTotal) {
-		this.taxTotal = taxTotal;
-		this.taxTotal_prop.set(taxTotal);
+		try {
+			this.taxTotal = taxTotal;
+			this.taxTotal_prop.set(taxTotal);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	
@@ -208,33 +265,48 @@ public class Invoice implements java.io.Serializable {
 	}
 
 	public void setPriceTaxesIncluded(Double priceTaxesIncluded) {
-		this.priceTaxesIncluded = priceTaxesIncluded;
-		this.priceTaxesIncluded_prop.set(priceTaxesIncluded);
+		try {
+			this.priceTaxesIncluded = priceTaxesIncluded;
+			this.priceTaxesIncluded_prop.set(priceTaxesIncluded);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice", cascade = CascadeType.ALL)
 	public List<ConceptInvoice> getConceptInvoices() {
 		return this.conceptInvoices;
 	}
 
 	public void setConceptInvoices(List<ConceptInvoice> conceptInvoices) {
-		this.conceptInvoices = conceptInvoices;
-		this.conceptInvoices_prop.set(FXCollections.observableArrayList(conceptInvoices));
+		try {
+			this.conceptInvoices = conceptInvoices;
+			this.conceptInvoices_prop.set(FXCollections.observableArrayList(conceptInvoices));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice", cascade = CascadeType.ALL)
 	public List<InvoiceDetail> getInvoiceDetails() {
 		return this.invoiceDetails;
 	}
 		
 
 	public void setInvoiceDetails(List<InvoiceDetail> invoiceDetails) {
-		this.invoiceDetails = invoiceDetails;
-		this.invoiceDetails_prop.set(FXCollections.observableArrayList(invoiceDetails));
+		try {
+			this.invoiceDetails = invoiceDetails;
+			this.invoiceDetails_prop.set(FXCollections.observableArrayList(invoiceDetails));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	
@@ -245,69 +317,13 @@ public class Invoice implements java.io.Serializable {
 		return dateA;
 	}
 	
-	//JavaFX getters y setters
-
+	
 	public Date dateToLocalDateConverter(LocalDate localDate) {
 		Date dateA = java.sql.Date.valueOf(localDate);
 		return dateA;
 	}
 
-	public final IntegerProperty id_propProperty() {
-		return this.id_prop;
-	}
-	
-	public final ObjectProperty<Company> company_propProperty() {
-		return this.company_prop;
-	}
-	
-	public final ObjectProperty<Customer> customer_propProperty() {
-		return this.customer_prop;
-	}
-	
-	public final ObjectProperty<PayMethod> payMethod_propProperty() {
-		return this.payMethod_prop;
-	}
-	
-	public final ObjectProperty<Tax> tax_propProperty() {
-		return this.tax_prop;
-	}
-	
-	public final StringProperty invoiceNumber_propProperty() {
-		return this.invoiceNumber_prop;
-	}
-	
-	public final ObjectProperty<LocalDate> invoiceDate_propProperty() {
-		return this.invoiceDate_prop;
-	}
-	
-	public final IntegerProperty status_propProperty() {
-		return this.status_prop;
-	}
-	
-	public final IntegerProperty conceptId_propProperty() {
-		return this.conceptId_prop;
-	}
-	
-	public final DoubleProperty price_propProperty() {
-		return this.price_prop;
-	}
-	
-	public final DoubleProperty taxTotal_propProperty() {
-		return this.taxTotal_prop;
-	}
-	
-	public final DoubleProperty priceTaxesIncluded_propProperty() {
-		return this.priceTaxesIncluded_prop;
-	}
-	
-	public final ListProperty<ConceptInvoice> conceptInvoices_propProperty() {
-		return this.conceptInvoices_prop;
-	}
-	
-	public final ListProperty<InvoiceDetail> invoiceDetails_propProperty() {
-		return this.invoiceDetails_prop;
-	}
-	
+		
 	
 
 }
