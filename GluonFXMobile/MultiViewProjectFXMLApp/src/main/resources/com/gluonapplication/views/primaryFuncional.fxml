@@ -201,25 +201,25 @@
                                                       <Button fx:id="btnSearchProduct" mnemonicParsing="false" onAction="#onClickBtnSearchProduct" text="Buscar" />
                                                    </children>
                                                 </HBox>
-                                                <GridPane layoutX="148.6" layoutY="59.0" prefWidth="159.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="139.5000061035156" AnchorPane.rightAnchor="14.899993896484375" AnchorPane.topAnchor="49.39999999999998">
+                                                <GridPane layoutX="148.6" layoutY="59.0" prefWidth="159.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="139.5000061035156" AnchorPane.rightAnchor="14.899993896484375" AnchorPane.topAnchor="49.39999999999998">
                                                    <columnConstraints>
-                                                      <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" />
+                                                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                                                    </columnConstraints>
                                                    <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" vgrow="NEVER" />
-                                                      <RowConstraints minHeight="10.0" vgrow="NEVER" />
-                                                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" valignment="BOTTOM" vgrow="ALWAYS" />
+                                                      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+                                                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <GridPane gridLinesVisible="true" hgap="5.0" prefHeight="97.0" prefWidth="110.0" vgap="5.0">
+                                                      <GridPane gridLinesVisible="true" hgap="5.0" vgap="5.0">
                                                          <columnConstraints>
-                                                            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="90.0" minWidth="15.0" />
+                                                            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" />
                                                          </columnConstraints>
                                                          <rowConstraints>
-                                                            <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                                                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                          </rowConstraints>
                                                          <children>
-                                                            <ImageView fx:id="imgProduct" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                                                            <ImageView fx:id="imgProduct" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
                                                                <image>
                                                                   <Image url="@GOPR6775.JPG" />
                                                                </image>
@@ -232,9 +232,9 @@
                                                             <TextArea fx:id="txtProductDescription" prefHeight="75.0" prefWidth="159.0" />
                                                          </children>
                                                       </VBox>
-                                                      <VBox alignment="BOTTOM_RIGHT" minHeight="10.0" spacing="5.0" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
+                                                      <VBox alignment="TOP_RIGHT" minHeight="10.0" spacing="5.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
                                                          <children>
-                                                            <HBox prefHeight="25.0" prefWidth="155.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                                                            <HBox alignment="CENTER" prefHeight="25.0" prefWidth="155.0" spacing="5.0">
                                                                <children>
                                                                   <VBox>
                                                                      <children>
@@ -244,17 +244,13 @@
                                                                   <TextField fx:id="txtUdsStock" disable="true" prefHeight="25.0" prefWidth="53.0" />
                                                                </children>
                                                             </HBox>
-                                                            <VBox alignment="BOTTOM_RIGHT" prefHeight="0.0" prefWidth="120.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                                                            <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="155.0" spacing="5.0" VBox.vgrow="NEVER">
                                                                <children>
-                                                                  <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="155.0" spacing="5.0" VBox.vgrow="NEVER">
-                                                                     <children>
-                                                                        <Label prefHeight="17.0" prefWidth="102.0" text="Cantidad" />
-                                                                        <TextField fx:id="txtQuantity" prefHeight="25.0" prefWidth="53.0" />
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <Button fx:id="btnAddDetail" mnemonicParsing="false" onAction="#onClickBtnAddDetail" text="Añadir" />
+                                                                  <Label prefHeight="17.0" prefWidth="102.0" text="Cantidad" />
+                                                                  <TextField fx:id="txtQuantity" prefHeight="25.0" prefWidth="53.0" />
                                                                </children>
-                                                            </VBox>
+                                                            </HBox>
+                                                            <Button fx:id="btnAddDetail" mnemonicParsing="false" onAction="#onClickBtnAddDetail" text="Añadir" />
                                                          </children>
                                                       </VBox>
                                                    </children>

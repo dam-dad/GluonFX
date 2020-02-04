@@ -246,9 +246,9 @@
                                                             </HBox>
                                                             <VBox alignment="BOTTOM_RIGHT" prefHeight="0.0" prefWidth="120.0" spacing="5.0" VBox.vgrow="ALWAYS">
                                                                <children>
-                                                                  <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="155.0" spacing="5.0" VBox.vgrow="NEVER">
+                                                                  <HBox alignment="CENTER_RIGHT" prefHeight="25.0" spacing="5.0" VBox.vgrow="NEVER">
                                                                      <children>
-                                                                        <Label prefHeight="17.0" prefWidth="102.0" text="Cantidad" />
+                                                                        <Label prefHeight="17.0" text="Cantidad" />
                                                                         <TextField fx:id="txtQuantity" prefHeight="25.0" prefWidth="53.0" />
                                                                      </children>
                                                                   </HBox>
