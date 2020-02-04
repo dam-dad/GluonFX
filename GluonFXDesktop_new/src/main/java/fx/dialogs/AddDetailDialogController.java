@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import dad.javafx.componentes.TextDecimal;
-import entities.Invoice;
-import entities.InvoiceDetail;
-import entities.Product;
-import fx.beans.InvoiceBean;
-import fx.beans.InvoiceDetailBean;
-import fx.beans.ProductBean;
+import model.entities.Invoice;
+import model.entities.InvoiceDetail;
+import model.entities.Product;
+import model.beans.InvoiceBean;
+import model.beans.InvoiceDetailBean;
+import model.beans.ProductBean;
 
 public class AddDetailDialogController extends Dialog<AddDetailDialogModel> implements Initializable{
 	@FXML
