@@ -14,6 +14,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -424,10 +425,14 @@
                               </JFXButton>
                               <VBox fx:id="invoiceStatusBox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="263.0" spacing="5.0">
                                  <children>
-                                    <JFXRadioButton fx:id="createdRadius" />
-                                    <JFXRadioButton fx:id="pendingRadius" />
-                                    <JFXRadioButton fx:id="chargedRadius" />
-                                    <JFXRadioButton fx:id="overdueRadius" />
+                                    <JFXRadioButton fx:id="createdRadius" text="Creada">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="statusToggle" />
+                                       </toggleGroup>
+                                    </JFXRadioButton>
+                                    <JFXRadioButton fx:id="pendingRadius" text="Pendiente" toggleGroup="$statusToggle" />
+                                    <JFXRadioButton fx:id="chargedRadius" text="Cargada" toggleGroup="$statusToggle" />
+                                    <JFXRadioButton fx:id="overdueRadius" text="Atrasada" toggleGroup="$statusToggle" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
@@ -501,9 +506,13 @@
                               </JFXButton>
                               <VBox fx:id="paymentMethodBox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="316.0" spacing="5.0">
                                  <children>
-                                    <JFXRadioButton fx:id="cashRadius" text="Efectivo" />
-                                    <JFXRadioButton fx:id="bankTransferRadius" text="Transferencia bancaria" />
-                                    <JFXRadioButton fx:id="creditRadius" text="Crédito" />
+                                    <JFXRadioButton fx:id="cashRadius" text="Efectivo">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="methodToggle" />
+                                       </toggleGroup>
+                                    </JFXRadioButton>
+                                    <JFXRadioButton fx:id="bankTransferRadius" text="Transferencia bancaria" toggleGroup="$methodToggle" />
+                                    <JFXRadioButton fx:id="creditRadius" text="Crédito" toggleGroup="$methodToggle" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
