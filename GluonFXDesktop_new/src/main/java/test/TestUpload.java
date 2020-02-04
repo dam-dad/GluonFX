@@ -2,7 +2,7 @@ package test;
 
 import java.io.File;
 
-import entities.Product;
+import model.entities.Product;
 import utils.ProductUtil;
 
 public class TestUpload {

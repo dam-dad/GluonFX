@@ -1,8 +1,8 @@
 package fx.dialogs;
 
-import entities.Product;
-import fx.beans.InvoiceDetailBean;
-import fx.beans.ProductBean;
+import model.entities.Product;
+import model.beans.InvoiceDetailBean;
+import model.beans.ProductBean;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;

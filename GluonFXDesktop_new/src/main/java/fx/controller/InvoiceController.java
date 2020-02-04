@@ -2,10 +2,12 @@ package fx.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.Format;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -13,22 +15,34 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
-import entities.Company;
-import entities.Customer;
-import entities.Invoice;
-import entities.Product;
-import fx.beans.CompanyBean;
-import fx.beans.CustomerBean;
-import fx.beans.InvoiceBean;
-import fx.beans.ProductBean;
+import fx.dialogs.AddDetailDialogController;
+import fx.dialogs.AddDetailDialogModel;
+import model.entities.Company;
+import model.entities.Customer;
+import model.entities.Invoice;
+import model.entities.InvoiceDetail;
+import model.entities.Product;
+import model.beans.CompanyBean;
+import model.beans.CustomerBean;
+import model.beans.InvoiceBean;
+import model.beans.InvoiceDetailBean;
+import model.beans.ProductBean;
+import model.beans.TaxBean;
 import hibernate.HibernateController;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.css.Size;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -39,8 +53,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.DateStringConverter;
+import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LocalDateStringConverter;
+import javafx.util.converter.NumberStringConverter;
+
 
 public class InvoiceController implements Initializable {
+	Company DEFAULT_COMPANY;
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 	@FXML
 	private VBox view;
@@ -108,8 +129,7 @@ public class InvoiceController implements Initializable {
 	@FXML
 	private JFXButton addProductBttn;
 
-	@FXML
-	private TableView<?> productsTable;
+	
 
 	@FXML
 	private Label productsTotalLbl;
@@ -121,7 +141,7 @@ public class InvoiceController implements Initializable {
 	private Label totalLbl;
 
 	@FXML
-	private JFXComboBox<?> taxCombo;
+	private JFXComboBox<TaxBean> taxCombo;
 
 	@FXML
 	private Label taxPercentageLbl;
@@ -160,7 +180,7 @@ public class InvoiceController implements Initializable {
 	private VBox clientSelectBox;
 
 	@FXML
-	private ComboBox<String> clientSelectCombo;
+	private ComboBox<CustomerBean> clientSelectCombo;
 
 	@FXML
 	private JFXButton paymentMethodBttn;
@@ -179,21 +199,24 @@ public class InvoiceController implements Initializable {
 
 	@FXML
 	private JFXButton generatePDFBttn;
+	
+	@FXML
+	private TableView<InvoiceDetailBean> productsTable;
 
 	@FXML
-	private TableColumn<?, ?> columnProduct;
+	private TableColumn<InvoiceDetailBean, ProductBean> columnProduct;
 
 	@FXML
-	private TableColumn<?, ?> columnUds;
+	private TableColumn<InvoiceDetailBean, Number> columnUds;
 
 	@FXML
-	private TableColumn<?, ?> columnPrice;
+	private TableColumn<InvoiceDetailBean, Number> columnPrice;
 
 	@FXML
-	private TableColumn<?, ?> columnSubtotal;
+	private TableColumn<InvoiceDetailBean, Number> columnSubtotal;
 
 	@FXML
-	private TableColumn<?, ?> columnActions;
+	private TableColumn<InvoiceDetailBean,?> columnActions;
 	
     @FXML
     private HBox leftHideBox;
@@ -283,6 +306,15 @@ public class InvoiceController implements Initializable {
 
 	}
 
+	private void selectAllCompanys() {
+		listCompanies = new ArrayList<CompanyBean>();
+
+		List<Company> list = hibernate.selectAll("Company");
+		
+		DEFAULT_COMPANY= list.get(0);
+
+	}
+
 	/*
 	 * Make a query for get all invoices from bbdd and update the corresponding list
 	 */
@@ -316,7 +348,7 @@ public class InvoiceController implements Initializable {
 			listCustomersNames.add(new CustomerBean(c).getName());
 		}
 
-		clientSelectCombo.setItems(FXCollections.observableArrayList(listCustomersNames));
+		clientSelectCombo.setItems(FXCollections.observableArrayList(listCustomer));
 
 	}
 
@@ -343,20 +375,17 @@ public class InvoiceController implements Initializable {
 
 		masterInvoiceBean = nv;
 
-		calculatePrices();
-
 		try {
 
 			try {
 
 				// Set everything at start position
-				dateTxt.setText(LocalDate.now().toString());
+				dateTxt.setText(masterInvoiceBean.getInvoiceDate().toString());
 				invoiceIDTxt.setText("");
 				totalLbl.setText("0");
 				taxLbl.setText("0");
 				taxPercentageLbl.setText("0");
 				totalLbl.setText("0");
-				lblTaxID.setText("Impuesto");
 				conceptArea.setText("");
 				priceTxt.setText("");
 
@@ -373,14 +402,13 @@ public class InvoiceController implements Initializable {
 					productsTotalLbl.textProperty().unbindBidirectional(masterInvoiceBean.priceProperty());
 				} catch (Exception e) {
 				}
-				}
+				
 				try {
 					taxLbl.textProperty().unbindBidirectional(masterInvoiceBean.taxTotalProperty());
 				} catch (Exception e) {
 				}
 				try {
-					totalLbl.textProperty()
-							.unbindBidirectional(masterInvoiceBean.priceTaxesIncludedProperty());
+					totalLbl.textProperty().unbindBidirectional(masterInvoiceBean.priceTaxesIncludedProperty());
 				} catch (Exception e) {
 				}
 				try {
@@ -388,7 +416,7 @@ public class InvoiceController implements Initializable {
 				} catch (Exception e) {
 				}
 				try {
-					tableDetails.itemsProperty().unbindBidirectional(masterInvoiceBean.invoiceDetailsProperty());
+					productsTable.itemsProperty().unbindBidirectional(masterInvoiceBean.invoiceDetailsProperty());
 				} catch (Exception e) {
 				}
 				try {
@@ -404,16 +432,15 @@ public class InvoiceController implements Initializable {
 				} catch (Exception e) {
 				}
 				try {
-					lblTaxID.textProperty().unbindBidirectional(masterInvoiceBean.getTax().taxIdProperty());
+					taxLbl.textProperty().unbindBidirectional(masterInvoiceBean.taxTotalProperty());
 				} catch (Exception e) {
 				}
 				try {
-					conceptArea.textProperty().unbindBidirectional(masterInvoiceBean.getconcep);
+					conceptArea.textProperty().unbindBidirectional(masterInvoiceBean.getConceptInvoices().get(0).getDescription());
 				} catch (Exception e) {
 				}
 				try {
-					Bindings.unbindBidirectional(txtPrecio.textProperty(),
-							masterInvoiceBean.getConceptId().priceProperty());
+					Bindings.unbindBidirectional(priceTxt.textProperty(),masterInvoiceBean.getConceptInvoices().get(0).priceProperty());
 				} catch (Exception e) {
 				}
 
@@ -422,69 +449,50 @@ public class InvoiceController implements Initializable {
 			}
 
 			// Bindings
+			
 			try {
-				dateInvoice.valueProperty().bindBidirectional(masterInvoiceBean.invoiceDateProperty());
+				invoiceIDTxt.textProperty().bindBidirectional(masterInvoiceBean.invoiceNumberProperty());
 			} catch (Exception e) {
 			}
 			try {
-				txtInvoiceNumber.textProperty().bindBidirectional(masterInvoiceBean.invoiceNumberProperty());
+				Bindings.bindBidirectional(productsTotalLbl.textProperty(), masterInvoiceBean.priceProperty(), new NumberStringConverter());
+				
 			} catch (Exception e) {
 			}
 			try {
-				txtTotal.decimalProperty().bindBidirectional(masterInvoiceBean.priceProperty());
+				Bindings.bindBidirectional(totalLbl.textProperty(), masterInvoiceBean.priceTaxesIncludedProperty(), new NumberStringConverter());	
+				
 			} catch (Exception e) {
 			}
 			try {
-				txtPrice.decimalProperty().bindBidirectional(masterInvoiceBean.priceProperty());
+				Bindings.bindBidirectional(taxLbl.textProperty(), masterInvoiceBean.taxTotalProperty(), new NumberStringConverter());
 			} catch (Exception e) {
 			}
 			try {
-				txtPriceTaxIncluded.decimalProperty().bindBidirectional(masterInvoiceBean.priceTaxesIncludedProperty());
+				Bindings.bindBidirectional(taxPercentageLbl.textProperty(), masterInvoiceBean.getTax().percentageProperty(), new NumberStringConverter());
 			} catch (Exception e) {
 			}
 			try {
-				txtTaxTotal.decimalProperty().bindBidirectional(masterInvoiceBean.taxTotalProperty());
+				taxCombo.valueProperty().bindBidirectional(masterInvoiceBean.taxProperty());
 			} catch (Exception e) {
 			}
 			try {
-				txtPercent.decimalProperty().bindBidirectional(masterInvoiceBean.getTax().percentageProperty());
-			} catch (Exception e) {
-			}
-			try {
-				lblTaxID.textProperty().bindBidirectional(masterInvoiceBean.getTax().taxIdProperty());
-			} catch (Exception e) {
-			}
-			try {
-				tableDetails.itemsProperty().bindBidirectional(masterInvoiceBean.invoiceDetailsProperty());
+				productsTable.itemsProperty().bindBidirectional(masterInvoiceBean.invoiceDetailsProperty());
 			} catch (Exception e) {
 			}
 
 			try {
-				txtConcept.textProperty().bindBidirectional(masterInvoiceBean.getConceptId().descriptionProperty());
-				Bindings.bindBidirectional(txtPrecio.textProperty(), masterInvoiceBean.getConceptId().priceProperty(),
-						new NumberStringConverter());
+				conceptArea.textProperty().bindBidirectional(masterInvoiceBean.getConceptInvoices().get(0).descriptionProperty());
+				Bindings.bindBidirectional(priceTxt.textProperty(), masterInvoiceBean.getConceptInvoices().get(0).priceProperty(),new NumberStringConverter());
 			} catch (Exception e) {
 			}
 
 			try {
-				cmbCompany.getSelectionModel().select(masterInvoiceBean.getCompany());
-				masterInvoiceBean.companyProperty().bind(cmbCompany.getSelectionModel().selectedItemProperty());
+				clientSelectCombo.getSelectionModel().select(masterInvoiceBean.getCustomer());
+				masterInvoiceBean.customerProperty().bind(clientSelectCombo.getSelectionModel().selectedItemProperty());
 			} catch (Exception e) {
 			}
 
-			try {
-				cmbCustomer.getSelectionModel().select(masterInvoiceBean.getCustomer());
-				masterInvoiceBean.customerProperty().bind(cmbCustomer.getSelectionModel().selectedItemProperty());
-			} catch (Exception e) {
-			}
-
-			try {
-				cmbStatus.getSelectionModel().select(masterInvoiceBean.getStatus());
-				masterInvoiceBean.statusProperty().bind(cmbStatus.getSelectionModel().selectedIndexProperty());
-			} catch (Exception e) {
-			}
-
-			// calculatePrices();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -511,57 +519,7 @@ public class InvoiceController implements Initializable {
 	/*
 	 * Calculate prices for the current invoice
 	 */
-	public void calculatePrices() {
-
-		System.out.println(
-				"CALCULANDOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-
-		double totalWoTax = 0;
-		double totalTax = 0;
-		double totalTaxIncl = 0;
-
-		try {
-
-			if (masterInvoiceBean.getInvoiceDetails() != null) {
-
-				for (int i = 0; i < masterInvoiceBean.getInvoiceDetails().size(); i++) {
-					totalWoTax += masterInvoiceBean.getInvoiceDetails().get(i).getPrice();
-				}
-
-				totalTax = (totalWoTax * masterInvoiceBean.getTax().getPercentage()) / 100;
-				totalTaxIncl = totalWoTax + totalTax;
-
-				masterInvoiceBean.setPrice(totalWoTax);
-				masterInvoiceBean.setTaxTotal(totalTax);
-				masterInvoiceBean.setPriceTaxesIncluded(totalTaxIncl);
-
-				System.out.println(totalWoTax);
-				System.out.println(totalTax);
-				System.out.println(totalTaxIncl);
-
-				System.out.println("LOS OTROOS");
-
-				System.out.println(masterInvoiceBean.getPrice());
-				System.out.println(masterInvoiceBean.getTaxTotal());
-				System.out.println(masterInvoiceBean.getPriceTaxesIncluded());
-
-				txtPrice.setDecimal(totalWoTax);
-				txtTaxTotal.setDecimal(totalTax);
-				txtPriceTaxIncluded.setDecimal(totalTaxIncl);
-				hibernate.saveOrUpdate(masterInvoiceBean.getInvoice());
-
-//			if(totalWoTax != masterInvoiceBean.getPrice()) {
-//				hibernate.saveOrUpdate(masterInvoiceBean.getInvoice());
-//				updateContent();
-//			}
-
-			}
-
-		} catch (Exception e) {
-
-		}
-
-	}
+	
 
 	@FXML
 	private void onActionAddDetail(ActionEvent event) {
@@ -601,7 +559,7 @@ public class InvoiceController implements Initializable {
 	@FXML
 	private void onActionRemoveDetail(ActionEvent event) {
 
-		if (tableDetails.getSelectionModel().getSelectedItem() != null) {
+		if (productsTable.getSelectionModel().getSelectedItem() != null) {
 
 			int indexInvoiceFocused = tableInvoices.getSelectionModel().getSelectedIndex();
 
@@ -613,7 +571,7 @@ public class InvoiceController implements Initializable {
 
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
-				InvoiceDetail invoiceDetail = tableDetails.getSelectionModel().getSelectedItem().getInvoiceDetail();
+				InvoiceDetail invoiceDetail = productsTable.getSelectionModel().getSelectedItem().getInvoiceDetail();
 
 				hibernate.delete(invoiceDetail);
 

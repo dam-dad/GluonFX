@@ -2,7 +2,7 @@ package test;
 
 import java.util.ArrayList;
 
-import entities.Company;
+import model.entities.Company;
 import hibernate.HibernateController;
 
 public class TestEntities {

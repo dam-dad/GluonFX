@@ -9,7 +9,7 @@ import java.util.Base64;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import entities.Product;
+import model.entities.Product;
 
 public class ProductUtil{
 	
