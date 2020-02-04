@@ -2,8 +2,8 @@
 
 <?import com.jfoenix.controls.JFXBadge?>
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
@@ -25,7 +25,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #B8B4B3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #B8B4B3;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.25292153589315525, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
          <items>
@@ -348,7 +348,7 @@
                               <Label text="€" GridPane.columnIndex="5" />
                               <Label text="€" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                               <Label text="€" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                              <JFXBadge style="-fx-background-color: darkblue; -fx-background-radius: 5;" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                              <JFXBadge style="-fx-background-color: #2196f3; -fx-background-radius: 5;" GridPane.columnSpan="4" GridPane.rowIndex="2">
                                  <children>
                                     <Label text="Total" textFill="WHITE">
                                        <font>
@@ -424,10 +424,10 @@
                               </JFXButton>
                               <VBox fx:id="invoiceStatusBox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="263.0" spacing="5.0">
                                  <children>
-                                    <JFXCheckBox fx:id="createdCheck" text="Creada" />
-                                    <JFXCheckBox fx:id="pendingCheck" text="Pendiente" />
-                                    <JFXCheckBox fx:id="chargedCheck" text="Cobrada" />
-                                    <JFXCheckBox fx:id="overdueCheck" text="Atrasada" />
+                                    <JFXRadioButton fx:id="createdRadius" />
+                                    <JFXRadioButton fx:id="pendingRadius" />
+                                    <JFXRadioButton fx:id="chargedRadius" />
+                                    <JFXRadioButton fx:id="overdueRadius" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
@@ -501,9 +501,9 @@
                               </JFXButton>
                               <VBox fx:id="paymentMethodBox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="316.0" spacing="5.0">
                                  <children>
-                                    <JFXCheckBox fx:id="cashCheck" text="Efectivo" />
-                                    <JFXCheckBox fx:id="bankTransferCheck" text="Transferencia bancaria" />
-                                    <JFXCheckBox fx:id="creditCheck" text="Crédito" />
+                                    <JFXRadioButton fx:id="cashRadius" text="Efectivo" />
+                                    <JFXRadioButton fx:id="bankTransferRadius" text="Transferencia bancaria" />
+                                    <JFXRadioButton fx:id="creditRadius" text="Crédito" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
@@ -524,7 +524,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton fx:id="generatePDFBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="56.0" prefWidth="263.0" style="-fx-background-color: darkblue;" text="Generar PDF               " textFill="#eee7e7">
+                              <JFXButton fx:id="generatePDFBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="56.0" prefWidth="263.0" style="-fx-background-color: #2196f3;" text="Generar PDF               " textFill="#eee7e7">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

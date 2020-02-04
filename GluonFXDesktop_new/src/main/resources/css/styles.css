@@ -1,12 +1,15 @@
-*{
-	-fx-background-color: white;
-}
 
-TableView{
+
+.TableView{
 	-fx-border-color: grey;
 	-fx-border-radius: 10;
 }
 
-TableColumn{
-	-fx-background-color: white;
+.Button{
+	-fx-background-color: blue;
 }
+
+.JFXButton{
+	-fx-background-color: #2196f3;
+}
+
