@@ -38,7 +38,28 @@ jfxmobile {
         plugins 'display', 'lifecycle', 'statusbar', 'storage'
     }
     android {
-        manifest = 'src/android/AndroidManifest.xml'      
+        manifest = 'src/android/AndroidManifest.xml'
+        minSdkVersion = 21   
+        compileSdkVersion = 26
+        buildToolsVersion = '26.0.0' 
+        dexOptions {
+            additionalParameters = ['--minimal-main-dex']
+            keepRuntimeAnnotatedClasses = false
+            javaMaxHeapSize = '4g'
+        }
+       packagingOptions {
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/NOTICE'
+            exclude 'META-INF/NOTICE.txt'  
+            exclude 'META-INF/DEPENDENCIES.txt'
+            exclude 'META-INF/DEPENDENCIES'  
+            pickFirst 'META-INF/LICENSE.txt' 
+            pickFirst 'META-INF/NOTICE.txt' 
+            pickFirst 'META-INF/INDEX.LIST'
+            pickFirst 'META-INF/DEPENDENCIES.txt'
+            pickFirst 'META-INF/DEPENDENCIES'  
+        }  
     }
     ios {
         infoPList = file('src/ios/Default-Info.plist')
