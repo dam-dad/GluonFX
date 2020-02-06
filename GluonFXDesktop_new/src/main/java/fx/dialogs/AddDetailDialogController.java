@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import dad.javafx.componentes.TextDecimal;
 import model.entities.Invoice;
 import model.entities.InvoiceDetail;

@@ -26,7 +26,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #B8B4B3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #B8B4B3;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.25292153589315525, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
          <items>
@@ -44,9 +44,9 @@
                      <children>
                         <TableView fx:id="tableInvoices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: grey; -fx-border-radius: 10;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                            <columns>
-                              <TableColumn fx:id="columnNumeroFactura" prefWidth="75.0" style="-fx-background-color: white;" text="Nº" />
-                              <TableColumn fx:id="columnFecha" prefWidth="75.0" style="-fx-background-color: white;" text="Fecha" />
-                              <TableColumn fx:id="columnCliente" prefWidth="75.0" style="-fx-background-color: white;" text="Cliente" />
+                              <TableColumn fx:id="columnNumeroFactura" prefWidth="75.0" text="Nº" />
+                              <TableColumn fx:id="columnFecha" prefWidth="75.0" text="Fecha" />
+                              <TableColumn fx:id="columnCliente" prefWidth="75.0" text="Cliente" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -54,12 +54,12 @@
                         </TableView>
                         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="195.0" spacing="5.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                            <children>
-                              <JFXButton fx:id="addInvoice" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="214.0" style="-fx-background-color: darkblue;" text="Añadir factura" textFill="#eee7e7">
+                              <JFXButton fx:id="addInvoice" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="214.0" text="Añadir factura" textFill="#eee7e7">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="delInvoice" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="224.0" style="-fx-background-color: darkblue;" text="Eliminar factura" textFill="#eee7e7">
+                              <JFXButton fx:id="delInvoice" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="224.0" text="Eliminar factura" textFill="#eee7e7">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -119,7 +119,7 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </GridPane>
-                        <TextField promptText="Estado factura" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;" />
+                        <TextField fx:id="invoiceStatus" promptText="Estado factura" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -147,7 +147,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: darkblue; -fx-background-radius: 5;" text="">
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="">
                                        <children>
                                           <Label text="Nombre" textFill="WHITE" />
                                        </children>
@@ -155,7 +155,7 @@
                                           <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                        </GridPane.margin>
                                     </JFXBadge>
-                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: darkblue; -fx-background-radius: 5;" text="Nombre" GridPane.rowIndex="3">
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="3">
                                        <children>
                                           <Label text="C.P." textFill="WHITE" />
                                        </children>
@@ -163,7 +163,7 @@
                                           <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                        </GridPane.margin>
                                     </JFXBadge>
-                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: darkblue; -fx-background-radius: 5;" text="Nombre" GridPane.rowIndex="2">
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="2">
                                        <children>
                                           <Label text="Dirección" textFill="WHITE" />
                                        </children>
@@ -171,7 +171,7 @@
                                           <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                        </GridPane.margin>
                                     </JFXBadge>
-                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: darkblue; -fx-background-radius: 5;" text="Nombre" GridPane.rowIndex="1">
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="1">
                                        <children>
                                           <Label text="ID Cliente" textFill="WHITE" />
                                        </children>
@@ -179,7 +179,7 @@
                                           <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                        </GridPane.margin>
                                     </JFXBadge>
-                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: darkblue; -fx-background-radius: 5;" text="Nombre" GridPane.rowIndex="5">
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="5">
                                        <children>
                                           <Label text="Teléfono" textFill="WHITE" />
                                        </children>
@@ -187,7 +187,7 @@
                                           <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                        </GridPane.margin>
                                     </JFXBadge>
-                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: darkblue; -fx-background-radius: 5;" text="Nombre" GridPane.rowIndex="4">
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="4">
                                        <children>
                                           <Label text="Email" textFill="WHITE" />
                                        </children>
@@ -195,11 +195,11 @@
                                           <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                        </GridPane.margin>
                                     </JFXBadge>
-                                    <TextField fx:id="nameClientTxt" editable="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: no;" GridPane.columnIndex="1" />
-                                    <TextField fx:id="idClientTxt" editable="false" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="directionclientTxt" editable="false" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="cpClientTxt" editable="false" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <TextField fx:id="emailClientTxt" editable="false" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="nameClientTxt" editable="false" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="idClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="directionclientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="cpClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="emailClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <TextField fx:id="tlpClientTxt" editable="false" style="-fx-background-color: no;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                  </children>
                               </GridPane>
@@ -274,11 +274,11 @@
                      <children>
                         <TableView fx:id="productsTable" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: grey; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
                            <columns>
-                              <TableColumn fx:id="columnProduct" prefWidth="75.0" style="-fx-background-color: white;" text="Productos" />
-                              <TableColumn fx:id="columnUds" prefWidth="75.0" style="-fx-background-color: white;" text="Unidades" />
-                              <TableColumn fx:id="columnPrice" prefWidth="75.0" style="-fx-background-color: white;" text="Producto" />
-                              <TableColumn fx:id="columnSubtotal" prefWidth="75.0" style="-fx-background-color: white;" text="Subtotal" />
-                              <TableColumn fx:id="columnActions" prefWidth="75.0" style="-fx-background-color: white;" text="Acciones" />
+                              <TableColumn fx:id="columnProduct" prefWidth="75.0" text="Productos" />
+                              <TableColumn fx:id="columnUds" prefWidth="75.0" text="Unidades" />
+                              <TableColumn fx:id="columnPrice" prefWidth="75.0" text="Producto" />
+                              <TableColumn fx:id="columnSubtotal" prefWidth="75.0" text="Subtotal" />
+                              <TableColumn fx:id="columnActions" prefWidth="75.0" text="Acciones" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -329,7 +329,7 @@
                                     <Insets right="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <JFXComboBox fx:id="taxCombo" focusColor="#d9d6d6" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="72.0" promptText="IGIC" style="-fx-border-color: grey; -fx-border-radius: 10;" unFocusColor="#d9d6d6" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                              <JFXComboBox fx:id="taxCombo" focusColor="#d9d6d6" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="72.0" promptText="IGIC" unFocusColor="#d9d6d6" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -349,7 +349,7 @@
                               <Label text="€" GridPane.columnIndex="5" />
                               <Label text="€" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                               <Label text="€" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                              <JFXBadge style="-fx-background-color: darkblue; -fx-background-radius: 5;" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                              <JFXBadge GridPane.columnSpan="4" GridPane.rowIndex="2">
                                  <children>
                                     <Label text="Total" textFill="WHITE">
                                        <font>
@@ -411,7 +411,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton fx:id="invoiceStatusBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Estado de factura         " textFill="#eee7e7">
+                              <JFXButton fx:id="invoiceStatusBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" text="Estado de factura         " textFill="#eee7e7">
                                  <graphic>
                                     <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -453,7 +453,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton fx:id="clientSelectBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Selección cliente        " textFill="#eee7e7">
+                              <JFXButton fx:id="clientSelectBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" text="Selección cliente        " textFill="#eee7e7">
                                  <graphic>
                                     <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -492,7 +492,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton fx:id="paymentMethodBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" style="-fx-background-color: darkblue;" text="Métodos de pago      " textFill="#eee7e7">
+                              <JFXButton fx:id="paymentMethodBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" text="Métodos de pago      " textFill="#eee7e7">
                                  <graphic>
                                     <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -533,7 +533,7 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <JFXButton fx:id="generatePDFBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="56.0" prefWidth="263.0" style="-fx-background-color: darkblue;" text="Generar PDF               " textFill="#eee7e7">
+                              <JFXButton fx:id="generatePDFBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="56.0" prefWidth="263.0" text="Generar PDF               " textFill="#eee7e7">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
