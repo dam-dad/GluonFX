@@ -278,7 +278,6 @@
                               <TableColumn fx:id="columnUds" prefWidth="75.0" text="Unidades" />
                               <TableColumn fx:id="columnPrice" prefWidth="75.0" text="Producto" />
                               <TableColumn fx:id="columnSubtotal" prefWidth="75.0" text="Subtotal" />
-                              <TableColumn fx:id="columnActions" prefWidth="75.0" text="Acciones" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

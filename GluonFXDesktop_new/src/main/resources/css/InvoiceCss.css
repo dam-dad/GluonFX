@@ -52,27 +52,27 @@ Button{
 }
 
 #nameClientTxt{
-	-fx-background-color: no;
+	-fx-background-color: transparent;
 }
 
 #idClientTxt{
-	-fx-background-color: no;
+	-fx-background-color: transparent;
 }
 
 #directionclientTxt{
-	-fx-background-color: no;
+	-fx-background-color: transparent;
 }
 
 #cpClientTxt{
-	-fx-background-color: no;
+	-fx-background-color: transparent;
 }
 
 #emailClientTxt{
-	-fx-background-color: no;
+	-fx-background-color: transparent;
 }
 
 #tlpClientTxt{
-	-fx-background-color: no;
+	-fx-background-color: transparent;
 }
 
 #conceptArea{
@@ -95,40 +95,10 @@ Button{
 #tableInvoices{
 	-fx-border-color: grey;
 	-fx-border-radius: 10;
-	-fx-Text-Fill: black;
+	-fx-text-fill: black;
 }
 
-#columnProduct{
-	-fx-background-color: white;
-}
 
-#columnUds{
-	-fx-background-color: white;
-}
-
-#columnPrice{
-	-fx-background-color: white;
-}
-
-#columnSubtotal{
-	-fx-background-color: white;
-}
-
-#columnActions{
-	-fx-background-color: white;
-}
-
-#columnNumeroFactura{
-	-fx-background-color: white;
-}
-
-#columnFecha{
-	-fx-background-color: white;
-}
-
-#columnCliente{
-	-fx-background-color: white;
-}
 
 #taxCombo{
 	-fx-border-color: grey;
@@ -141,7 +111,7 @@ JFXBadge{
 }
 
 TableColumn{
-	-fx-Text-Fill: black;
+	-fx-text-fill: black;
 }
 
 #clientSelectCombo{
@@ -161,6 +131,30 @@ TableColumn{
 
 #centerVBox{
 	-fx-background-color: white;
+}
+
+#tableInvoices .column-header{
+	-fx-background-color: white;
+}
+
+#tableInvoices .table-cell{
+	-fx-border-width: 0px;
+}
+
+#tableInvoices .table-column {
+-fx-alignment: CENTER;
+}
+
+#productsTable .column-header{
+	-fx-background-color: white;
+}
+
+#productsTable .table-cell{
+	-fx-border-width: 0px;
+}
+
+#productsTable .table-column {
+-fx-alignment: CENTER;
 }
 
 #rightHideBox{
