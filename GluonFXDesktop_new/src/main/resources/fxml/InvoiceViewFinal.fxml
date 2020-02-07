@@ -26,11 +26,11 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #B8B4B3;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" stylesheets="@../css/InvoiceCss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.25292153589315525, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
          <items>
-            <HBox fx:id="leftHideBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="180.0" minWidth="145.0" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: white;">
+            <HBox fx:id="leftHideBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="180.0" minWidth="145.0" prefHeight="600.0" prefWidth="300.0">
                <children>
                   <GridPane fx:id="tableGrid" alignment="TOP_CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="125.0" minWidth="125.0" prefHeight="600.0" prefWidth="300.0" vgap="5.0">
                      <columnConstraints>
@@ -42,7 +42,7 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="NEVER" />
                      </rowConstraints>
                      <children>
-                        <TableView fx:id="tableInvoices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: grey; -fx-border-radius: 10;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        <TableView fx:id="tableInvoices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                            <columns>
                               <TableColumn fx:id="columnNumeroFactura" prefWidth="75.0" text="Nº" />
                               <TableColumn fx:id="columnFecha" prefWidth="75.0" text="Fecha" />
@@ -86,7 +86,7 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
+            <VBox fx:id="centerVBox" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <HBox alignment="CENTER_LEFT" minWidth="400.0" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <children>
@@ -100,7 +100,7 @@
                            </rowConstraints>
                            <children>
                               <Label text="Factura:" />
-                              <TextField fx:id="invoiceIDTxt" disable="true" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;" GridPane.columnIndex="1" />
+                              <TextField fx:id="invoiceIDTxt" disable="true" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                         <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0">
@@ -113,13 +113,13 @@
                            </rowConstraints>
                            <children>
                               <Label text="Fecha:" />
-                              <TextField fx:id="dateTxt" disable="true" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;" GridPane.columnIndex="1" />
+                              <TextField fx:id="dateTxt" disable="true" GridPane.columnIndex="1" />
                            </children>
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
                         </GridPane>
-                        <TextField fx:id="invoiceStatus" promptText="Estado factura" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;" />
+                        <TextField fx:id="invoiceStatus" promptText="Estado factura" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -130,13 +130,13 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                      <children>
-                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="200.0">
+                        <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="150.0" prefWidth="259.0">
                            <children>
                               <Label text="Cliente:" />
-                              <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;">
+                              <GridPane fx:id="clientGrid" maxHeight="-Infinity" prefHeight="120.0" prefWidth="223.0" VBox.vgrow="ALWAYS">
                                  <columnConstraints>
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="119.20001220703125" minWidth="10.0" prefWidth="92.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="156.0" />
                                  </columnConstraints>
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -157,7 +157,7 @@
                                     </JFXBadge>
                                     <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="3">
                                        <children>
-                                          <Label text="C.P." textFill="WHITE" />
+                                          <Label text="País" textFill="WHITE" />
                                        </children>
                                        <GridPane.margin>
                                           <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
@@ -200,7 +200,7 @@
                                     <TextField fx:id="directionclientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="cpClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <TextField fx:id="emailClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <TextField fx:id="tlpClientTxt" editable="false" style="-fx-background-color: no;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="tlpClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                  </children>
                               </GridPane>
                            </children>
@@ -226,7 +226,7 @@
                            </HBox.margin>
                            <children>
                               <Label text="Concepto" />
-                              <TextArea fx:id="conceptArea" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="478.0" style="-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 10;" VBox.vgrow="NEVER" />
+                              <TextArea fx:id="conceptArea" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="478.0" VBox.vgrow="NEVER" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
@@ -235,7 +235,7 @@
                         <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="126.0">
                            <children>
                               <Label text="Precio" />
-                              <JFXTextField fx:id="priceTxt" focusColor="WHITE" style="-fx-background-color: white; -fx-border-radius: 10; -fx-border-color: grey;" unFocusColor="WHITE" />
+                              <JFXTextField fx:id="priceTxt" focusColor="WHITE" unFocusColor="WHITE" />
                            </children>
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -272,7 +272,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TableView fx:id="productsTable" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: grey; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
+                        <TableView fx:id="productsTable" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <columns>
                               <TableColumn fx:id="columnProduct" prefWidth="75.0" text="Productos" />
                               <TableColumn fx:id="columnUds" prefWidth="75.0" text="Unidades" />
@@ -370,7 +370,7 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="145.0" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: white;">
+            <HBox fx:id="rightHideBox" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="145.0" prefHeight="600.0" prefWidth="300.0">
                <children>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="20.0" HBox.hgrow="NEVER">
                      <children>
@@ -394,7 +394,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Separator prefWidth="200.0" style="-fx-background-color: black;">
+                              <Separator prefWidth="200.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>

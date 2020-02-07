@@ -32,6 +32,7 @@ import model.beans.TaxBean;
 import hibernate.HibernateController;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -220,6 +221,9 @@ public class InvoiceController implements Initializable {
 
 	@FXML
 	private HBox leftHideBox;
+	
+	@FXML
+    private TextField invoiceStatus;
 
 	// hibernate
 	private HibernateController hibernate;
@@ -391,14 +395,13 @@ public class InvoiceController implements Initializable {
 			try {
 
 				// Set everything at start position
-				dateTxt.setText(masterInvoiceBean.getInvoiceDate().toString());
-				/*invoiceIDTxt.setText("");
-				totalLbl.setText("0");
-				taxLbl.setText("0");
-				taxPercentageLbl.setText("0");
-				totalLbl.setText("0");
-				conceptArea.setText("");
-				priceTxt.setText("");*/
+//				invoiceIDTxt.setText("");
+//				totalLbl.setText("0");
+//				taxLbl.setText("0");
+//				taxPercentageLbl.setText("0");
+//				totalLbl.setText("0");
+//				conceptArea.setText("");
+//				priceTxt.setText("");
 
 				// Unbindings
 				try {
@@ -460,9 +463,21 @@ public class InvoiceController implements Initializable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			try {
+				nameClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().nameProperty());
+				idClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().idProperty());
+				directionclientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().addressProperty());
+				cpClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().cityProperty());
+				emailClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().emailProperty());
+				tlpClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().phoneProperty());
+			}catch(Exception e) {}
+			
+			//Asignación de la nueva factura
 			
 			masterInvoiceBean = nv;
-
+			dateTxt.setText(masterInvoiceBean.getInvoiceDate().toString());
+			//Esto es una solución temporal, una guarrada
+			
 			// Bindings
 
 			try {
@@ -518,6 +533,17 @@ public class InvoiceController implements Initializable {
 				masterInvoiceBean.customerProperty().bind(clientSelectCombo.getSelectionModel().selectedItemProperty());
 			} catch (Exception e) {
 			}
+			//Bindeo cliente
+			try {
+				nameClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().nameProperty());
+				idClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().idProperty(), new NumberStringConverter());
+				directionclientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().addressProperty());
+				cpClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().cityProperty());
+				emailClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().emailProperty());
+				tlpClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().phoneProperty());
+			}catch(Exception e) {}
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -525,17 +551,17 @@ public class InvoiceController implements Initializable {
 	}
 
 
-	/*
-	 * Insert a list of status in the comboStatus
-	 */
-
-
-	public void updateView() {
-
+	private void onClientChanged(CustomerBean nv) {
+		nameClientTxt.setText(nv.getName());
+		idClientTxt.setText(Integer.toString(nv.getId()));
+		directionclientTxt.setText(nv.getAddress());
+		cpClientTxt.setText(nv.getCountry());
+		emailClientTxt.setText(nv.getEmail());
+		tlpClientTxt.setText(nv.getPhone());
 	}
 
 	/*
-	 * Calculate prices for the current invoice
+	 * Insert a list of status in the comboStatus
 	 */
 
 	@FXML
@@ -551,13 +577,18 @@ public class InvoiceController implements Initializable {
 			dialog.chargeProducts(listProducts);
 			Optional<AddDetailDialogModel> result = dialog.showAndWait();
 
-			double quantity = result.get().getCantidad();
-			double priceUnit = result.get().getProductSelected().getProduct().getPrice();
-			invoiceDetail.setInvoice(masterInvoiceBean.getInvoice());
-			invoiceDetail.setProduct(result.get().getProductSelected().getProduct());
-			invoiceDetail.setPrice(quantity*priceUnit);
-			invoiceDetail.setPriceUnit(priceUnit);
-			invoiceDetail.setQuantity(quantity);
+			try {
+				double quantity = result.get().getCantidad();
+				double priceUnit = result.get().getProductSelected().getProduct().getPrice();
+				invoiceDetail.setInvoice(masterInvoiceBean.getInvoice());
+				invoiceDetail.setProduct(result.get().getProductSelected().getProduct());
+				invoiceDetail.setPrice(quantity*priceUnit);
+				invoiceDetail.setPriceUnit(priceUnit);
+				invoiceDetail.setQuantity(quantity);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			hibernate.save(invoiceDetail);
 			updateContent();
@@ -565,11 +596,6 @@ public class InvoiceController implements Initializable {
 			tableInvoices.getSelectionModel().select(indexInvoiceFocused);
 
 		}
-	}
-
-	@FXML
-	private void onActionAddInvoice(ActionEvent event) {
-
 	}
 
 	@FXML
@@ -600,11 +626,6 @@ public class InvoiceController implements Initializable {
 			}
 
 		}
-
-	}
-
-	@FXML
-	private void onActionRemoveInvoice(ActionEvent event) {
 
 	}
 

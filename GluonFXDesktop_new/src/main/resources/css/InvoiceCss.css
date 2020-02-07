@@ -95,6 +95,7 @@ Button{
 #tableInvoices{
 	-fx-border-color: grey;
 	-fx-border-radius: 10;
+	-fx-Text-Fill: black;
 }
 
 #columnProduct{
@@ -149,3 +150,19 @@ TableColumn{
 	-fx-border-radius: 10;
 }
 
+#clientGrid{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#leftHideBox{
+	-fx-background-color: white;
+}
+
+#centerVBox{
+	-fx-background-color: white;
+}
+
+#rightHideBox{
+	-fx-background-color: white;
+}
