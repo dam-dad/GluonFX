@@ -266,7 +266,31 @@ public class InvoiceController implements Initializable {
 		// Buttons actions
 
 		leftHideBttn.setOnAction(evt -> onLeftHideAction());
+		createdRadius.setOnAction(event -> onCreatedAction());
+		pendingRadius.setOnAction(event -> onPendingAction());
+		chargedRadius.setOnAction(event -> onChargedAction());
+		overdueRadius.setOnAction(event -> onOverdueAction());
 
+	}
+
+	private void onOverdueAction() {
+		masterInvoiceBean.setStatus(3);
+		invoiceStatus.setText("Atrasada");
+	}
+
+	private void onChargedAction() {
+		masterInvoiceBean.setStatus(2);
+		invoiceStatus.setText("Cobrada");	
+	}
+
+	private void onPendingAction() {
+		masterInvoiceBean.setStatus(1);
+		invoiceStatus.setText("Pendiente");
+	}
+
+	private void onCreatedAction() {
+		masterInvoiceBean.setStatus(0);
+		invoiceStatus.setText("Creada");
 	}
 
 	private void onLeftHideAction() {
@@ -477,6 +501,20 @@ public class InvoiceController implements Initializable {
 			masterInvoiceBean = nv;
 			dateTxt.setText(masterInvoiceBean.getInvoiceDate().toString());
 			//Esto es una solución temporal, una guarrada
+			
+			if(masterInvoiceBean.getStatus() == 0) {
+				createdRadius.setSelected(true);
+				invoiceStatus.setText("Creada");
+			}else if(masterInvoiceBean.getStatus() == 1) {
+				pendingRadius.setSelected(true);
+				invoiceStatus.setText("Pendiente");
+			}else if(masterInvoiceBean.getStatus() == 2) {
+				chargedRadius.setSelected(true);
+				invoiceStatus.setText("Cobrada");
+			}else {
+				overdueRadius.setSelected(true);
+				invoiceStatus.setText("Atrasada");
+			}
 			
 			// Bindings
 

@@ -119,7 +119,7 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </GridPane>
-                        <TextField fx:id="invoiceStatus" promptText="Estado factura" />
+                        <TextField fx:id="invoiceStatus" disable="true" editable="false" promptText="Estado factura" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -496,7 +496,7 @@
                                  <graphic>
                                     <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../GluonFX-b9c3b29ed7ad152f2330acaa2de28f36ba5f7e89/GluonFXDesktop/src/main/resources/images/arrow-left-white.png" />
+                                          <Image url="@../../../../../GluonFX-b9c3b29ed7ad152f2330acaa2de28f36ba5f7e89/GluonFXDesktop/src/main/resources/images/arrow-left-white.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
