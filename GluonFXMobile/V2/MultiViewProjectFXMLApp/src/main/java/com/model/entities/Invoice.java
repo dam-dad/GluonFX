@@ -51,116 +51,92 @@ public class Invoice {
 	@Expose
 	private List<InvoiceDetail> invoiceDetails = null;
 	
+	
 	public Integer getId() {
-	return id;
+		return id;
 	}
-
 	public void setId(Integer id) {
-	this.id = id;
+		this.id = id;
 	}
-
 	public Company getCompany() {
-	return company;
+		return company;
 	}
-
 	public void setCompany(Company company) {
-	this.company = company;
+		this.company = company;
 	}
-
 	public Customer getCustomer() {
-	return customer;
+		return customer;
 	}
-
 	public void setCustomer(Customer customer) {
-	this.customer = customer;
+		this.customer = customer;
 	}
-
 	public PayMethod getPayMethod() {
-	return payMethod;
+		return payMethod;
 	}
-
 	public void setPayMethod(PayMethod payMethod) {
-	this.payMethod = payMethod;
+		this.payMethod = payMethod;
 	}
-
 	public Tax getTax() {
-	return tax;
+		return tax;
 	}
-
 	public void setTax(Tax tax) {
-	this.tax = tax;
+		this.tax = tax;
 	}
-
 	public String getInvoiceNumber() {
-	return invoiceNumber;
+		return invoiceNumber;
 	}
-
 	public void setInvoiceNumber(String invoiceNumber) {
-	this.invoiceNumber = invoiceNumber;
+		this.invoiceNumber = invoiceNumber;
 	}
-
 	public String getInvoiceDate() {
-	return invoiceDate;
+		return invoiceDate;
 	}
-
 	public void setInvoiceDate(String invoiceDate) {
-	this.invoiceDate = invoiceDate;
+		this.invoiceDate = invoiceDate;
 	}
-
 	public Integer getStatus() {
-	return status;
+		return status;
 	}
-
 	public void setStatus(Integer status) {
-	this.status = status;
+		this.status = status;
 	}
-
 	public Integer getConceptId() {
-	return conceptId;
+		return conceptId;
 	}
-
 	public void setConceptId(Integer conceptId) {
-	this.conceptId = conceptId;
+		this.conceptId = conceptId;
 	}
-
 	public Double getPrice() {
-	return price;
+		return price;
 	}
-
 	public void setPrice(Double price) {
-	this.price = price;
+		this.price = price;
 	}
-
 	public Double getTaxTotal() {
-	return taxTotal;
+		return taxTotal;
 	}
-
 	public void setTaxTotal(Double taxTotal) {
-	this.taxTotal = taxTotal;
+		this.taxTotal = taxTotal;
 	}
-
 	public Double getPriceTaxesIncluded() {
-	return priceTaxesIncluded;
+		return priceTaxesIncluded;
 	}
-
 	public void setPriceTaxesIncluded(Double priceTaxesIncluded) {
-	this.priceTaxesIncluded = priceTaxesIncluded;
+		this.priceTaxesIncluded = priceTaxesIncluded;
 	}
-
 	public List<ConceptInvoice> getConceptInvoices() {
-	return conceptInvoices;
+		return conceptInvoices;
 	}
-
 	public void setConceptInvoices(List<ConceptInvoice> conceptInvoices) {
-	this.conceptInvoices = conceptInvoices;
+		this.conceptInvoices = conceptInvoices;
 	}
-
 	public List<InvoiceDetail> getInvoiceDetails() {
-	return invoiceDetails;
+		return invoiceDetails;
 	}
-
 	public void setInvoiceDetails(List<InvoiceDetail> invoiceDetails) {
-	this.invoiceDetails = invoiceDetails;
+		this.invoiceDetails = invoiceDetails;
 	}
+	
+	
 
 	}

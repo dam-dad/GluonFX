@@ -3,6 +3,7 @@ package com.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gluonhq.impl.charm.a.b.b.i;
 import com.google.gson.Gson;
 
 import com.mashape.unirest.http.Unirest;
@@ -430,9 +431,9 @@ public class Service {
 	
 	public void updateInvoice(Invoice invoice) {
 		try {
-			Unirest.post("http://moimahservices.ddns.net:16941/createInvoice")
+			Unirest.post("http://moimahservices.ddns.net:16941/updateInvoice")
 				.field("id", invoice.getId())
-				.field("invoice_number", invoice.getInvoiceNumber())
+				.field("invoice_number", invoice.getInvoiceNumber())				
 				.field("company_id", invoice.getCompany().getId())
 				.field("customer_id", invoice.getCustomer().getId())
 				.field("invoice_date", invoice.getInvoiceDate())

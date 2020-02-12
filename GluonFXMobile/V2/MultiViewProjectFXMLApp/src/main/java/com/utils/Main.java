@@ -25,14 +25,15 @@ public class Main {
 		
 		//int company_id, int customer_id, String invoice_date, int concept_id, int pay_method_id, int tax_id, int status
 		
-		invoice.setId(3);
+		
+		
 		Company c = new Company();
-		c.setId(1);
+		c.setId(11);
 		invoice.setInvoiceNumber("2012060001");
 		invoice.setCompany(c);
 		invoice.setPrice(0.00);
 		invoice.setTaxTotal(0.0);
-		invoice.setPriceTaxesIncluded(0.01);
+		invoice.setPriceTaxesIncluded(0.00);
 		Customer cus = new Customer();
 		cus.setId(1);
 		invoice.setCustomer(cus);
@@ -45,8 +46,18 @@ public class Main {
 		t.setId(1);
 		invoice.setTax(t);
 		invoice.setStatus(2);
+		invoice.setId(11);
 		
-		service.updateInvoice(invoice);
+	//	service.deleteinvoice(invoice);
+	//	service.updateInvoice(invoice);
+		
+//		List<Invoice> list = service.getAllinvoices();
+//		
+//		for (int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i).getInvoiceDate());
+//		}
+		
+		System.out.println(service.getinvoicebyId(1).getPayMethod().getDescription());
 		
 		
 	}
