@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,7 +22,7 @@ public class CompanyController {
 	 * Crea una nueva compañia	
 	 * http://localhost:9002/createCompany?company_id=73828292&name=Manuel&address=calle%20Puente&city=la%20laguna&country=gibraltar&email=manuel@gay.com&phone=696969
 	 */
-	@RequestMapping(value = "/createCompany")
+	@RequestMapping(value = "/createCompany", method = RequestMethod.POST)
 	@ResponseBody
 	public String create(String company_id, String name, String address, String city, String country, String email, String phone) {
 
@@ -44,7 +45,7 @@ public class CompanyController {
 	 * ELimina una compañia por su id
 	 * http://localhost:9002/deleteCompany?id=2
 	 */
-	@RequestMapping(value = "/deleteCompany")
+	@RequestMapping(value = "/deleteCompany", method = RequestMethod.POST)
 	@ResponseBody
 	public String delete(int id) {
 
@@ -68,7 +69,7 @@ public class CompanyController {
 	 * Actualiza una compañia
 	 * http://localhost:9002/updateCompany?id=1&company_id=555555&name=cansado&address=cama&city=la laguna&country=cataluna&email=yo@ami.com&phone=463622
 	 */
-	@RequestMapping(value = "/updateCompany")
+	@RequestMapping(value = "/updateCompany", method = RequestMethod.POST)
 	@ResponseBody
 	public String update(int id, String company_id, String name, String address, String city, String country, String email, String phone) {
 

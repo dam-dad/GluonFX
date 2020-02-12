@@ -85,9 +85,7 @@ public class Invoice implements java.io.Serializable {
 	public Invoice(int company_id, int customer_id, String invoice_date, int concept_id, int pay_method_id,
 			int tax_id, int status) {
 		
-
-
-		
+	
 			Company c = new Company();
 			c.setId(company_id);
 			this.company = c;

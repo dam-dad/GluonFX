@@ -10,6 +10,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -36,7 +37,7 @@ public class InvoiceController {
 	 * http://localhost:9002/createInvoice?company_id=1&customer_id=1&invoice_date=12-06-2012&concept_id=1&pay_method_id=1&tax_id=1&status=0
 	 * 
 	 */
-	@RequestMapping(value = "/createInvoice")
+	@RequestMapping(value = "/createInvoice", method = RequestMethod.POST)
 	@ResponseBody
 	public String create(int company_id, int customer_id, String invoice_date, int concept_id, int pay_method_id, int tax_id, int status) {
 
@@ -62,7 +63,7 @@ public class InvoiceController {
 	 * http://localhost:9002/deleteInvoice?id=0
 	 * 
 	 */	
-	@RequestMapping(value = "/deleteInvoice")
+	@RequestMapping(value = "/deleteInvoice", method = RequestMethod.POST)
 	@ResponseBody
 	public String delete(int id) {
 
@@ -90,7 +91,7 @@ public class InvoiceController {
 	 * http://localhost:9002/updateInvoice?id=17&invoice_number=2012060003&company_id=1&customer_id=1&invoice_date=12-06-2012&status=0&concept_id=1&pay_method_id=1&price=0&tax_id=1&tax_total=0&price_tax_included=0
 	 * 
 	 */
-	@RequestMapping(value = "/updateInvoice")
+	@RequestMapping(value = "/updateInvoice", method = RequestMethod.POST)
 	@ResponseBody	
 	public String update(int id, String invoice_number, int company_id, int customer_id, String invoice_date, int status, int concept_id, int pay_method_id, double price,  int tax_id, double tax_total, double price_tax_included) {
 		
@@ -133,9 +134,7 @@ public class InvoiceController {
 				
 				invoice.setTaxTotal(tax_total);
 				invoice.setPriceTaxesIncluded(price_tax_included);
-			
-			
-		
+				
 			
 			invoiceDao.update(invoice);
 			
@@ -165,6 +164,7 @@ public class InvoiceController {
 		
 		Gson gson = new GsonBuilder()
 				  .excludeFieldsWithoutExposeAnnotation()
+				  .setDateFormat("dd/MM/yyyy")
 				  .serializeNulls()
 				  .create();
 				String json = gson.toJson(list);				 		

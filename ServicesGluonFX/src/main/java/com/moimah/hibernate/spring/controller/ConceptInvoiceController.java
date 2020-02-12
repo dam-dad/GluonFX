@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,7 +28,7 @@ public class ConceptInvoiceController {
 	 * Crea un nuevo concepto
 	 * http://localhost:9002/createConceptInvoice?invoice_id=1&description=esto es una prueba&price=2000
 	 */
-	@RequestMapping(value = "/createConceptInvoice")
+	@RequestMapping(value = "/createConceptInvoice", method = RequestMethod.POST)
 	@ResponseBody
 	public String create(int invoice_id, String description, double price) {
 
@@ -45,12 +46,39 @@ public class ConceptInvoiceController {
 		}
 	}
 	
+	/*
+	 * Actualiza un nuevo concepto
+	 * http://localhost:9002/updateConceptInvoice?id=1&invoice_id=1&description=esto es una prueba&price=2000
+	 */
+	@RequestMapping(value = "/updateConceptInvoice", method = RequestMethod.POST)
+	@ResponseBody
+	public String update(int id, int invoice_id, String description, double price) {
+
+		try {	
+			Invoice invoice = new Invoice();
+			invoice.setId(invoice_id);
+			
+			ConceptInvoice concept = new ConceptInvoice();	
+			concept.setId(id);
+			concept.setInvoice(invoice);
+			concept.setDescription(description);
+			concept.setPrice(price);
+			conceptInvoiceDao.update(concept);
+
+			return "Concepto creado actualizado";
+
+		} catch (Exception e) {
+
+			return "Error en la creación del concepto";
+		}
+	}
+	
 	
 	/*
 	 * ELimina una concepto por su id
 	 * http://localhost:9002/deleteConceptInvoice?id=2
 	 */	
-	@RequestMapping(value = "/deleteConceptInvoice")
+	@RequestMapping(value = "/deleteConceptInvoice", method = RequestMethod.POST)
 	@ResponseBody
 	public String delete(int id) {
 
@@ -112,11 +140,6 @@ public class ConceptInvoiceController {
 		
 		return  json;
 	}
-	
-	
-	
-	
-	
 	
 	
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,7 +25,7 @@ public class CustomerController {
 	 * http://localhost:9002/createCustomer?customer_id=73828292&name=Manuel&address=calle%20Puente&city=la%20laguna&country=gibraltar&email=manuel@gay.com&phone=696969
 	 */
 	
-	@RequestMapping(value = "/createCustomer")
+	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)
 	@ResponseBody
 	public String create(String customer_id, String name, String address, String city, String country, String email, String phone) {
 
@@ -47,7 +48,7 @@ public class CustomerController {
 	 * Actualiza una cliente
 	 * http://localhost:9002/updateCustomer?id=3&customer_id=555555&name=cansado&address=cama&city=la%20laguna&country=cataluna&email=yo@ami.com&phone=463622
 	 */
-	@RequestMapping(value = "/updateCustomer")
+	@RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
 	@ResponseBody
 	public String update(int id, String customer_id, String name, String address, String city, String country, String email, String phone) {
 
@@ -80,7 +81,7 @@ public class CustomerController {
 	 * http://localhost:9002/deleteCustomer?id=2
 	 */
 	
-	@RequestMapping(value = "/deleteCustomer")
+	@RequestMapping(value = "/deleteCustomer", method = RequestMethod.POST)
 	@ResponseBody
 	public String delete(int id) {
 
