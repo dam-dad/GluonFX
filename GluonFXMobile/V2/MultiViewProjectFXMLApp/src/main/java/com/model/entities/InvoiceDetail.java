@@ -1,87 +1,67 @@
 package com.model.entities;
 
+import java.io.Serializable;
+
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+public class InvoiceDetail implements Serializable {
 
-public class InvoiceDetail {
+	@SerializedName("id")
+	@Expose
+	private Integer id;
+	@SerializedName("product")
+	@Expose
+	private Product product;
+	@SerializedName("quantity")
+	@Expose
+	private Double quantity;
+	@SerializedName("price")
+	@Expose
+	private Double price;
+	@SerializedName("priceUnit")
+	@Expose
+	private Double priceUnit;
+	
 
-	@Expose
-	private IntegerProperty id = new SimpleIntegerProperty();
-	@Expose
-	private ObjectProperty<Product> product = new SimpleObjectProperty<>();
-	@Expose
-	private DoubleProperty quantity = new SimpleDoubleProperty();
-	@Expose
-	private DoubleProperty price = new SimpleDoubleProperty();
-	@Expose
-	private DoubleProperty priceUnit = new SimpleDoubleProperty();
-	public final IntegerProperty idProperty() {
-		return this.id;
+	public Integer getId() {
+	return id;
 	}
-	
-	public final int getId() {
-		return this.idProperty().get();
+
+	public void setId(Integer id) {
+	this.id = id;
 	}
-	
-	public final void setId(final int id) {
-		this.idProperty().set(id);
+
+	public Product getProduct() {
+	return product;
 	}
-	
-	public final ObjectProperty<Product> productProperty() {
-		return this.product;
+
+	public void setProduct(Product product) {
+	this.product = product;
 	}
-	
-	public final Product getProduct() {
-		return this.productProperty().get();
+
+	public Double getQuantity() {
+	return quantity;
 	}
-	
-	public final void setProduct(final Product product) {
-		this.productProperty().set(product);
+
+	public void setQuantity(Double quantity) {
+	this.quantity = quantity;
 	}
-	
-	public final DoubleProperty quantityProperty() {
-		return this.quantity;
+
+	public Double getPrice() {
+	return price;
 	}
-	
-	public final double getQuantity() {
-		return this.quantityProperty().get();
+
+	public void setPrice(Double price) {
+	this.price = price;
 	}
-	
-	public final void setQuantity(final double quantity) {
-		this.quantityProperty().set(quantity);
+
+	public Double getPriceUnit() {
+	return priceUnit;
 	}
-	
-	public final DoubleProperty priceProperty() {
-		return this.price;
+
+	public void setPriceUnit(Double priceUnit) {
+	this.priceUnit = priceUnit;
 	}
-	
-	public final double getPrice() {
-		return this.priceProperty().get();
+
 	}
-	
-	public final void setPrice(final double price) {
-		this.priceProperty().set(price);
-	}
-	
-	public final DoubleProperty priceUnitProperty() {
-		return this.priceUnit;
-	}
-	
-	public final double getPriceUnit() {
-		return this.priceUnitProperty().get();
-	}
-	
-	public final void setPriceUnit(final double priceUnit) {
-		this.priceUnitProperty().set(priceUnit);
-	}
-	
-	
-	
-	
-}

@@ -1,120 +1,87 @@
 package com.model.entities;
 
 import com.google.gson.annotations.Expose;
-
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.scene.image.Image;
+import com.google.gson.annotations.SerializedName;
 
 public class Product {
 
+	@SerializedName("id")
 	@Expose
-	private IntegerProperty id = new SimpleIntegerProperty();
+	private Integer id;
+	@SerializedName("productId")
 	@Expose
-	private StringProperty productId = new SimpleStringProperty();
+	private String productId;
+	@SerializedName("name")
 	@Expose
-	private StringProperty name = new SimpleStringProperty();
+	private String name;
+	@SerializedName("description")
 	@Expose
-	private StringProperty description = new SimpleStringProperty();
+	private String description;
+	@SerializedName("price")
 	@Expose
-	private DoubleProperty price = new SimpleDoubleProperty();
+	private Double price;
+	@SerializedName("stock")
 	@Expose
-	private IntegerProperty stock = new SimpleIntegerProperty();
+	private Integer stock;
+	@SerializedName("url")
 	@Expose
-	private StringProperty url = new SimpleStringProperty();
-	public final IntegerProperty idProperty() {
-		return this.id;
+	private String url;
+
+
+	public Integer getId() {
+	return id;
 	}
-	
-	public final int getId() {
-		return this.idProperty().get();
+
+	public void setId(Integer id) {
+	this.id = id;
 	}
-	
-	public final void setId(final int id) {
-		this.idProperty().set(id);
+
+	public String getProductId() {
+	return productId;
 	}
-	
-	public final StringProperty productIdProperty() {
-		return this.productId;
+
+	public void setProductId(String productId) {
+	this.productId = productId;
 	}
-	
-	public final String getProductId() {
-		return this.productIdProperty().get();
+
+	public String getName() {
+	return name;
 	}
-	
-	public final void setProductId(final String productId) {
-		this.productIdProperty().set(productId);
+
+	public void setName(String name) {
+	this.name = name;
 	}
-	
-	public final StringProperty nameProperty() {
-		return this.name;
+
+	public String getDescription() {
+	return description;
 	}
-	
-	public final String getName() {
-		return this.nameProperty().get();
+
+	public void setDescription(String description) {
+	this.description = description;
 	}
-	
-	public final void setName(final String name) {
-		this.nameProperty().set(name);
+
+	public Double getPrice() {
+	return price;
 	}
-	
-	public final StringProperty descriptionProperty() {
-		return this.description;
+
+	public void setPrice(Double price) {
+	this.price = price;
 	}
-	
-	public final String getDescription() {
-		return this.descriptionProperty().get();
+
+	public Integer getStock() {
+	return stock;
 	}
-	
-	public final void setDescription(final String description) {
-		this.descriptionProperty().set(description);
+
+	public void setStock(Integer stock) {
+	this.stock = stock;
 	}
-	
-	public final DoubleProperty priceProperty() {
-		return this.price;
+
+	public String getUrl() {
+	return url;
 	}
-	
-	public final double getPrice() {
-		return this.priceProperty().get();
+
+	public void setUrl(String url) {
+	this.url = url;
 	}
-	
-	public final void setPrice(final double price) {
-		this.priceProperty().set(price);
+
 	}
-	
-	public final IntegerProperty stockProperty() {
-		return this.stock;
-	}
-	
-	public final int getStock() {
-		return this.stockProperty().get();
-	}
-	
-	public final void setStock(final int stock) {
-		this.stockProperty().set(stock);
-	}
-	
-	public final StringProperty urlProperty() {
-		return this.url;
-	}
-	
-	public final String getUrl() {
-		return this.urlProperty().get();
-	}
-	
-	public final void setUrl(final String url) {
-		this.urlProperty().set(url);
-	}
-	
-	
-	
-	
-	
-	
-}

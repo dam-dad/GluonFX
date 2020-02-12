@@ -8,57 +8,59 @@ import com.model.entities.Company;
 import com.model.entities.ConceptInvoice;
 import com.model.entities.Customer;
 import com.model.entities.Invoice;
+import com.model.entities.InvoiceDetail;
 import com.model.entities.PayMethod;
+import com.model.entities.Product;
 import com.model.entities.Tax;
 
 
 public class Main {
 
 	public static void main(String[] args) {
-		
+		//nt invoice?id, int product?id,double quantit
 		Service service = new Service();
 		
-		Invoice invoice = new Invoice();
-		
-		//int id, String invoice_number, int company_id, int customer_id, String invoice_date, int status,
-		//int concept_id, int pay_method_id, double price,  int tax_id, double tax_total, double price_tax_included
-		
-		//int company_id, int customer_id, String invoice_date, int concept_id, int pay_method_id, int tax_id, int status
-		
-		
-		
-		Company c = new Company();
-		c.setId(11);
-		invoice.setInvoiceNumber("2012060001");
-		invoice.setCompany(c);
-		invoice.setPrice(0.00);
-		invoice.setTaxTotal(0.0);
-		invoice.setPriceTaxesIncluded(0.00);
-		Customer cus = new Customer();
-		cus.setId(1);
-		invoice.setCustomer(cus);
-		invoice.setInvoiceDate("12-06-2012");
-		invoice.setConceptId(3);
-		PayMethod p = new PayMethod();
-		p.setId(1);
-		invoice.setPayMethod(p);
-		Tax t = new Tax();
-		t.setId(1);
-		invoice.setTax(t);
-		invoice.setStatus(2);
-		invoice.setId(11);
-		
-	//	service.deleteinvoice(invoice);
-	//	service.updateInvoice(invoice);
-		
-//		List<Invoice> list = service.getAllinvoices();
+//		PayMethod payMethod = new PayMethod();
+//		payMethod.setId(4);
+//		payMethod.setDescription("Bitcoin");
+//		
+//		List<PayMethod> list = service.getAllPayMethods();
 //		
 //		for (int i = 0; i < list.size(); i++) {
-//			System.out.println(list.get(i).getInvoiceDate());
+//			System.out.println(list.get(i).getDescription());
 //		}
+//		
+//		
 		
-		System.out.println(service.getinvoicebyId(1).getPayMethod().getDescription());
+	
+//		
+//		List<Product> list = service.getAllProducts();
+//		
+//		System.out.println(service.getProductbyId(3).getPrice());
+//		
+//		for (int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i).getPrice());
+//		}
+//		System.out.println("\n");
 		
+//		
+//		Tax tax = new Tax();
+//		tax.setId(3);
+//		tax.setDescription("Impuesto a morosos");
+//		tax.setPercentage(9.0);
+//		tax.setTaxId("MORO");
+//		
+//		service.updateTax(tax);
+//		service.deleteTax(tax);
+		
+		List<Tax> list = service.getAllTaxes();
+		
+		System.out.println(service.getTaxbyId(2).getPercentage());
+		
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getDescription());
+		}
+		System.out.println("\n");
 		
 	}
 }

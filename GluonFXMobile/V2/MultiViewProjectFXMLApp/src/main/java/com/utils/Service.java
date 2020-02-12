@@ -11,6 +11,10 @@ import com.model.entities.Company;
 import com.model.entities.ConceptInvoice;
 import com.model.entities.Customer;
 import com.model.entities.Invoice;
+import com.model.entities.InvoiceDetail;
+import com.model.entities.PayMethod;
+import com.model.entities.Product;
+import com.model.entities.Tax;
 
 
 public class Service {
@@ -531,6 +535,492 @@ public class Service {
 	}
 	
 	
+	/*
+	 * Añade un nuevo detalle
+	 */
+	
+	public void insertinvoiceDetail(InvoiceDetail invoiceDetail, Invoice invoice) {
+	
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/createInvoiceDetail")
+				.field("invoice_id", invoice.getId())	
+				.field("product_id", invoiceDetail.getProduct().getId())
+				.field("quantity", invoiceDetail.getQuantity())				
+				.asString();
+			
+			System.out.println("detalle insertado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/*
+	 * Actualiza un detalle existente
+	 */
+	
+	public void updateInvoiceDetail(InvoiceDetail invoiceDetail, Invoice invoice) {
+	//int id, int invoice_id, int product_id,double quantity,double price_ud
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/updateInvoiceDetail")	
+				.field("id", invoiceDetail.getId())
+				.field("invoice_id", invoice.getId())					
+				.field("product_id", invoiceDetail.getProduct().getId())
+				.field("quantity", invoiceDetail.getQuantity())	
+				.field("price_ud", invoiceDetail.getProduct().getPrice())
+				.asString();	
+	
+			
+			System.out.println("Detalle actualizado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/*
+	 * Elimina un detalle existente
+	 */	
+	
+	public void deleteInvoiceDetail(InvoiceDetail invoiceDetail) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/deleteInvoiceDetail")
+				.field("id", invoiceDetail.getId())				
+				.asString();
+			
+			System.out.println("detalle eliminado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/*
+	 * Devuelve objeto detalle por su id
+	 */
+	
+	public InvoiceDetail getInvoiceDetailbyId(int id) {
+
+		InvoiceDetail invoiceDetail = null;
+
+		try {
+			invoiceDetail = Unirest
+					.get("http://moimahservices.ddns.net:16941/invoiceDetailById?id=" + id)
+					.asObject(InvoiceDetail.class)
+					.getBody();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return invoiceDetail;
+				
+	}
+	
+	/*
+	 * Devuelve una lista de objetos detalle
+	 */
+	
+	public List<InvoiceDetail> getAllInvoiceDetails() {
+		
+		List<InvoiceDetail>  list = new ArrayList<>();
+		
+		try {
+			
+		String result =  Unirest
+					.get("http://moimahservices.ddns.net:16941/allInvoiceDetail")
+					.asString()
+					.getBody();
+
+	
+		Gson gson = new Gson();
+		InvoiceDetail[] invoiceDetails = gson.fromJson(result, InvoiceDetail[].class);
+		
+		for (int i = 0; i < invoiceDetails.length; i++) {
+			list.add(invoiceDetails[i]);
+		}
+		
+		
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
+		
+	}
+
+	
+	/*
+	 * Añade una nueva metodo de pago
+	 */
+	
+	public void insertPayMethod(PayMethod payMethod) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/createPayMethod")
+				.field("description", payMethod.getDescription())			
+				.asString();
+			
+			System.out.println("metodo de pago insertado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/*
+	 * Actualiza una metodo de pago existente
+	 */
+	
+	public void updatePayMethod(PayMethod payMethod) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/updatePayMethod")
+				.field("id", payMethod.getId())
+				.field("description", payMethod.getDescription())			
+				.asString();
+			
+			System.out.println("metodo de pago actualizado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * Elimina un metodo de pago existente
+	 */	
+	
+	public void deletePayMethod(PayMethod payMethod) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/deletePayMethod")
+				.field("id", payMethod.getId())				
+				.asString();
+			
+			System.out.println("metodo de pago eliminado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/*
+	 * Devuelve objeto metodo de pago por su id
+	 */
+	
+	public PayMethod getPayMethodbyId(int id) {
+
+		PayMethod payMethod = null;
+
+		try {
+			payMethod = Unirest
+					.get("http://moimahservices.ddns.net:16941/payMethodById?id=" + id)
+					.asObject(PayMethod.class)
+					.getBody();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return payMethod;
+				
+	}
+	
+	/*
+	 * Devuelve una lista de objetos metodo de pago
+	 */
+	
+	public List<PayMethod> getAllPayMethods() {
+		
+		List<PayMethod>  list = new ArrayList<>();
+		
+		try {
+			
+		String result =  Unirest
+					.get("http://moimahservices.ddns.net:16941/allPayMethod")
+					.asString()
+					.getBody();
+
+	
+		Gson gson = new Gson();
+		PayMethod[] payMethods = gson.fromJson(result, PayMethod[].class);
+		
+		for (int i = 0; i < payMethods.length; i++) {
+			list.add(payMethods[i]);
+		}
+		
+		
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
+
+	}
+	
+
+	
+	/*
+	 * Añade un nueva Producto
+	 */
+	
+	public void insertProduct(Product product) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/createProduct")
+				.field("product_id", product.getProductId())
+				.field("name", product.getName())
+				.field("description", product.getDescription())
+				.field("price", product.getPrice())
+				.field("stock", product.getStock())
+				.field("url", product.getUrl())				
+				.asString();
+			
+			System.out.println("Producto insertado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/*
+	 * Actualiza un Producto existente
+	 */
+	
+	public void updateProduct(Product product) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/updateProduct")
+				.field("id", product.getId())
+				.field("product_id", product.getProductId())
+				.field("name", product.getName())
+				.field("description", product.getDescription())
+				.field("price", product.getPrice())
+				.field("stock", product.getStock())
+				.field("url", product.getUrl())				
+				.asString();
+			
+			System.out.println("Producto actualizado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/*
+	 * Elimina una Producto existente
+	 */	
+	
+	public void deleteProduct(Product Product) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/deleteProduct")
+				.field("id", Product.getId())				
+				.asString();
+			
+			System.out.println("Producto eliminado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/*
+	 * Devuelve objeto Producto por su id
+	 */
+	
+	public Product getProductbyId(int id) {
+
+		Product Product = null;
+
+		try {
+			Product = Unirest
+					.get("http://moimahservices.ddns.net:16941/productById?id=" + id)
+					.asObject(Product.class)
+					.getBody();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return Product;
+				
+	}
+	
+	/*
+	 * Devuelve una lista de objetos Producto
+	 */
+	
+	public List<Product> getAllProducts() {
+		
+		List<Product>  list = new ArrayList<>();
+		
+		try {
+			
+		String result =  Unirest
+					.get("http://moimahservices.ddns.net:16941/allProduct")
+					.asString()
+					.getBody();
+
+	
+		Gson gson = new Gson();
+		Product[] products = gson.fromJson(result, Product[].class);
+		
+		for (int i = 0; i < products.length; i++) {
+			list.add(products[i]);
+		}
+		
+		
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
+	
+	}
+	
+	
+	/*
+	 * Añade un nueva impuesto
+	 */
+	
+	public void insertTax(Tax tax) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/createTax")
+				.field("tax_id", tax.getTaxId())
+				.field("percentage", tax.getPercentage())
+				.field("description", tax.getDescription())
+				.asString();
+			
+			System.out.println("impuesto insertada");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/*
+	 * Actualiza un impuesto existente
+	 */
+	
+	public void updateTax(Tax tax) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/updateTax")
+				.field("id", tax.getId())
+				.field("tax_id", tax.getTaxId())
+				.field("percentage", tax.getPercentage())
+				.field("description", tax.getDescription())
+				.asString();
+				
+			
+			System.out.println("impuesto actualizado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * Elimina un impuesto existente
+	 */	
+	
+	public void deleteTax(Tax tax) {
+		
+		try {
+			Unirest.post("http://moimahservices.ddns.net:16941/deleteTax")
+				.field("id", tax.getId())				
+				.asString();
+			
+			System.out.println("impuesto eliminado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/*
+	 * Devuelve objeto impuesto por su id
+	 */
+	
+	public Tax getTaxbyId(int id) {
+
+		Tax Tax = null;
+
+		try {
+			Tax = Unirest
+					.get("http://moimahservices.ddns.net:16941/taxById?id=" + id)
+					.asObject(Tax.class)
+					.getBody();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return Tax;
+				
+	}
+	
+	/*
+	 * Devuelve una lista de objetos impuesto
+	 */
+	
+	public List<Tax> getAllTaxes() {
+		
+		List<Tax>  list = new ArrayList<>();
+		
+		try {
+			
+		String result =  Unirest
+					.get("http://moimahservices.ddns.net:16941/allTax")
+					.asString()
+					.getBody();
+
+	
+		Gson gson = new Gson();
+		Tax[] tax = gson.fromJson(result, Tax[].class);
+		
+		for (int i = 0; i < tax.length; i++) {
+			list.add(tax[i]);
+		}
+		
+		
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
+		
+	}	
 	
 	
 	

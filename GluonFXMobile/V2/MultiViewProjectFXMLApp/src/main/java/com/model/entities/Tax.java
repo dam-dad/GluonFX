@@ -1,73 +1,54 @@
 package com.model.entities;
 
 import com.google.gson.annotations.Expose;
-
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import com.google.gson.annotations.SerializedName;
 
 public class Tax {
 
+	@SerializedName("id")
 	@Expose
-	private IntegerProperty id = new SimpleIntegerProperty();
+	private Integer id;
+	@SerializedName("taxId")
 	@Expose
-	private StringProperty taxId = new SimpleStringProperty();
+	private String taxId;
+	@SerializedName("percentage")
 	@Expose
-	private DoubleProperty percentage = new SimpleDoubleProperty();
+	private Double percentage;
+	@SerializedName("description")
 	@Expose
-	private StringProperty description = new SimpleStringProperty();
-	public final IntegerProperty idProperty() {
-		return this.id;
+	private String description;
+
+
+	public Integer getId() {
+		return id;
 	}
-	
-	public final int getId() {
-		return this.idProperty().get();
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	
-	public final void setId(final int id) {
-		this.idProperty().set(id);
+
+	public String getTaxId() {
+		return taxId;
 	}
-	
-	public final StringProperty taxIdProperty() {
-		return this.taxId;
+
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
 	}
-	
-	public final String getTaxId() {
-		return this.taxIdProperty().get();
+
+	public Double getPercentage() {
+		return percentage;
 	}
-	
-	public final void setTaxId(final String taxId) {
-		this.taxIdProperty().set(taxId);
+
+	public void setPercentage(Double percentage) {
+		this.percentage = percentage;
 	}
-	
-	public final DoubleProperty percentageProperty() {
-		return this.percentage;
+
+	public String getDescription() {
+		return description;
 	}
-	
-	public final double getPercentage() {
-		return this.percentageProperty().get();
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	
-	public final void setPercentage(final double percentage) {
-		this.percentageProperty().set(percentage);
-	}
-	
-	public final StringProperty descriptionProperty() {
-		return this.description;
-	}
-	
-	public final String getDescription() {
-		return this.descriptionProperty().get();
-	}
-	
-	public final void setDescription(final String description) {
-		this.descriptionProperty().set(description);
-	}
-	
-	
-	
-	
+
 }
