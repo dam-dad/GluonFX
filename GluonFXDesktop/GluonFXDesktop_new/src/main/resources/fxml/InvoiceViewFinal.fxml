@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXBadge?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" stylesheets="@../css/InvoiceCss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.25292153589315525, 0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
+         <items>
+            <HBox fx:id="leftHideBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="250.0" minWidth="145.0" prefHeight="600.0" prefWidth="300.0">
+               <children>
+                  <GridPane fx:id="tableGrid" alignment="TOP_CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="170.0" minWidth="125.0" prefHeight="600.0" prefWidth="300.0" vgap="5.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="NEVER" />
+                     </rowConstraints>
+                     <children>
+                        <TableView fx:id="tableInvoices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="columnNumeroFactura" prefWidth="75.0" text="Nº" />
+                              <TableColumn fx:id="columnFecha" prefWidth="75.0" text="Fecha" />
+                              <TableColumn fx:id="columnCliente" prefWidth="75.0" text="Cliente" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="195.0" spacing="5.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                           <children>
+                              <JFXButton fx:id="addInvoice" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="214.0" text="Añadir factura" textFill="#eee7e7">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="delInvoice" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="224.0" text="Eliminar factura" textFill="#eee7e7">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </GridPane>
+                  <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="20.0">
+                     <children>
+                        <JFXButton fx:id="leftHideBttn" maxWidth="1.7976931348623157E308" text=" ">
+                           <graphic>
+                              <ImageView fx:id="leftHideImage" fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/close.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox fx:id="centerVBox" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" minWidth="400.0" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Factura:" />
+                              <TextField fx:id="invoiceIDTxt" disable="true" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="149.0">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Fecha:" />
+                              <TextField fx:id="dateTxt" disable="true" GridPane.columnIndex="1" />
+                           </children>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </GridPane>
+                        <TextField fx:id="invoiceStatus" disable="true" editable="false" promptText="Estado factura" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                     <children>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="150.0" prefWidth="259.0">
+                           <children>
+                              <Label text="Cliente:" />
+                              <GridPane fx:id="clientGrid" maxHeight="-Infinity" prefHeight="120.0" prefWidth="223.0" VBox.vgrow="ALWAYS">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="119.20001220703125" minWidth="10.0" prefWidth="92.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="156.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="">
+                                       <children>
+                                          <Label text="Nombre" textFill="WHITE" />
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                       </GridPane.margin>
+                                    </JFXBadge>
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="3">
+                                       <children>
+                                          <Label text="País" textFill="WHITE" />
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                       </GridPane.margin>
+                                    </JFXBadge>
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label text="Dirección" textFill="WHITE" />
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                       </GridPane.margin>
+                                    </JFXBadge>
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="ID Cliente" textFill="WHITE" />
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                       </GridPane.margin>
+                                    </JFXBadge>
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="5">
+                                       <children>
+                                          <Label text="Teléfono" textFill="WHITE" />
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                       </GridPane.margin>
+                                    </JFXBadge>
+                                    <JFXBadge prefHeight="3.0" prefWidth="100.0" text="Nombre" GridPane.rowIndex="4">
+                                       <children>
+                                          <Label text="Email" textFill="WHITE" />
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                       </GridPane.margin>
+                                    </JFXBadge>
+                                    <TextField fx:id="nameClientTxt" editable="false" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="idClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="directionclientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="cpClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="emailClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="tlpClientTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                           <children>
+                              <ImageView fx:id="companyIcon" fitHeight="150.0" fitWidth="163.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="586.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="438.0">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                           </HBox.margin>
+                           <children>
+                              <Label text="Concepto" />
+                              <TextArea fx:id="conceptArea" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="478.0" VBox.vgrow="NEVER" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="126.0">
+                           <children>
+                              <Label text="Precio" />
+                              <JFXTextField fx:id="priceTxt" focusColor="WHITE" unFocusColor="WHITE" />
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="BOTTOM_RIGHT" prefHeight="27.0" prefWidth="586.0">
+                     <children>
+                        <JFXButton fx:id="addProductBttn" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onActionAddDetail" prefHeight="29.0" prefWidth="30.0" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <ripplerFill>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="BLACK" />
+                                    <Stop color="WHITE" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </ripplerFill>
+                        </JFXButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets right="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TableView fx:id="productsTable" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="columnProduct" prefWidth="75.0" text="Productos" />
+                              <TableColumn fx:id="columnUds" prefWidth="75.0" text="Unidades" />
+                              <TableColumn fx:id="columnPrice" prefWidth="75.0" text="Producto" />
+                              <TableColumn fx:id="columnSubtotal" prefWidth="75.0" text="Subtotal" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets right="10.0" top="15.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <children>
+                        <GridPane hgap="5.0" prefHeight="100.0" prefWidth="406.0" vgap="5.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="122.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" />
+                              <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" />
+                              <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="14.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="20.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Base imponible" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Impuestos" GridPane.rowIndex="1" />
+                              <Label fx:id="productsTotalLbl" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="200" GridPane.columnIndex="4">
+                                 <GridPane.margin>
+                                    <Insets right="5.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label fx:id="taxLbl" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="20" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="5.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label fx:id="totalLbl" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="220" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets right="5.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <JFXComboBox fx:id="taxCombo" focusColor="#d9d6d6" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="72.0" promptText="IGIC" unFocusColor="#d9d6d6" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets left="5.0" right="5.0" />
+                                 </padding>
+                              </JFXComboBox>
+                              <Label fx:id="taxPercentageLbl" text="100" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="5.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="\%" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Label text="€" GridPane.columnIndex="5" />
+                              <Label text="€" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                              <Label text="€" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                              <JFXBadge GridPane.columnSpan="4" GridPane.rowIndex="2">
+                                 <children>
+                                    <Label text="Total" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </JFXBadge>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" right="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox fx:id="rightHideBox" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="300.0" prefHeight="600.0" prefWidth="300.0">
+               <children>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="20.0" HBox.hgrow="NEVER">
+                     <children>
+                        <JFXButton fx:id="rightHideBttn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="15.0" prefWidth="0.0" text=" ">
+                           <graphic>
+                              <ImageView fx:id="rightHideImage" fitHeight="17.0" fitWidth="18.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/close.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="rightHideVBox" maxHeight="-Infinity" minWidth="125.0" prefHeight="598.0" prefWidth="326.0">
+                     <children>
+                        <VBox fx:id="configurationBox" prefHeight="180.0" prefWidth="368.0">
+                           <children>
+                              <Label text="Configuración">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefWidth="200.0">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Separator>
+                              <Label text="Configura tu factura a tu gusto" textFill="#757171">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <JFXButton fx:id="invoiceStatusBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" text="Estado de factura         " textFill="#eee7e7">
+                                 <graphic>
+                                    <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../GluonFX-b9c3b29ed7ad152f2330acaa2de28f36ba5f7e89/GluonFXDesktop/src/main/resources/images/arrow-left-white.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXButton>
+                              <VBox fx:id="invoiceStatusBox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="263.0" spacing="5.0">
+                                 <children>
+                                    <JFXRadioButton fx:id="createdRadius" text="Creada">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="statusToggle" />
+                                       </toggleGroup>
+                                    </JFXRadioButton>
+                                    <JFXRadioButton fx:id="pendingRadius" text="Pendiente" toggleGroup="$statusToggle" />
+                                    <JFXRadioButton fx:id="chargedRadius" text="Cobrada" toggleGroup="$statusToggle" />
+                                    <JFXRadioButton fx:id="overdueRadius" text="Atrasada" toggleGroup="$statusToggle" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <Label text="Despliega la lista para comprobar el estado de la factura" textFill="#757171">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <JFXButton fx:id="clientSelectBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" text="Selección cliente        " textFill="#eee7e7">
+                                 <graphic>
+                                    <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../GluonFX-b9c3b29ed7ad152f2330acaa2de28f36ba5f7e89/GluonFXDesktop/src/main/resources/images/arrow-left-white.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXButton>
+                              <VBox fx:id="clientSelectBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="316.0">
+                                 <children>
+                                    <ComboBox fx:id="clientSelectCombo" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets right="60.0" top="5.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <Label text="Despliega la lista para comprobar el estado de la factura" textFill="#757171">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <JFXButton fx:id="paymentMethodBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="57.0" prefWidth="552.0" text="Métodos de pago      " textFill="#eee7e7">
+                                 <graphic>
+                                    <ImageView fitHeight="43.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../GluonFX-b9c3b29ed7ad152f2330acaa2de28f36ba5f7e89/GluonFXDesktop/src/main/resources/images/arrow-left-white.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXButton>
+                              <VBox fx:id="paymentMethodBox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="54.0" prefWidth="316.0" spacing="5.0">
+                                 <children>
+                                    <JFXRadioButton fx:id="cashRadius" text="Efectivo">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="methodsToggle" />
+                                       </toggleGroup>
+                                    </JFXRadioButton>
+                                    <JFXRadioButton fx:id="bankTransferRadius" text="Transferencia bancaria" toggleGroup="$methodsToggle" />
+                                    <JFXRadioButton fx:id="creditRadius" text="Crédito" toggleGroup="$methodsToggle" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <Label text="Despliega la lista para comprobar el estado de la factura" textFill="#757171">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <JFXButton fx:id="generatePDFBttn" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="56.0" prefWidth="263.0" text="Generar PDF               " textFill="#eee7e7">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXButton>
+                              <Label text="Genera el PDF" textFill="#757171">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </items>
+      </SplitPane>
+   </children>
+</VBox>

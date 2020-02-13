@@ -1,0 +1,162 @@
+TableView{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+Button{
+	-fx-background-color: blue;
+}
+
+#addInvoice{
+	-fx-background-color: #2196f3;
+}
+
+#delInvoice{
+	-fx-background-color: #2196f3;
+}
+
+#invoiceStatusBttn{
+	-fx-background-color: #2196f3;
+}
+
+#clientSelectBttn{
+	-fx-background-color: #2196f3;
+}
+
+
+#paymentMethodBttn{
+	-fx-background-color: #2196f3;
+}
+
+
+#generatePDFBttn{
+	-fx-background-color: #2196f3;
+}
+
+#invoiceIDTxt{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#dateTxt{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#invoiceStatus{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#nameClientTxt{
+	-fx-background-color: transparent;
+}
+
+#idClientTxt{
+	-fx-background-color: transparent;
+}
+
+#directionclientTxt{
+	-fx-background-color: transparent;
+}
+
+#cpClientTxt{
+	-fx-background-color: transparent;
+}
+
+#emailClientTxt{
+	-fx-background-color: transparent;
+}
+
+#tlpClientTxt{
+	-fx-background-color: transparent;
+}
+
+#conceptArea{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#priceTxt{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#productsTable{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#tableInvoices{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+	-fx-text-fill: black;
+}
+
+
+
+#taxCombo{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+JFXBadge{
+	-fx-background-color: #2196f3;
+	-fx-background-radius: 5;
+}
+
+TableColumn{
+	-fx-text-fill: black;
+}
+
+#clientSelectCombo{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#clientGrid{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#leftHideBox{
+	-fx-background-color: white;
+}
+
+#centerVBox{
+	-fx-background-color: white;
+}
+
+#tableInvoices .column-header{
+	-fx-background-color: white;
+}
+
+#tableInvoices .table-cell{
+	-fx-border-width: 0px;
+}
+
+#tableInvoices .table-column {
+-fx-alignment: CENTER;
+}
+
+#productsTable .column-header{
+	-fx-background-color: white;
+}
+
+#productsTable .table-cell{
+	-fx-border-width: 0px;
+}
+
+#productsTable .table-column {
+-fx-alignment: CENTER;
+}
+
+#rightHideBox{
+	-fx-background-color: white;
+}

@@ -1,0 +1,151 @@
+TableView{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+Button{
+	-fx-background-color: blue;
+}
+
+#addInvoice{
+	-fx-background-color: #2196f3;
+}
+
+#delInvoice{
+	-fx-background-color: #2196f3;
+}
+
+#invoiceStatusBttn{
+	-fx-background-color: #2196f3;
+}
+
+#clientSelectBttn{
+	-fx-background-color: #2196f3;
+}
+
+
+#paymentMethodBttn{
+	-fx-background-color: #2196f3;
+}
+
+
+#generatePDFBttn{
+	-fx-background-color: #2196f3;
+}
+
+#invoiceIDTxt{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#dateTxt{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#invoiceStatus{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#nameClientTxt{
+	-fx-background-color: no;
+}
+
+#idClientTxt{
+	-fx-background-color: no;
+}
+
+#directionclientTxt{
+	-fx-background-color: no;
+}
+
+#cpClientTxt{
+	-fx-background-color: no;
+}
+
+#emailClientTxt{
+	-fx-background-color: no;
+}
+
+#tlpClientTxt{
+	-fx-background-color: no;
+}
+
+#conceptArea{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#priceTxt{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#productsTable{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#tableInvoices{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+#columnProduct{
+	-fx-background-color: white;
+}
+
+#columnUds{
+	-fx-background-color: white;
+}
+
+#columnPrice{
+	-fx-background-color: white;
+}
+
+#columnSubtotal{
+	-fx-background-color: white;
+}
+
+#columnActions{
+	-fx-background-color: white;
+}
+
+#columnNumeroFactura{
+	-fx-background-color: white;
+}
+
+#columnFecha{
+	-fx-background-color: white;
+}
+
+#columnCliente{
+	-fx-background-color: white;
+}
+
+#taxCombo{
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+
+JFXBadge{
+	-fx-background-color: #2196f3;
+	-fx-background-radius: 5;
+}
+
+TableColumn{
+	-fx-Text-Fill: black;
+}
+
+#clientSelectCombo{
+	-fx-background-color: white;
+	-fx-border-color: grey;
+	-fx-border-radius: 10;
+}
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/7057507_administration_db?serverTimezone=UTC</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<mapping class="model.entities.Company" />
+		<mapping class="model.entities.Customer" />
+		<mapping class="model.entities.Tax" />
+		<mapping class="model.entities.PayMethod" />
+		<mapping class="model.entities.Product" />
+		<mapping class="model.entities.ConceptBudget" />
+		<mapping class="model.entities.ConceptInvoice" />
+		<mapping class="model.entities.ConceptWorkOrder" />
+		<mapping class="model.entities.Invoice" />
+		<mapping class="model.entities.InvoiceDetail" />
+		<mapping class="model.entities.Budget" />
+		<mapping class="model.entities.BudgetDetail" />
+		<mapping class="model.entities.WorkOrder" />
+		<mapping class="model.entities.WorkOrderDetail" />
+	</session-factory>
+</hibernate-configuration>
