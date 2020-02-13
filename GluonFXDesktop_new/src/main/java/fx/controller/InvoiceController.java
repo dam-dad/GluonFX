@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.jfoenix.animation.alert.CenterTransition;
 import com.jfoenix.controls.JFXButton;
 
 import com.jfoenix.controls.JFXComboBox;
@@ -27,6 +28,7 @@ import model.beans.CompanyBean;
 import model.beans.CustomerBean;
 import model.beans.InvoiceBean;
 import model.beans.InvoiceDetailBean;
+import model.beans.PrimaryModel;
 import model.beans.ProductBean;
 import model.beans.TaxBean;
 import hibernate.HibernateController;
@@ -54,6 +56,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.util.converter.NumberStringConverter;
 
 public class InvoiceController implements Initializable {
@@ -142,6 +145,9 @@ public class InvoiceController implements Initializable {
 	private Label taxPercentageLbl;
 
 	@FXML
+	private VBox rightHideVBox;
+
+	@FXML
 	private JFXButton rightHideBttn;
 
 	@FXML
@@ -221,16 +227,21 @@ public class InvoiceController implements Initializable {
 
 	@FXML
 	private HBox leftHideBox;
-	
+
 	@FXML
-    private TextField invoiceStatus;
+	private TextField invoiceStatus;
+
+	@FXML
+	private HBox rightHideBox;
+
+	@FXML
+	private VBox centerVBox;
 
 	// hibernate
 	private HibernateController hibernate;
 
 	// Main Lists
 	private List<InvoiceBean> listInvoices = new ArrayList<InvoiceBean>();
-	private List<CompanyBean> listCompanies = new ArrayList<CompanyBean>();
 	private List<CustomerBean> listCustomer = new ArrayList<CustomerBean>();
 	private List<ProductBean> listProducts = new ArrayList<ProductBean>();
 	private List<TaxBean> listTax = new ArrayList<TaxBean>();
@@ -239,14 +250,16 @@ public class InvoiceController implements Initializable {
 	// Beans and atributes for current invoice
 	private InvoiceBean masterInvoiceBean; // The most important bean he is the fucking master
 
-	private int hideLeftController = 0; // Si esá a 0 no está oculto, si está en 1 está oculto
-	private int hideRightController = 0;
+	private boolean hideLeftController = true; // Si esá a 0 no está oculto, si está en 1 está oculto
+	private boolean hideRightController = true;
+	private boolean hideStatusController = true;
+	private boolean hideClientController = true;
+	private boolean hidePaymentController = true;
 
 //	private List<InvoiceDetailBean> listInvoiceDetails = new ArrayList<InvoiceDetailBean>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 
 		// table invoice configuration
 		columnNumeroFactura.setCellValueFactory(v -> v.getValue().invoiceNumberProperty());
@@ -255,7 +268,6 @@ public class InvoiceController implements Initializable {
 
 		// table invoice listener
 		tableInvoices.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> onInvoiceSelected(nv));
-		
 
 		// table details configuration;
 		columnProduct.setCellValueFactory(v -> v.getValue().productProperty());
@@ -265,12 +277,90 @@ public class InvoiceController implements Initializable {
 
 		// Buttons actions
 
-		leftHideBttn.setOnAction(evt -> onLeftHideAction());
+		leftHideBttn.setOnAction(event -> onLeftHideAction());
+		rightHideBttn.setOnAction(event -> onRightHideAction());
 		createdRadius.setOnAction(event -> onCreatedAction());
 		pendingRadius.setOnAction(event -> onPendingAction());
 		chargedRadius.setOnAction(event -> onChargedAction());
 		overdueRadius.setOnAction(event -> onOverdueAction());
+		invoiceStatusBttn.setOnAction(event -> onStatusAction());
+		clientSelectBttn.setOnAction(event -> onClientAction());
+		paymentMethodBttn.setOnAction(event -> onPaymentAction());
+		generatePDFBttn.setOnAction(event -> onPDFAction());
 
+	}
+
+	private void onPDFAction() {
+		
+	}
+
+	private void onPaymentAction() {
+		if(hidePaymentController) {
+			paymentMethodBox.setVisible(false);
+			paymentMethodBox.setManaged(false);
+			hidePaymentController = false;
+		}else {
+			paymentMethodBox.setVisible(true);
+			paymentMethodBox.setManaged(true);
+			hidePaymentController = true;
+		}
+	}
+
+	private void onClientAction() {
+		if(hideClientController) {
+			clientSelectBox.setVisible(false);
+			clientSelectBox.setManaged(false);
+			hideClientController = false;
+		}else {
+			clientSelectBox.setVisible(true);
+			clientSelectBox.setManaged(true);
+			hideClientController = true;
+		}
+	}
+
+	private void onStatusAction() {
+		if (hideStatusController) {
+			invoiceStatusBox.setVisible(false);
+			invoiceStatusBox.setManaged(false);
+			hideStatusController = false;
+		} else {
+			invoiceStatusBox.setVisible(true);
+			invoiceStatusBox.setManaged(true);
+			hideStatusController = true;
+
+		}
+	}
+
+	private void onRightHideAction() {
+		if (hideRightController) {
+			rightHideVBox.setMaxWidth(125);
+			rightHideBox.setMaxWidth(170);
+			rightHideBttn.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+			invoiceStatusBttn.setFont(Font.font("System", 10));
+			invoiceStatusBttn.setText("Estado de factura");
+			clientSelectBttn.setFont(Font.font("System", 10));
+			clientSelectBttn.setText("Selección cliente");
+			paymentMethodBttn.setFont(Font.font("System", 10));
+			paymentMethodBttn.setText("Métodos de pago");
+			generatePDFBttn.setFont(Font.font("System", 10));
+			generatePDFBttn.setText("Generar PDF");
+			rightHideBox.setMinWidth(145);
+			hideRightController = false;
+		} else {
+			rightHideBox.setMaxWidth(Double.MAX_VALUE);
+			rightHideVBox.setMaxWidth(-1);
+			rightHideBttn.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+			invoiceStatusBttn.setFont(Font.font("System", 18));
+			invoiceStatusBttn.setText("Estado de factura         ");
+			clientSelectBttn.setFont(Font.font("System", 18));
+			clientSelectBttn.setText("Selección cliente        ");
+			paymentMethodBttn.setFont(Font.font("System", 18));
+			paymentMethodBttn.setText("Métodos de pago      ");
+			generatePDFBttn.setFont(Font.font("System", 18));
+			generatePDFBttn.setText("Generar PDF               ");
+			rightHideBox.setMinWidth(300);
+			hideRightController = true;
+		}
 	}
 
 	private void onOverdueAction() {
@@ -280,7 +370,7 @@ public class InvoiceController implements Initializable {
 
 	private void onChargedAction() {
 		masterInvoiceBean.setStatus(2);
-		invoiceStatus.setText("Cobrada");	
+		invoiceStatus.setText("Cobrada");
 	}
 
 	private void onPendingAction() {
@@ -294,16 +384,22 @@ public class InvoiceController implements Initializable {
 	}
 
 	private void onLeftHideAction() {
-		if (hideLeftController == 0) {
+		if (hideLeftController) {
 			tableGrid.setMaxWidth(125);
 			leftHideBox.setMaxWidth(170);
 			leftHideImage.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-			hideLeftController = 1;
+			addInvoice.setFont(Font.font("System", 10));
+			delInvoice.setFont(Font.font("System", 10));
+			leftHideBox.setMinWidth(145);
+			hideLeftController = false;
 		} else {
 			tableGrid.setMaxWidth(Double.MAX_VALUE);
 			leftHideBox.setMaxWidth(-1);
 			leftHideImage.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-			hideLeftController = 0;
+			addInvoice.setFont(Font.font("System", 18));
+			delInvoice.setFont(Font.font("System", 18));
+			leftHideBox.setMinWidth(300);
+			hideLeftController = true;
 		}
 
 	}
@@ -331,8 +427,9 @@ public class InvoiceController implements Initializable {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	private void selectAllTax() {
-		
+
 		listTax = new ArrayList<TaxBean>();
 
 		List<Tax> list = hibernate.selectAll("Tax");
@@ -342,12 +439,11 @@ public class InvoiceController implements Initializable {
 		}
 		taxCombo.setItems(FXCollections.observableArrayList(listTax));
 
-		
 	}
-	
 
+	@SuppressWarnings("unchecked")
 	private void selectAllCompanys() {
-		listCompanies = new ArrayList<CompanyBean>();
+		new ArrayList<CompanyBean>();
 
 		List<Company> list = hibernate.selectAll("Company");
 
@@ -358,6 +454,7 @@ public class InvoiceController implements Initializable {
 	/*
 	 * Make a query for get all invoices from bbdd and update the corresponding list
 	 */
+	@SuppressWarnings("unchecked")
 	public void selectAllInvoices() {
 
 		listInvoices = new ArrayList<InvoiceBean>();
@@ -377,6 +474,7 @@ public class InvoiceController implements Initializable {
 	 * list
 	 */
 
+	@SuppressWarnings("unchecked")
 	public void selectAllCustomers() {
 
 		listCustomer = new ArrayList<CustomerBean>();
@@ -400,6 +498,7 @@ public class InvoiceController implements Initializable {
 
 		listProducts = new ArrayList<ProductBean>();
 
+		@SuppressWarnings("unchecked")
 		List<Product> list = hibernate.selectAll("Product");
 
 		for (Product p : list) {
@@ -412,7 +511,6 @@ public class InvoiceController implements Initializable {
 	 * Listener to detect the invoice selected and update the view
 	 */
 	private void onInvoiceSelected(InvoiceBean nv) {
-		
 
 		try {
 
@@ -480,7 +578,8 @@ public class InvoiceController implements Initializable {
 				} catch (Exception e) {
 				}
 				try {
-					Bindings.unbindBidirectional(priceTxt.textProperty(),masterInvoiceBean.getConceptInvoices().get(0).priceProperty());
+					Bindings.unbindBidirectional(priceTxt.textProperty(),
+							masterInvoiceBean.getConceptInvoices().get(0).priceProperty());
 				} catch (Exception e) {
 				}
 
@@ -490,32 +589,34 @@ public class InvoiceController implements Initializable {
 			try {
 				nameClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().nameProperty());
 				idClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().idProperty());
-				directionclientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().addressProperty());
+				directionclientTxt.textProperty()
+						.unbindBidirectional(masterInvoiceBean.getCustomer().addressProperty());
 				cpClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().cityProperty());
 				emailClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().emailProperty());
 				tlpClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().phoneProperty());
-			}catch(Exception e) {}
-			
-			//Asignación de la nueva factura
-			
+			} catch (Exception e) {
+			}
+
+			// Asignación de la nueva factura
+
 			masterInvoiceBean = nv;
 			dateTxt.setText(masterInvoiceBean.getInvoiceDate().toString());
-			//Esto es una solución temporal, una guarrada
-			
-			if(masterInvoiceBean.getStatus() == 0) {
+			// Esto es una solución temporal, una guarrada
+
+			if (masterInvoiceBean.getStatus() == 0) {
 				createdRadius.setSelected(true);
 				invoiceStatus.setText("Creada");
-			}else if(masterInvoiceBean.getStatus() == 1) {
+			} else if (masterInvoiceBean.getStatus() == 1) {
 				pendingRadius.setSelected(true);
 				invoiceStatus.setText("Pendiente");
-			}else if(masterInvoiceBean.getStatus() == 2) {
+			} else if (masterInvoiceBean.getStatus() == 2) {
 				chargedRadius.setSelected(true);
 				invoiceStatus.setText("Cobrada");
-			}else {
+			} else {
 				overdueRadius.setSelected(true);
 				invoiceStatus.setText("Atrasada");
 			}
-			
+
 			// Bindings
 
 			try {
@@ -534,10 +635,6 @@ public class InvoiceController implements Initializable {
 
 			} catch (Exception e) {
 			}
-			
-			
-			
-			
 			try {
 				Bindings.bindBidirectional(taxLbl.textProperty(), masterInvoiceBean.taxTotalProperty(),
 						new NumberStringConverter());
@@ -548,8 +645,7 @@ public class InvoiceController implements Initializable {
 						masterInvoiceBean.getTax().percentageProperty(), new NumberStringConverter());
 			} catch (Exception e) {
 			}
-			
-			try {				
+			try {
 				taxCombo.valueProperty().bindBidirectional(masterInvoiceBean.taxProperty());
 			} catch (Exception e) {
 			}
@@ -571,23 +667,22 @@ public class InvoiceController implements Initializable {
 				masterInvoiceBean.customerProperty().bind(clientSelectCombo.getSelectionModel().selectedItemProperty());
 			} catch (Exception e) {
 			}
-			//Bindeo cliente
+			// Bindeo cliente
 			try {
 				nameClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().nameProperty());
-				idClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().idProperty(), new NumberStringConverter());
+				idClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().idProperty(),
+						new NumberStringConverter());
 				directionclientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().addressProperty());
 				cpClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().cityProperty());
 				emailClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().emailProperty());
 				tlpClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().phoneProperty());
-			}catch(Exception e) {}
-			
-			
+			} catch (Exception e) {
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	private void onClientChanged(CustomerBean nv) {
 		nameClientTxt.setText(nv.getName());
@@ -620,7 +715,7 @@ public class InvoiceController implements Initializable {
 				double priceUnit = result.get().getProductSelected().getProduct().getPrice();
 				invoiceDetail.setInvoice(masterInvoiceBean.getInvoice());
 				invoiceDetail.setProduct(result.get().getProductSelected().getProduct());
-				invoiceDetail.setPrice(quantity*priceUnit);
+				invoiceDetail.setPrice(quantity * priceUnit);
 				invoiceDetail.setPriceUnit(priceUnit);
 				invoiceDetail.setQuantity(quantity);
 			} catch (Exception e) {
