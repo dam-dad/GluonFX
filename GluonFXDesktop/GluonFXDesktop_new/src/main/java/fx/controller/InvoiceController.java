@@ -22,19 +22,26 @@ import model.entities.Company;
 import model.entities.Customer;
 import model.entities.Invoice;
 import model.entities.InvoiceDetail;
+import model.entities.PayMethod;
 import model.entities.Product;
 import model.entities.Tax;
 import model.beans.CompanyBean;
 import model.beans.CustomerBean;
 import model.beans.InvoiceBean;
 import model.beans.InvoiceDetailBean;
+import model.beans.PayMethodBean;
 import model.beans.PrimaryModel;
 import model.beans.ProductBean;
 import model.beans.TaxBean;
 import hibernate.HibernateController;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,6 +58,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -60,8 +68,7 @@ import javafx.scene.text.Font;
 import javafx.util.converter.NumberStringConverter;
 
 public class InvoiceController implements Initializable {
-	Company DEFAULT_COMPANY;
-	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	
 
 	@FXML
 	private VBox view;
@@ -246,6 +253,7 @@ public class InvoiceController implements Initializable {
 	private List<ProductBean> listProducts = new ArrayList<ProductBean>();
 	private List<TaxBean> listTax = new ArrayList<TaxBean>();
 	private List<String> listCustomersNames = new ArrayList<String>();
+	private List<PayMethod> listPayMethods = new ArrayList<PayMethod>();
 
 	// Beans and atributes for current invoice
 	private InvoiceBean masterInvoiceBean; // The most important bean he is the fucking master
@@ -255,8 +263,15 @@ public class InvoiceController implements Initializable {
 	private boolean hideStatusController = true;
 	private boolean hideClientController = true;
 	private boolean hidePaymentController = true;
+	
+	//Properties
+	
+	private DoubleProperty totalProducts = new SimpleDoubleProperty();
+	private DoubleProperty taxPrice = new SimpleDoubleProperty();
 
-//	private List<InvoiceDetailBean> listInvoiceDetails = new ArrayList<InvoiceDetailBean>();
+//	utils
+	Company DEFAULT_COMPANY;
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -287,6 +302,19 @@ public class InvoiceController implements Initializable {
 		clientSelectBttn.setOnAction(event -> onClientAction());
 		paymentMethodBttn.setOnAction(event -> onPaymentAction());
 		generatePDFBttn.setOnAction(event -> onPDFAction());
+		
+		//Listener
+		
+		/*methodsToggle.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+		      public void changed(ObservableValue<? extends Toggle> ov,
+		              Toggle old_toggle, Toggle new_toggle) {
+		            if (methodsToggle.getSelectedToggle() != null) {
+		              if(cashRadius.isSelected()) {
+		            	  
+		              }
+		            }
+		          }
+		        });*/
 
 	}
 
@@ -477,6 +505,19 @@ public class InvoiceController implements Initializable {
 	@SuppressWarnings("unchecked")
 	public void selectAllCustomers() {
 
+		List<PayMethod> list = hibernate.selectAll("PayMethod");
+
+		for (PayMethod pm : list) {
+			listPayMethods.add(pm);
+		}
+
+		clientSelectCombo.setItems(FXCollections.observableArrayList(listCustomer));
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void selectAllPayMethods() {
+
 		listCustomer = new ArrayList<CustomerBean>();
 
 		List<Customer> list = hibernate.selectAll("Customer");
@@ -516,14 +557,9 @@ public class InvoiceController implements Initializable {
 
 			try {
 
-				// Set everything at start position
-//				invoiceIDTxt.setText("");
-//				totalLbl.setText("0");
-//				taxLbl.setText("0");
-//				taxPercentageLbl.setText("0");
-//				totalLbl.setText("0");
-//				conceptArea.setText("");
-//				priceTxt.setText("");
+				
+				
+				
 
 				// Unbindings
 				try {
@@ -582,6 +618,9 @@ public class InvoiceController implements Initializable {
 							masterInvoiceBean.getConceptInvoices().get(0).priceProperty());
 				} catch (Exception e) {
 				}
+				try {
+					Bindings.unbindBidirectional(masterInvoiceBean.taxProperty(), taxCombo.valueProperty());
+				}catch(Exception e) {}
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -595,12 +634,19 @@ public class InvoiceController implements Initializable {
 				emailClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().emailProperty());
 				tlpClientTxt.textProperty().unbindBidirectional(masterInvoiceBean.getCustomer().phoneProperty());
 			} catch (Exception e) {
-			}
+			}try {
+				Bindings.unbindBidirectional(taxPercentageLbl.textProperty(), totalProducts);
+			}catch(Exception e) {}
+			try {
+				Bindings.unbindBidirectional(taxLbl.textProperty(), taxPrice);
+			}catch(Exception e) {}
 
 			// Asignación de la nueva factura
 
 			masterInvoiceBean = nv;
 			dateTxt.setText(masterInvoiceBean.getInvoiceDate().toString());
+			UpdatePrice();
+			
 			// Esto es una solución temporal, una guarrada
 
 			if (masterInvoiceBean.getStatus() == 0) {
@@ -615,6 +661,14 @@ public class InvoiceController implements Initializable {
 			} else {
 				overdueRadius.setSelected(true);
 				invoiceStatus.setText("Atrasada");
+			}
+			
+			if(masterInvoiceBean.getPayMethod().getId() == 0) {
+				cashRadius.setSelected(true);
+			}else if(masterInvoiceBean.getPayMethod().getId() == 0) {
+				bankTransferRadius.setSelected(true);
+			}else {
+				creditRadius.setSelected(true);
 			}
 
 			// Bindings
@@ -646,7 +700,7 @@ public class InvoiceController implements Initializable {
 			} catch (Exception e) {
 			}
 			try {
-				taxCombo.valueProperty().bindBidirectional(masterInvoiceBean.taxProperty());
+				Bindings.bindBidirectional(masterInvoiceBean.taxProperty(), taxCombo.valueProperty());
 			} catch (Exception e) {
 			}
 			try {
@@ -678,6 +732,13 @@ public class InvoiceController implements Initializable {
 				tlpClientTxt.textProperty().bindBidirectional(masterInvoiceBean.getCustomer().phoneProperty());
 			} catch (Exception e) {
 			}
+			try {
+				Bindings.bindBidirectional(taxPercentageLbl.textProperty(), totalProducts, 
+						new NumberStringConverter());
+			}catch(Exception e) {}
+			try {
+				Bindings.bindBidirectional(taxLbl.textProperty(), taxPrice, new NumberStringConverter());
+			}catch(Exception e) {}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -760,6 +821,16 @@ public class InvoiceController implements Initializable {
 
 		}
 
+	}
+	
+	public void UpdatePrice() {
+		double sum = 0;
+		for(int i = 0; i < productsTable.getItems().size(); i++) {
+			sum = sum + (columnUds.getCellData(i).doubleValue() * columnSubtotal.getCellData(i).doubleValue());
+		}
+		totalProducts.set(sum);
+		
+		/*taxPrice.set((masterInvoiceBean.getTax().getPercentage()/100)*totalProducts.get());*/
 	}
 
 	public VBox getView() {
