@@ -1,5 +1,8 @@
 package fx.controller;
 
+import java.awt.Desktop;
+import java.awt.Dialog;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -15,7 +18,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
+import fx.decoder.CodingPDF;
+import fx.decoder.PDFBase64;
 import fx.dialogs.AddDetailDialogController;
 import fx.dialogs.AddDetailDialogModel;
 import model.entities.Company;
@@ -65,6 +74,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 
 public class InvoiceController implements Initializable {
@@ -268,8 +280,15 @@ public class InvoiceController implements Initializable {
 	
 	private DoubleProperty totalProducts = new SimpleDoubleProperty();
 	private DoubleProperty taxPrice = new SimpleDoubleProperty();
+	
+	//Stage
+	private Stage stage;
+	
+	//Decoder
+	PDFBase64 decoder = new PDFBase64();
+	CodingPDF pdfCoded = new CodingPDF();
 
-//	utils
+//	Utils
 	Company DEFAULT_COMPANY;
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
@@ -318,8 +337,41 @@ public class InvoiceController implements Initializable {
 
 	}
 
+	//Generador de pdf
+	@SuppressWarnings("static-access")
 	private void onPDFAction() {
-		
+		try {
+			
+			if(masterInvoiceBean != null) {
+				System.out.println(masterInvoiceBean.getId());
+				
+				HttpResponse<JsonNode> itemResponse = Unirest.get("http://188.76.34.188:4132/pdf/1")
+						.asJson();
+				if(itemResponse.getStatus() == 200) {
+					JsonNode json = itemResponse.getBody();
+					pdfCoded.setBase64(json.getObject().getString("base64"));
+					pdfCoded.setInvoiceId(masterInvoiceBean.getInvoiceNumber());
+				}
+				
+				
+				FileChooser fChooser = new FileChooser();
+				fChooser.setTitle("Selecciona la ubicación de tu PDF");
+				fChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+				fChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF(*.pdf)", "*.pdf"));
+				File file = fChooser.showSaveDialog(stage);
+				
+				decoder.decoder(pdfCoded.getBase64(), file.toString());
+				Desktop.getDesktop().open(file);
+			}
+		} catch (UnirestException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void getStage(Stage stage) {
+		this.stage = stage;
 	}
 
 	private void onPaymentAction() {
