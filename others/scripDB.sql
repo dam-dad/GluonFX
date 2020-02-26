@@ -411,7 +411,9 @@ USE 7057507_administration_db;
 
 INSERT INTO company (company_id, name, address, city, country, email, phone) VALUES ('D0001', 'Informatica SL', 'C/pincel 12','la laguna', 'Spain', 'inforsl@mycompany.es', '922686868');
 
-INSERT INTO customer (customer_id, name, address, city, country, email, phone) VALUES ('A0001', 'Tu bicicleta ya', 'C/Peliaguda 11','la laguna', 'Spain', 'info@tubici.es', '9226333333');
+INSERT INTO company (company_id, name, address, city, country, email, phone) VALUES ('A0001', 'Tu bicicleta ya', 'C/Peliaguda 11','la laguna', 'Spain', 'info@tubici.es', '9226333333');
+ 
+INSERT INTO customer (customer_id, name, address, city, country, email, phone) VALUES ('C0001', 'Lola Mento', 'C/el rey 14','la laguna', 'Spain', 'lolamento@gmail.com', '922111111');                                                                                                        
 
 INSERT INTO tax (tax_id, percentage, description) VALUES ('IGIC', 7, 'IMPUESTO CANARIO INDIRECTO GENERAL'); 
 
@@ -422,6 +424,7 @@ INSERT INTO pay_method(description) VALUES ('Tansferencia');
 INSERT INTO pay_method(description) VALUES ('Efectivo'); 
 
 INSERT INTO pay_method(description) VALUES ('Crédito'); 
+                                                                                                        
 INSERT INTO product (product_id, name, description, price, stock, url) VALUES ('10000191', 'ASUS M5A78L-M PLUS/USB3 - 90MB0RB0-M0EAY0', 'Placa base ASUS', 110.6, 900, 'https://i.imgur.com/ZKMDR9i.jpeg');
 INSERT INTO product (product_id, name, description, price, stock, url) VALUES ('10000192', 'ROG Pugio', 'Raton ASUS', 60.6, 900, 'https://i.imgur.com/jncB7bp.jpg');
 INSERT INTO product (product_id, name, description, price, stock, url) VALUES ('10000193', 'Impresora multifunción Canon Pixma TS3150', 'Impresora multifuncion', 100.6, 100, 'https://i.imgur.com/1yvSued.jpg');
