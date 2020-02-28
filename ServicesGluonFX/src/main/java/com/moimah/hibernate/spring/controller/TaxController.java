@@ -1,13 +1,14 @@
 package com.moimah.hibernate.spring.controller;
 
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -17,6 +18,15 @@ import com.moimah.hibernate.spring.daos.TaxDao;
 
 import com.moimah.hibernate.spring.entities.Tax;
 
+
+/**
+ * 
+ * Clase de tipo controller de entidad Tax
+ * 
+ * 
+ * @author moimah
+ *
+ */
 @Controller
 public class TaxController {
 
@@ -24,43 +34,43 @@ public class TaxController {
 	private TaxDao taxDao; // Inyectamos el DAO dentro del Controller
 	
 	
-	/*
-	 * 
-	 * Crea un nuevo estudiante con un Id autogenerado, y con los datos recibidos
-	 * por la URL 
-	 * 
-	 * http://localhost:9002/createTax?tax_id=IJO&percentage=19&description=impuesto para ijos de puta
-	 * 
+	/**
+	 * Inserta una nuevo tax en la bbdd
+	 * comprueba que este no exista y lo inserta
+	 * @param tax nuevo tax a insertar
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/createTax")
+	@RequestMapping(method = RequestMethod.POST, value = "/tax", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String create(String tax_id,double percentage, String description) {
+	public String insert(@RequestBody Tax tax) {
 
-		try {
-
-			Tax tax = new Tax(tax_id, percentage, description, null, null, null);
+		try {	
+		
+		
+			Tax exist = taxDao.getTaxById(tax.getId());
 			
-			taxDao.create(tax);
+			if(exist == null){
+				taxDao.update(tax); //I dont know why but persist doesnt work
+			}	
 
-			return "Tasa creada correctamente";
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la creación de la tasa";
+			return "Error";
 		}
 	}
 	
 	
-	/*
-	 * 
-	 * 
-	 * 
-	 * http://localhost:9002/deleteTax?id=17
-	 * 
-	 */	
-	@RequestMapping(value = "/deleteTax")
+	/**
+	 * Elimina un tax existente en la bbdd a través de su Id
+	 * @param id
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(value = "/tax/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public String delete(int id) {
+	public String delete(@PathVariable("id") int id) {
+
 
 		try {
 
@@ -69,43 +79,40 @@ public class TaxController {
 
 			taxDao.delete(tax);
 
-			return "Tasa eliminada correctamente";
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la eliminación de la tasa";
+			return "Error";
 		}
 
 	}
-	/*
-	 * 
-	 *  
-	 * http://localhost:9002/updateTax?id=17&tax_id=pepe&percentage=17&description=hola
-	 * 
+	
+	
+	/**
+	 * Actualiza un tax existente en la bbdd
+	 * comprueba que  exista y lo modifica
+	 * @param tax nuevo tax a insertar
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/updateTax")
-	@ResponseBody	
-	public String update(int id,String tax_id,double percentage, String description) {
+	@RequestMapping(method = RequestMethod.PUT, value = "/tax", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+	public String update(@RequestBody Tax tax) {
 		
-		try {
+		try {				
 			
-			Tax t = new Tax();
-								
-			t.setId(id);
+			//check if product exist
+			Tax exist = taxDao.getTaxById(tax.getId());
 			
-			t.setTaxId(tax_id);
+			if(exist != null){
+				taxDao.update(tax);
+			}
+					
 			
-			t.setPercentage(percentage);
-			
-			t.setDescription(description);
-
-			taxDao.update(t);
-			
-			return "Tasa actualizada correctamente";
+			return "Ok";
 			
 		} catch (Exception e) {
 			
-			return "Error al actualizar la tasa"; 
+			return "Error"; 
 			
 		}
 
@@ -113,13 +120,13 @@ public class TaxController {
 	}
 	
 	
-	/*
-	 * Devuelve una lista de todas las facturas
-	 * http://localhost:9002/allTax
+	/**
+	 * Realiza una consulta de todos los tax de la bbdd
+	 * devuelve un Json con la lista de objetos	
+	 * @return json lista con todos los tax de la bbdd
 	 */
-	
-	@RequestMapping(value = "/allTax")
-	@ResponseBody	
+	@RequestMapping(value = "/tax", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody		
 	public String  all() {
 		
 		
@@ -136,13 +143,15 @@ public class TaxController {
 	}	
 	
 	
-	/*
-	 * Devuelve una factura por si id
-	 * http://localhost:9002/taxById?id=1
-	 */	
-	@RequestMapping(value = "/taxById")
+	/**
+	 * Realiza una consulta de un tax determinado a través de su id
+	 * devuelve un Json con la lista de objetos	
+	 * @param id de tax a buscar
+	 * @return json del tax encontrado
+	 */
+	@RequestMapping(value = "/tax/{id}",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody	
-	public String byId(int id) {
+	public String byId(@PathVariable("id")int id) {
 		
 		Tax	t = taxDao.getTaxById(id);
 		

@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.moimah.hibernate.spring.entities.Company;
 
 /**
- * 
- * Esta es la clase que usaremos para acceder a los datos de las entidades User.
+ * Esta es la clase que  para acceder a los datos de las entidades Company.
  * Al estar anotada con el estereotipo @Repository, será localizada rapidamente,
  * y usada para tal fin.
  * 
@@ -21,6 +20,8 @@ import com.moimah.hibernate.spring.entities.Company;
  * y commit() de forma "mágica" en el inicio y el fin del método.
  * 
  * 
+ * @author moimah
+ *
  */
 @Repository
 @Transactional
@@ -36,15 +37,17 @@ public class CompanyDao {
 	// METODOS CRUD	
 
 	/**
-	 * Almacena una empresa en la base de datos
-	 */	
+	 * Almacena un company en la bbdd
+	 * @param company a almacenar
+	 */
 	public void create(Company company) {		
 		entityManager.persist(company);
 	}
 	
 	/**
-	 * Elimina una empresa de la base de datos.
-	 */	
+	 * Elimina un company de la bbddd
+	 * @param company company a eliminar
+	 */
 	public void delete(Company company) {
 		
 		if(entityManager.contains(company)) {
@@ -54,7 +57,7 @@ public class CompanyDao {
 		}
 	}
 	
-	
+
 	/**
 	 * Actualiza la compañia proporcionada
 	 */	
@@ -63,16 +66,19 @@ public class CompanyDao {
 	}
 	
 	/**
-	 * Devuelve un compañia en base a su Id
-	 */	
+	 * Busca y devuelve un company por su id
+	 * @param id del company a buscar
+	 * @return company encontrado
+	 */
 	public Company getCompanyById(int id) {
 		return entityManager.find(Company.class, id);
 	}
 	
 	
 	/**
-	 * Devuelve todos las compañias de la base de datos.
-	 */	
+	 * Busca y devuelve en forma de lista todas las companys encontrados
+	 * @return listCompanys lista con todas las companys
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Company> getAll(){		
 		return entityManager.createQuery("SELECT c FROM Company c").getResultList();

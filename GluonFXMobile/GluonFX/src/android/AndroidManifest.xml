@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.gluonapplication" android:versionCode="1" android:versionName="1.0">
+	<supports-screens android:xlargeScreens="true"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.CAMERA"/>
+	<activity android:name="com.gluonhq.impl.charm.down.plugins.android.PermissionRequestActivity" />
+	 <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="26"/>
+	<application android:label="MultiViewProjectFXML" android:name="android.support.multidex.MultiDexApplication" android:icon="@mipmap/ic_launcher">
+		<activity android:name="javafxports.android.FXActivity" android:label="GluonFX" android:screenOrientation="portrait">
+			<meta-data android:name="main.class" android:value="com.gluonapplication.GluonApplication"/>
+			<meta-data android:name="debug.port" android:value="0"/>
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+		<provider
+           android:name="android.support.v4.content.FileProvider"
+           android:authorities="com.gluonapplication.fileprovider"
+           android:exported="false"
+           android:grantUriPermissions="true">
+			<meta-data
+               android:name="android.support.FILE_PROVIDER_PATHS"
+               android:resource="@xml/file_provider_paths" />
+		</provider>
+	</application>
+</manifest>

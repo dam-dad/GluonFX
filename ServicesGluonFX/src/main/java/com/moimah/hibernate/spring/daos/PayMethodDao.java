@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.moimah.hibernate.spring.entities.PayMethod;
 
 /**
- * 
- * Esta es la clase que usaremos para acceder a los datos de las entidades User.
+ * Esta es la clase que  para acceder a los datos de las entidades payMethod.
  * Al estar anotada con el estereotipo @Repository, será localizada rapidamente,
  * y usada para tal fin.
  * 
@@ -21,6 +20,8 @@ import com.moimah.hibernate.spring.entities.PayMethod;
  * y commit() de forma "mágica" en el inicio y el fin del método.
  * 
  * 
+ * @author moimah
+ *
  */
 @Repository
 @Transactional
@@ -37,15 +38,17 @@ public class PayMethodDao {
 	// METODOS CRUD	
 
 	/**
-	 * Almacena una factura en la base de datos
-	 */	
+	 * Almacena un payMethod en la bbdd
+	 * @param payMethod payMethod a almacenar
+	 */
 	public void create(PayMethod payMethod) {		
 		entityManager.persist(payMethod);
 	}
 	
 	/**
-	 * Elimina una factura de la base de datos.
-	 */	
+	 * Elimina un payMethod de la bbddd
+	 * @param payMethod payMethod a eliminar
+	 */
 	public void delete(PayMethod payMethod) {
 		
 		if(entityManager.contains(payMethod)) {
@@ -57,23 +60,27 @@ public class PayMethodDao {
 	
 	
 	/**
-	 * Actualiza la  factura proporcionada
-	 */	
+	 * Actualiza el payMethod en la bbdd
+	 * @param payMethod
+	 */
 	public void update(PayMethod payMethod) {
 		entityManager.merge(payMethod);
 	}
 	
 	/**
-	 * Devuelve una factura en base a su Id
-	 */	
+	 * Busca y devuelve un payMethod por su id
+	 * @param id del payMethod a buscar
+	 * @return payMethod payMethod
+	 */
 	public PayMethod getPayMethodById(int id) {
 		return entityManager.find(PayMethod.class, id);
 	}
 	
 	
 	/**
-	 * Devuelve todos las facturas de la base de datos.
-	 */	
+	 * Busca y devuelve en forma de lista todos los payMethods
+	 * @return listPayMethods lista con todos los payMethods
+	 */
 	@SuppressWarnings("unchecked")
 	public List<PayMethod> getAll(){		
 		return entityManager.createQuery("SELECT i FROM PayMethod i").getResultList();

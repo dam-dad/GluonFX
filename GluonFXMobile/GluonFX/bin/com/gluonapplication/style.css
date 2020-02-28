@@ -1,0 +1,103 @@
+.root {   
+    -primary-swatch-500: #3C3B6E;  
+    -fx-text-fill: black;
+    
+}
+.list-view .list-cell.header-cell {   
+    -fx-background-color: #B22234;
+}
+.list-view .list-cell.header-cell > .list-tile > .text-box > .primary-text {    
+    -fx-text-fill: white;    
+}
+
+.list-view .list-cell.header-cell > .list-tile > .text-box > .secondary-text {
+    /* Headers secondary text */
+    -fx-text-fill: #FFFFFFDE;
+}
+
+
+
+
+/**
+ * In order to style any other column header's background
+ */
+.table-view .column-header {
+    -fx-background-color : #B22234;
+}
+
+
+/**
+ * For styling column header's labels
+ */
+.table-view .column-header .label {
+    -fx-text-fill : white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
+.table-row-cell:selected {
+   -fx-background-color: #CCE4F9;
+}
+.table-row-cell:selected .text {
+       -fx-fill: black ;
+
+}
+
+
+.titled-pane > .title
+{
+    -fx-background-color: #3C3B6E;
+    -fx-border-color: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+
+.titled-pane > .title > .text
+{
+    -fx-fill: white; 
+}
+
+.titled-pane:focused > .title 
+{
+	-fx-background-color: #B22234;
+}
+
+.button:hover { 
+     -fx-background-color:#B22234;
+     -fx-text-fill: white; 
+}
+
+
+
+.tab-pane {  
+  -fx-tab-min-width:120px;
+  -fx-tab-max-width:120px; 
+}
+
+
+combo-box{
+    -fx-border-color:white;
+    -fx-border-style:solid;
+    -fx-border-width:1;    
+}
+.combo-box .arrow{
+    -fx-background-color:#2478E9;
+}
+.combo-box .arrow-button{
+    -fx-background-color:white;
+    -fx-border-style:none;
+}
+.combo-box .arrow-button{
+    -fx-background-color:white;
+}
+.combo-box .list-cell{
+    -fx-background-color:white;    
+}
+
+
+
+
+
+

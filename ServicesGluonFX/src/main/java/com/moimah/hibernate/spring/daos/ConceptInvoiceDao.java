@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.moimah.hibernate.spring.entities.ConceptInvoice;
 
 /**
- * 
- * Esta es la clase que usaremos para acceder a los datos de las entidades User.
+ * Esta es la clase que  para acceder a los datos de las entidades ConceptInvoice.
  * Al estar anotada con el estereotipo @Repository, será localizada rapidamente,
  * y usada para tal fin.
  * 
@@ -21,6 +20,8 @@ import com.moimah.hibernate.spring.entities.ConceptInvoice;
  * y commit() de forma "mágica" en el inicio y el fin del método.
  * 
  * 
+ * @author moimah
+ *
  */
 @Repository
 @Transactional
@@ -37,16 +38,18 @@ public class ConceptInvoiceDao {
 	//METODOS CRUD
 	
 	/**
-	 * Almacena un concepto en la base de datos
-	 */	
+	 * Almacena un conceptInvoice en la bbdd
+	 * @param conceptInvoice a almacenar
+	 */
 	public void create(ConceptInvoice conceptInvoice) {		
 		entityManager.persist(conceptInvoice);
 	}
 	
 	
 	/**
-	 * Elimina un concepto de la base de datos.
-	 */	
+	 * Elimina un conceptInvoice de la bbddd
+	 * @param conceptInvoice conceptInvoice a eliminar
+	 */
 	public void delete(ConceptInvoice conceptInvoice) {
 		
 		if(entityManager.contains(conceptInvoice)) {
@@ -56,15 +59,20 @@ public class ConceptInvoiceDao {
 		}
 	}
 	
+	
 	/**
-	 * Actualiza el concepto proporcionado
-	 */	
+	 * Actualiza el conceptInvoice en la bbdd
+	 * @param conceptInvoice
+	 */
 	public void update(ConceptInvoice conceptInvoice) {
 		entityManager.merge(conceptInvoice);
 	}
 	
+	
 	/**
-	 * Devuelve un concepto en base a su Id
+	 * Busca y devuelve un conceptInvoice por su id
+	 * @param id del conceptInvoice a buscar
+	 * @return conceptInvoice encontrado
 	 */	
 	public ConceptInvoice getConceptInvoiceById(int id) {
 		return entityManager.find(ConceptInvoice.class, id);
@@ -72,8 +80,9 @@ public class ConceptInvoiceDao {
 	
 	
 	/**
-	 * Devuelve todos los conceptos de la base de datos.
-	 */	
+	 * Busca y devuelve en forma de lista todos los conceptInvoices encontrados
+	 * @return listConceptInvoices lista con todos los conceptInvoice
+	 */
 	@SuppressWarnings("unchecked")
 	public List<ConceptInvoice> getAll(){		
 		return entityManager.createQuery("SELECT c FROM ConceptInvoice c").getResultList();

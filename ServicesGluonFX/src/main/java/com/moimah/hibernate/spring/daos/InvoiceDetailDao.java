@@ -9,11 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.moimah.hibernate.spring.entities.InvoiceDetail;
-import com.moimah.hibernate.spring.entities.InvoiceDetail;
 
 /**
- * 
- * Esta es la clase que usaremos para acceder a los datos de las entidades User.
+ * Esta es la clase que  para acceder a los datos de las entidades InvoiceDetail.
  * Al estar anotada con el estereotipo @Repository, será localizada rapidamente,
  * y usada para tal fin.
  * 
@@ -22,6 +20,8 @@ import com.moimah.hibernate.spring.entities.InvoiceDetail;
  * y commit() de forma "mágica" en el inicio y el fin del método.
  * 
  * 
+ * @author moimah
+ *
  */
 @Repository
 @Transactional
@@ -37,16 +37,19 @@ public class InvoiceDetailDao {
 
 	// METODOS CRUD	
 
+
 	/**
-	 * Almacena una factura en la base de datos
-	 */	
+	 * Almacena un invoiceDetail en la bbdd
+	 * @param invoiceDetail a almacenar
+	 */
 	public void create(InvoiceDetail invoiceDetail) {		
 		entityManager.persist(invoiceDetail);
 	}
 	
 	/**
-	 * Elimina una factura de la base de datos.
-	 */	
+	 * Elimina un invoiceDetail de la bbddd
+	 * @param invoiceDetail invoiceDetail a eliminar
+	 */
 	public void delete(InvoiceDetail invoiceDetail) {
 		
 		if(entityManager.contains(invoiceDetail)) {
@@ -58,23 +61,27 @@ public class InvoiceDetailDao {
 	
 	
 	/**
-	 * Actualiza la  factura proporcionada
-	 */	
+	 * Actualiza el invoiceDetail en la bbdd
+	 * @param invoiceDetail
+	 */
 	public void update(InvoiceDetail invoiceDetail) {
 		entityManager.merge(invoiceDetail);
 	}
 	
 	/**
-	 * Devuelve una factura en base a su Id
-	 */	
+	 * Busca y devuelve un invoiceDetail por su id
+	 * @param id del invoiceDetail a buscar
+	 * @return invoiceDetail encontrado
+	 */
 	public InvoiceDetail getInvoiceDetailById(int id) {
 		return entityManager.find(InvoiceDetail.class, id);
 	}
 	
 	
 	/**
-	 * Devuelve todos las facturas de la base de datos.
-	 */	
+	 * Busca y devuelve en forma de lista todos los invoiceDetails encontrados
+	 * @return listInvoiceDetails lista con todos los invoiceDetails
+	 */
 	@SuppressWarnings("unchecked")
 	public List<InvoiceDetail> getAll(){		
 		return entityManager.createQuery("SELECT i FROM InvoiceDetail i").getResultList();

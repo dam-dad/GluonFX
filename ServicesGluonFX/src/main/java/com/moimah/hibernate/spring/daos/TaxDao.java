@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.moimah.hibernate.spring.entities.Tax;
 
 /**
- * 
- * Esta es la clase que usaremos para acceder a los datos de las entidades User.
+ * Esta es la clase que  para acceder a los datos de las entidades Tax.
  * Al estar anotada con el estereotipo @Repository, será localizada rapidamente,
  * y usada para tal fin.
  * 
@@ -21,6 +20,8 @@ import com.moimah.hibernate.spring.entities.Tax;
  * y commit() de forma "mágica" en el inicio y el fin del método.
  * 
  * 
+ * @author moimah
+ *
  */
 @Repository
 @Transactional
@@ -37,15 +38,18 @@ public class TaxDao {
 	// METODOS CRUD	
 
 	/**
-	 * Almacena una factura en la base de datos
-	 */	
+	 * Almacena un tax en la bbdd
+	 * @param tax a almacenar
+	 */
 	public void create(Tax tax) {		
 		entityManager.persist(tax);
 	}
 	
+	
 	/**
-	 * Elimina una factura de la base de datos.
-	 */	
+	 * Elimina un tax de la bbddd
+	 * @param tax tax a eliminar
+	 */
 	public void delete(Tax tax) {
 		
 		if(entityManager.contains(tax)) {
@@ -57,23 +61,27 @@ public class TaxDao {
 	
 	
 	/**
-	 * Actualiza la  factura proporcionada
-	 */	
+	 * Actualiza el tax en la bbdd
+	 * @param tax
+	 */
 	public void update(Tax tax) {
 		entityManager.merge(tax);
 	}
 	
 	/**
-	 * Devuelve una factura en base a su Id
-	 */	
+	 * Busca y devuelve un tax por su id
+	 * @param id del tax a buscar
+	 * @return tax encontrado
+	 */
 	public Tax getTaxById(int id) {
 		return entityManager.find(Tax.class, id);
 	}
 	
 	
 	/**
-	 * Devuelve todos las facturas de la base de datos.
-	 */	
+	 * Busca y devuelve en forma de lista todos los taxs encontrados
+	 * @return listTaxs lista con todos los tax
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Tax> getAll(){		
 		return entityManager.createQuery("SELECT i FROM Tax i").getResultList();

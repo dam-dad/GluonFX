@@ -14,12 +14,27 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
+/**
+ * Clase de configuracion de la bbdd
+ * @author moimah
+ *
+ */
 @Configuration
 @EnableTransactionManagement
 public class DatabaseConfig {
+	
+	@Autowired
+	private Environment env;
+
+	@Autowired
+	private DataSource dataSource;
+
+	@Autowired
+	private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
 	/**
-	 * Definición del DataSource para la conexión a nuestra base de datos. 
+	 * Definición del DataSource para la conexión a la base de datos. 
 	 * Las propiedades son establecidas desde el fichero de properties, y 
 	 * asignadas usando el objeto env.
 	 * 
@@ -83,13 +98,6 @@ public class DatabaseConfig {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
-	@Autowired
-	private Environment env;
 
-	@Autowired
-	private DataSource dataSource;
-
-	@Autowired
-	private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
 }

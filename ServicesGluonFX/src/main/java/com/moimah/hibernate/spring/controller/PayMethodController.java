@@ -7,7 +7,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -17,91 +20,98 @@ import com.moimah.hibernate.spring.daos.PayMethodDao;
 import com.moimah.hibernate.spring.entities.PayMethod;
 
 
+/**
+ * 
+ * Clase de tipo controller de entidad PayMethod
+ * 
+ * 
+ * @author moimah
+ *
+ */
 @Controller
 public class PayMethodController {
 
 	@Autowired
-	private PayMethodDao payDao; // Inyectamos el DAO dentro del Controller
+	private PayMethodDao payMethodDao; // Inyectamos el DAO dentro del Controller
 	
 	
-	/*
-	 * 
-	 * 
-	 *  
-	 * 
-	 * http://localhost:9002/createPayMethod?description=dime algo
-	 * 
+	/**
+	 * Inserta una nuevo payMethod en la bbdd
+	 * comprueba que este no exista y lo inserta
+	 * @param payMethod nuevo payMethod a insertar
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/createPayMethod")
+	@RequestMapping(method = RequestMethod.POST, value = "/paymethod", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String create(String description) {
+	public String insert(@RequestBody PayMethod payMethod) {
 
-		try {
-
-			PayMethod payMethod = new PayMethod(description, null);
+		try {	
 			
-			payDao.create(payMethod);
+			
+			PayMethod exist = payMethodDao.getPayMethodById(payMethod.getId());
+			
+			if(exist == null){
+				payMethodDao.update(payMethod); //I dont know why but persist doesnt work
+			}	
 
-			return "Metodo de pago creado correctamente";
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la creación del metodo de pago";
+			return "Error";
 		}
 	}
 	
-	
-	/*
-	 * 
-	 * 
-	 * 
-	 * http://localhost:9002/deletePayMethod?id=1
-	 * 
-	 */	
-	@RequestMapping(value = "/deletePayMethod")
+	/**
+	 * Elimina un payMethod existente en la bbdd a través de su Id
+	 * @param id
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(value = "/paymethod/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public String delete(int id) {
+	public String delete(@PathVariable("id")int id) {
 
 		try {
 
 			PayMethod payMethod = new PayMethod();
 			payMethod.setId(id);
 
-			payDao.delete(payMethod);
+			payMethodDao.delete(payMethod);
 
-			return "Metodo de pago eliminado correctamente";
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la eliminación del metodo de pago";
+			return "Error";
 		}
 
 	}
-	/*
-	 * 
-	 *  
-	 * http://localhost:9002/updatePayMethod?id=1&description=dime algo
-	 * 
+	
+	
+	/**
+	 * Actualiza un payMethod existente en la bbdd
+	 * comprueba que  exista y lo modifica
+	 * @param payMethod nuevo payMethod a insertar
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/updatePayMethod")
-	@ResponseBody	
-	public String update(int id, String description) {
+	@RequestMapping(method = RequestMethod.PUT, value = "paymethod", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+	public String update(@RequestBody PayMethod payMethod) {
 		
-		try {
+		try {				
 			
-			PayMethod pay = new PayMethod();
+			//check if product exist
+			PayMethod exist = payMethodDao.getPayMethodById(payMethod.getId());
 			
-			pay.setId(id);
-			pay.setDescription(description);
+			if(exist != null){
+				payMethodDao.update(payMethod);
+			}
+					
 			
-			
-			payDao.update(pay);
-			
-			return "Metodo de pago actualizado correctamente";
+			return "Ok";
 			
 		} catch (Exception e) {
 			
-			return "Error al actualizar el metodo de pago"; 
+			return "Error"; 
 			
 		}
 
@@ -109,17 +119,17 @@ public class PayMethodController {
 	}
 	
 	
-	/*
-	 * Devuelve una lista de todas las facturas
-	 * http://localhost:9002/allPayMethod
+	/**
+	 * Realiza una consulta de todos los payMethod de la bbdd
+	 * devuelve un Json con la lista de objetos	
+	 * @return json lista con todos los payMethod de la bbdd
 	 */
-	
-	@RequestMapping(value = "/allPayMethod")
+	@RequestMapping(value = "/paymethod", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody	
 	public String  all() {
 		
 		
-		List<PayMethod> list = payDao.getAll();	
+		List<PayMethod> list = payMethodDao.getAll();	
 		
 		Gson gson = new GsonBuilder()
 				  .excludeFieldsWithoutExposeAnnotation()
@@ -132,21 +142,23 @@ public class PayMethodController {
 	}	
 	
 	
-	/*
-	 * Devuelve una factura por si id
-	 * http://localhost:9002/payMethodById?id=1
-	 */	
-	@RequestMapping(value = "/payMethodById")
+	/**
+	 * Realiza una consulta de un payMethod determinado a través de su id
+	 * devuelve un Json con la lista de objetos	
+	 * @param id de payMethod a buscar
+	 * @return json del payMethod encontrado
+	 */
+	@RequestMapping(value = "/paymethod/{id}",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody	
-	public String byId(int id) {
+	public String byId(@PathVariable("id")int id) {
 		
-		PayMethod	pay = payDao.getPayMethodById(id);
+		PayMethod payMethod = payMethodDao.getPayMethodById(id);
 		
 		Gson gson = new GsonBuilder()
 				  .excludeFieldsWithoutExposeAnnotation()
 				  .serializeNulls()
 				  .create();
-				String json = gson.toJson(pay);
+				String json = gson.toJson(payMethod);
 				 
 		
 		return  json;

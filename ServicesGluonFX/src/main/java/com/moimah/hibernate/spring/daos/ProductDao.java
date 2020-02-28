@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.moimah.hibernate.spring.entities.Product;
 
 /**
- * 
- * Esta es la clase que usaremos para acceder a los datos de las entidades User.
+ * Esta es la clase que  para acceder a los datos de las entidades Product.
  * Al estar anotada con el estereotipo @Repository, será localizada rapidamente,
  * y usada para tal fin.
  * 
@@ -21,6 +20,8 @@ import com.moimah.hibernate.spring.entities.Product;
  * y commit() de forma "mágica" en el inicio y el fin del método.
  * 
  * 
+ * @author moimah
+ *
  */
 @Repository
 @Transactional
@@ -37,15 +38,19 @@ public class ProductDao {
 	// METODOS CRUD	
 
 	/**
-	 * Almacena una factura en la base de datos
-	 */	
-	public void create(Product product) {		
-		entityManager.persist(product);
+	 * Almacena un product en la bbdd
+	 * @param product a almacenar
+	 */
+	public void create(Product product) {			
+		//entityManager.persist(product); //doesn´t work
+		entityManager.merge(product);
 	}
 	
+	
 	/**
-	 * Elimina una factura de la base de datos.
-	 */	
+	 * Elimina un product de la bbddd
+	 * @param product product a eliminar
+	 */
 	public void delete(Product product) {
 		
 		if(entityManager.contains(product)) {
@@ -57,14 +62,18 @@ public class ProductDao {
 	
 	
 	/**
-	 * Actualiza la  factura proporcionada
-	 */	
+	 * Actualiza el product en la bbdd
+	 * @param product
+	 */
 	public void update(Product product) {
 		entityManager.merge(product);
 	}
 	
+
 	/**
-	 * Devuelve una factura en base a su Id
+	 * Busca y devuelve un product por su id
+	 * @param id del product a buscar
+	 * @return product encontrado
 	 */	
 	public Product getProductById(int id) {
 		return entityManager.find(Product.class, id);
@@ -72,8 +81,9 @@ public class ProductDao {
 	
 	
 	/**
-	 * Devuelve todos las facturas de la base de datos.
-	 */	
+	 * Busca y devuelve en forma de lista todos los products encontrados
+	 * @return listProducts lista con todos los product
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Product> getAll(){		
 		return entityManager.createQuery("SELECT p FROM Product p").getResultList();

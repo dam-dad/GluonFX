@@ -1,89 +1,77 @@
 package com.moimah.hibernate.spring.controller;
 
 
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.moimah.hibernate.spring.daos.CustomerDao;
+import com.moimah.hibernate.spring.daos.InvoiceDao;
 import com.moimah.hibernate.spring.entities.Customer;
+import com.moimah.hibernate.spring.entities.Invoice;
+import com.moimah.hibernate.spring.utils.RequestWrapperCustomerInvoice;
 
-
+/**
+ * 
+ * Clase de tipo controller de entidad Customer
+ * 
+ * 
+ * @author moimah
+ *
+ */
 @Controller
 public class CustomerController {
 
 	@Autowired
 	private CustomerDao customerDao; // Inyectamos el DAO dentro del Controller
 	
-
-	/*
-	 * Crea una nuevo cliente
-	 * http://localhost:9002/createCustomer?customer_id=73828292&name=Manuel&address=calle%20Puente&city=la%20laguna&country=gibraltar&email=manuel@gay.com&phone=696969
-	 */
+	@Autowired
+	private InvoiceDao invoiceDao = new InvoiceDao(); //Dao auxiliar para asociar customer a invoice
 	
-	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)
+
+	/**
+	 * Inserta una nuevo customer en la bbdd
+	 * comprueba que este no exista y lo inserta
+	 * @param customer nuevo customer a insertar
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/customer", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String create(String customer_id, String name, String address, String city, String country, String email, String phone) {
+	public String insert(@RequestBody Customer customer) {
 
-		try {
-
-			Customer customer = new Customer(customer_id, name, address, city, country, email, phone, null, null, null);
+		try {	
 			
-			customerDao.create(customer);
+			
+			Customer exist = customerDao.getCustomerById(customer.getId());
+			
+			if(exist == null){
+				customerDao.update(customer); //I dont know why but persist doesnt work
+			}	
 
-			return "Cliente creado correctamente";
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la creación del cliente";
+			return "Error";
 		}
 	}
 	
 	
-	/*
-	 * Actualiza una cliente
-	 * http://localhost:9002/updateCustomer?id=3&customer_id=555555&name=cansado&address=cama&city=la%20laguna&country=cataluna&email=yo@ami.com&phone=463622
+	/**
+	 * Elimina un customer existente en la bbdd a través de su Id
+	 * @param id
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
+	@RequestMapping(value = "/customer/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public String update(int id, String customer_id, String name, String address, String city, String country, String email, String phone) {
-
-		try {
-
-			Customer customer = new Customer();
-			customer.setId(id);
-			customer.setCustomerId(customer_id);
-			customer.setName(name);
-			customer.setAddress(address);
-			customer.setCity(city);
-			customer.setCountry(country);
-			customer.setEmail(email);
-			customer.setPhone(phone);
-			
-			customerDao.update(customer);
-
-			return "cliente actualizado";
-
-		} catch (Exception e) {
-
-			return "Error en la actualización del cliente";
-		}
-	}
-	
-	
-	
-	/*
-	 * ELimina una cliente por su id
-	 * http://localhost:9002/deleteCustomer?id=2
-	 */
-	
-	@RequestMapping(value = "/deleteCustomer", method = RequestMethod.POST)
-	@ResponseBody
-	public String delete(int id) {
+	public String delete(@PathVariable("id")int id) {
 
 		try {
 
@@ -92,22 +80,55 @@ public class CustomerController {
 
 			customerDao.delete(customer);
 
-			return "Cliente eliminado correctamente";
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la eliminación del cliente";
+			return "Error";
 		}
 
 	}
 	
 	
 	
-	/*
-	 * Devuelve una lista de todOS los clientes
-	 * http://localhost:9002/allCustomer
-	 */	
-	@RequestMapping(value = "/allCustomer")
+	/**
+	 * Actualiza un customer existente en la bbdd
+	 * comprueba que  exista y lo modifica
+	 * @param customer nuevo customer a insertar
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(method = RequestMethod.PUT, value = "customer", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+	public String update(@RequestBody Customer customer) {
+		
+		try {				
+			
+			//check if product exist
+			Customer exist = customerDao.getCustomerById(customer.getId());
+			
+			if(exist != null){
+				customerDao.update(customer);
+			}
+					
+			
+			return "Ok";
+			
+		} catch (Exception e) {
+			
+			return "Error"; 
+			
+		}
+
+		
+	}
+	
+	
+	
+	/**
+	 * Realiza una consulta de todos los customer de la bbdd
+	 * devuelve un Json con la lista de objetos	
+	 * @return json lista con todos los customer de la bbdd
+	 */
+	@RequestMapping(value = "/customer", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody	
 	public String  all() {
 		
@@ -125,13 +146,16 @@ public class CustomerController {
 	}	
 	
 	
-	/*
-	 * Devuelve un cliente por si id
-	 * http://localhost:9002//customerById?id=1
-	 */	
-	@RequestMapping(value = "/customerById")
+	
+	/**
+	 * Realiza una consulta de un customer determinado a través de su id
+	 * devuelve un Json con la lista de objetos	
+	 * @param id de customer a buscar
+	 * @return json del customer encontrado
+	 */
+	@RequestMapping(value = "/customer/{id}",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody	
-	public String byId(int id) {
+	public String byId(@PathVariable("id")int id) {
 		
 		Customer customer = customerDao.getCustomerById(id);
 		
@@ -146,6 +170,52 @@ public class CustomerController {
 	}
 	
 	
+	/**
+	 * Inserta una nuevo customer en la bbdd
+	 * comprueba que este no exista y lo inserta
+	 * y le asocia la factura que viene en el Wrapper
+	 * @param wrapper customerInvoice a crear y asociar
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/customerInvoice", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String insert(@RequestBody RequestWrapperCustomerInvoice wapper) {
+
+		try {	
+			
+			System.out.println("HOLA TIOOO");
+			Customer customer = wapper.getCustomer();	
+			Invoice invoice = wapper.getInvoice();
+					
+			
+			System.out.println(customer.getAddress());
+			System.out.println(invoice.getInvoiceNumber());
+
+			customerDao.update(customer);
+
+			List<Customer> list = customerDao.getAll();
+			Collections.reverse(list);
+
+			for (Customer c : list) {
+
+				if (c.getCustomerId() == customer.getCustomerId()) {
+					invoice.setCustomer(c);
+					invoiceDao.update(invoice);
+					System.out.println("HECHO");
+					break;
+				}
+			}
+					
+				
+			
+			
+			return "Ok";
+
+		} catch (Exception e) {
+
+			return "Error";
+		}
+	}
 	
 	
 	

@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,8 +16,17 @@ import com.google.gson.GsonBuilder;
 import com.moimah.hibernate.spring.daos.ConceptInvoiceDao;
 import com.moimah.hibernate.spring.entities.ConceptInvoice;
 import com.moimah.hibernate.spring.entities.Invoice;
+import com.moimah.hibernate.spring.utils.RequestWrapperConceptInvoice;
 
 
+/**
+ * 
+ * Clase de tipo controller de entidad ConceptInvoice
+ * 
+ * 
+ * @author moimah
+ *
+ */
 @Controller
 public class ConceptInvoiceController {
 
@@ -23,64 +34,50 @@ public class ConceptInvoiceController {
 	private ConceptInvoiceDao conceptInvoiceDao; // Inyectamos el DAO dentro del Controller
 	
 	
-	
-	/*
-	 * Crea un nuevo concepto
-	 * http://localhost:9002/createConceptInvoice?invoice_id=1&description=esto es una prueba&price=2000
+	/**
+	 * Inserta un nuevo conceptInvoice en la bbdd,
+	 * recibe un wrapper de invoice e conceptInvoice
+	 * comprueba que  no exista, asocia invoice e invoiceDetil
+	 * y lo almacena en la bbdd
+	 * @param wrapper de conceptInvoice
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/createConceptInvoice", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, value = "/conceptinvoice", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String create(int invoice_id, String description, double price) {
-
-		try {
-			Invoice i = new Invoice();
-			i.setId(invoice_id);
-			ConceptInvoice concept = new ConceptInvoice(i, description, price);			
-			conceptInvoiceDao.create(concept);
-
-			return "Concepto creado correctamente";
-
-		} catch (Exception e) {
-
-			return "Error en la creación del concepto";
-		}
-	}
-	
-	/*
-	 * Actualiza un nuevo concepto
-	 * http://localhost:9002/updateConceptInvoice?id=1&invoice_id=1&description=esto es una prueba&price=2000
-	 */
-	@RequestMapping(value = "/updateConceptInvoice", method = RequestMethod.POST)
-	@ResponseBody
-	public String update(int id, int invoice_id, String description, double price) {
+	public String insert(@RequestBody RequestWrapperConceptInvoice wrapper) {
 
 		try {	
-			Invoice invoice = new Invoice();
-			invoice.setId(invoice_id);
 			
-			ConceptInvoice concept = new ConceptInvoice();	
-			concept.setId(id);
-			concept.setInvoice(invoice);
-			concept.setDescription(description);
-			concept.setPrice(price);
-			conceptInvoiceDao.update(concept);
+			Invoice invoice = wrapper.getInvoice();
+			ConceptInvoice conceptInvoice = wrapper.getConceptInvoice(); 
 
-			return "Concepto creado actualizado";
+			conceptInvoice.setInvoice(invoice);
+						
+			ConceptInvoice exist = conceptInvoiceDao.getConceptInvoiceById(conceptInvoice.getId());
+			
+			if(exist == null){
+				
+				conceptInvoiceDao.update(conceptInvoice); //I dont know why but persist doesnt work
+			}	
+
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la creación del concepto";
+			return "Error";
 		}
 	}
 	
 	
-	/*
-	 * ELimina una concepto por su id
-	 * http://localhost:9002/deleteConceptInvoice?id=2
-	 */	
-	@RequestMapping(value = "/deleteConceptInvoice", method = RequestMethod.POST)
+	
+	/**
+	 * Elimina un conceptInvoice existente en la bbdd a través de su Id
+	 * @param id
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(value = "/conceptinvoice/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public String delete(int id) {
+	public String delete(@PathVariable("id")int id) {
 
 		try {
 
@@ -89,21 +86,59 @@ public class ConceptInvoiceController {
 
 			conceptInvoiceDao.delete(conceptInvoice);
 
-			return "Concepto eliminado correctamente";
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la eliminación del concepto";
+			return "Error";
 		}
 
 	}
 	
 	
-	/*
-	 * Devuelve una lista de todOS los conceptos
-	 * http://localhost:9002/allconceptInvoice
-	 */	
-	@RequestMapping(value = "/allConceptInvoice")
+	/**
+	 * Actualiza un conceptInvoice existente en la bbdd,
+	 * recibe un wrapper de invoice e conceptInvoice
+	 * comprueba que  exista, asocia invoice e invoiceDetil
+	 * y lo modifica en la bbdd
+	 * @param wrapper de conceptInvoice
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(method = RequestMethod.PUT, value = "conceptinvoice", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+	public String update(@RequestBody RequestWrapperConceptInvoice wrapper) {
+		
+		try {			
+			
+			Invoice invoice = wrapper.getInvoice();
+			ConceptInvoice conceptInvoice = wrapper.getConceptInvoice(); 
+
+			conceptInvoice.setInvoice(invoice);		
+			ConceptInvoice exist = conceptInvoiceDao.getConceptInvoiceById(conceptInvoice.getId());
+			
+			
+			if(exist != null){
+				conceptInvoiceDao.update(conceptInvoice);
+			}
+					
+			
+			return "Ok";
+			
+		} catch (Exception e) {
+			
+			return "Error"; 
+			
+		}
+
+		
+	}
+	
+	
+	/**
+	 * Realiza una consulta de todos los conceptInvoice de la bbdd
+	 * devuelve un Json con la lista de objetos	
+	 * @return json lista con todos los conceptInvoice de la bbdd
+	 */
+	@RequestMapping(value = "/conceptinvoice", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody	
 	public String  all() {
 		
@@ -121,13 +156,15 @@ public class ConceptInvoiceController {
 	}	
 	
 	
-	/*
-	 * Devuelve un concepto por si id
-	 * http://localhost:9002/conceptInvoiceById?id=1
-	 */	
-	@RequestMapping(value = "/conceptInvoiceById")
+	/**
+	 * Realiza una consulta de un conceptInvoice determinado a través de su id
+	 * devuelve un Json con el objeto encontrado
+	 * @param id de conceptInvoice a buscar
+	 * @return json del conceptInvoice encontrado
+	 */
+	@RequestMapping(value = "/conceptinvoice/{id}",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody	
-	public String byId(int id) {
+	public String byId(@PathVariable("id")int id) {
 		
 		ConceptInvoice conceptInvoice = conceptInvoiceDao.getConceptInvoiceById(id);
 		

@@ -1,29 +1,30 @@
 package com.moimah.hibernate.spring.controller;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
+import java.io.File;
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.moimah.hibernate.spring.daos.InvoiceDao;
-import com.moimah.hibernate.spring.entities.Company;
-import com.moimah.hibernate.spring.entities.ConceptInvoice;
-import com.moimah.hibernate.spring.entities.Customer;
 import com.moimah.hibernate.spring.entities.Invoice;
-import com.moimah.hibernate.spring.entities.PayMethod;
-import com.moimah.hibernate.spring.entities.Tax;
+import com.moimah.pdf.CodingPDF;
+import com.moimah.pdf.PDF;
+import com.moimah.pdf.B64Util;
 
-
+/**
+ * 
+ * Clase de tipo controller de entidad invoice
+ * 
+ * 
+ * @author moimah
+ *
+ */
 @Controller
 public class InvoiceController {
 
@@ -31,118 +32,85 @@ public class InvoiceController {
 	private InvoiceDao invoiceDao; // Inyectamos el DAO dentro del Controller
 	
 	
-	/*
-	 * 	
-	 * 
-	 * http://localhost:9002/createInvoice?company_id=1&customer_id=1&invoice_date=12-06-2012&concept_id=1&pay_method_id=1&tax_id=1&status=0
-	 * 
+	/**
+	 * Inserta una nuevo invoice en la bbdd
+	 * comprueba que este no exista y lo inserta
+	 * @param invoice nuevo invoice a insertar
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/createInvoice", method = RequestMethod.POST)
-	@ResponseBody
-	public String create(int company_id, int customer_id, String invoice_date, int concept_id, int pay_method_id, int tax_id, int status) {
-
-		try {
-
-			Invoice invoice = new Invoice(company_id,customer_id,invoice_date,concept_id,pay_method_id,tax_id, status);			
-					
-			invoiceDao.create(invoice);
-
-			return "Factura creada correctamente";
-
-		} catch (Exception e) {
-
-			return "Error en la creación de la factura";
-		}
-	}
-	
-	
-	/*
-	 * 
-	 * Elimina una factura, localizándolo por su Id
-	 * 
-	 * http://localhost:9002/deleteInvoice?id=0
-	 * 
-	 */	
-	@RequestMapping(value = "/deleteInvoice", method = RequestMethod.POST)
-	@ResponseBody
-	public String delete(int id) {
-
-		try {
-
-			Invoice invoice = new Invoice();
-
-
-			invoice.setId(id);
-
-			invoiceDao.delete(invoice);
-
-			return "Factura eliminada correctamente";
-
-		} catch (Exception e) {
-
-			return "Error en la eliminación de la factura";
-		}
-
-	}
-	
-	/*
-	 * 
-	 *  
-	 * http://localhost:9002/updateInvoice?id=17&invoice_number=2012060003&company_id=1&customer_id=1&invoice_date=12-06-2012&status=0&concept_id=1&pay_method_id=1&price=0&tax_id=1&tax_total=0&price_tax_included=0
-	 * 
-	 */
-	@RequestMapping(value = "/updateInvoice", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, value = "/invoice", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
 	@ResponseBody	
-	public String update(int id, String invoice_number, int company_id, int customer_id, String invoice_date, int status, int concept_id, int pay_method_id, double price,  int tax_id, double tax_total, double price_tax_included) {
-		
+	public String insert(@RequestBody Invoice Invoice) {
+
+		try {				
+			
+			Invoice exist = invoiceDao.getInvoiceById(Invoice.getId());
+			
+			if(exist == null){
+				invoiceDao.update(Invoice); //I dont know why but persist doesnt work
+			}	
+
+			return "Ok";
+
+		} catch (Exception e) {
+
+			return "Error";
+		}
+	}
+	
+	
+	
+	/**
+	 * Elimina un invoice existente en la bbdd a través de su Id
+	 * @param id
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(value = "/invoice/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String delete(@PathVariable("id")int id) {
+
 		try {
-			
-			Invoice invoice = new Invoice();
-								
-				invoice.setId(id);	
-				invoice.setInvoiceNumber(invoice_number);
-			
-				Company company = new Company();
-				company.setId(company_id);
-				invoice.setCompany(company);				
+
+			Invoice Invoice = new Invoice();
+			Invoice.setId(id);
+
+			invoiceDao.delete(Invoice);
+
+			return "Ok";
+
+		} catch (Exception e) {
+
+			return "Error";
+		}
+
+	}
+	
+	
+	
+	/**
+	 * Actualiza un invoice existente en la bbdd
+	 * comprueba que  exista y lo modifica
+	 * @param invoice nuevo invoice a insertar
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(method = RequestMethod.PUT, value = "invoice", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+	public String update(@RequestBody Invoice invoice) {
 		
-				Customer customer = new Customer();
-				customer.setId(customer_id);				
-				invoice.setCustomer(customer);						
+		try {				
 			
-				Date date = new SimpleDateFormat("dd-MM-yyyy").parse(invoice_date);  
-				invoice.setInvoiceDate(date);			
+			//check if product exist
+			Invoice exist = invoiceDao.getInvoiceById(invoice.getId());
 			
-				invoice.setStatus(status);
+			if(exist != null){
+				invoiceDao.update(invoice);
+			}
+					
 			
-				ConceptInvoice c = new ConceptInvoice();
-				c.setId(concept_id);
-				Set<ConceptInvoice> list = new HashSet<ConceptInvoice>();
-				list.add(c);
-				invoice.setConceptInvoices(list);
-			
-						
-				PayMethod p = new PayMethod();
-				p.setId(pay_method_id);				
-				invoice.setPayMethod(p);
-			
-				invoice.setPrice(price);							
-			
-				Tax t = new Tax(); 
-				t.setId(tax_id);
-				invoice.setTax(t);
-				
-				invoice.setTaxTotal(tax_total);
-				invoice.setPriceTaxesIncluded(price_tax_included);
-				
-			
-			invoiceDao.update(invoice);
-			
-			return "Factura actualizada correctamente";
+			return "Ok";
 			
 		} catch (Exception e) {
 			
-			return "Error al actualizar la factura"; 
+			return "Error"; 
 			
 		}
 
@@ -150,12 +118,12 @@ public class InvoiceController {
 	}
 	
 	
-	/*
-	 * Devuelve una lista de todas las facturas
-	 * http://localhost:9002/allInvoice
+	/**
+	 * Realiza una consulta de todos los invoice de la bbdd
+	 * devuelve un Json con la lista de objetos	
+	 * @return json lista con todos los invoice de la bbdd
 	 */
-	
-	@RequestMapping(value = "/allInvoice")
+	@RequestMapping(value = "/invoice", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody	
 	public String  all() {
 		
@@ -164,8 +132,8 @@ public class InvoiceController {
 		
 		Gson gson = new GsonBuilder()
 				  .excludeFieldsWithoutExposeAnnotation()
-				  .setDateFormat("dd/MM/yyyy")
 				  .serializeNulls()
+				  .setDateFormat("dd/MM/yyyy")
 				  .create();
 				String json = gson.toJson(list);				 		
 		
@@ -174,24 +142,80 @@ public class InvoiceController {
 	}	
 	
 	
-	/*
-	 * Devuelve una factura por si id
-	 * http://localhost:9002/invoiceById?id=1
-	 */	
-	@RequestMapping(value = "/invoiceById")
+	/**
+	 * Realiza una consulta de un invoice determinado a través de su id
+	 * devuelve un Json con la lista de objetos	
+	 * @param id de invoice a buscar
+	 * @return json del invoice encontrado
+	 */
+	@RequestMapping(value = "/invoice/{id}",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody	
-	public String byId(int id) {
+	public String byId(@PathVariable("id")int id) {
 		
-		Invoice	invoice = invoiceDao.getInvoiceById(id);
+		Invoice Invoice = invoiceDao.getInvoiceById(id);
 		
 		Gson gson = new GsonBuilder()
 				  .excludeFieldsWithoutExposeAnnotation()
 				  .serializeNulls()
+				  .setDateFormat("dd/MM/yyyy")
 				  .create();
-				String json = gson.toJson(invoice);
+				String json = gson.toJson(Invoice);
 				 
 		
 		return  json;
 	}
+	
+	
+	
+	/**
+	 * Realiza una consulta de un invoice determinado a través de su id
+	 * genera un pdf del invoice encontrada, lo convierte a un objeto
+	 * codigPDF que contiene 2 parametros, id de invoice y pdf en B64
+	 * devuelve un Json con objeto generado
+	 * @param id de invoice a buscar
+	 * @return json del invoice encontrado
+	 */
+	@RequestMapping(value = "/pdf/{id}",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody	
+	public String pdfById(@PathVariable("id")int id) {
+		
+		
+		Invoice invoice = invoiceDao.getInvoiceById(id);
+		CodingPDF codingPDF = null; 
+		File file = null;
+		
+		if (invoice != null) {
+			
+			try {
+				
+				
+			file = PDF.generarPdf(invoice);				
+			String b64 = B64Util.encoder(file.getAbsolutePath());
+			
+			codingPDF = new CodingPDF(b64, invoice.getInvoiceNumber());
+				
+
+			} catch (Exception e) {
+
+				System.out.println("Error");
+			}
+						
+			}
+		
+		Gson gson = new GsonBuilder()
+				  .excludeFieldsWithoutExposeAnnotation()
+				  .serializeNulls()				  
+				  .create();
+				String json = gson.toJson(codingPDF);
+		
+				return json;
+		
+	}
+	
+	
+	
+	
+	
+	
 		
 }

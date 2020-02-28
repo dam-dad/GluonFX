@@ -7,7 +7,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -16,9 +19,16 @@ import com.google.gson.GsonBuilder;
 import com.moimah.hibernate.spring.daos.InvoiceDetailDao;
 import com.moimah.hibernate.spring.entities.Invoice;
 import com.moimah.hibernate.spring.entities.InvoiceDetail;
-import com.moimah.hibernate.spring.entities.Product;
+import com.moimah.hibernate.spring.utils.RequestWrapperInvoiceDetail;
 
-
+/**
+ * 
+ * Clase de tipo controller de entidad InvoiceDetail
+ * 
+ * 
+ * @author moimah
+ *
+ */
 @Controller
 public class InvoiceDetailController {
 
@@ -26,98 +36,100 @@ public class InvoiceDetailController {
 	private InvoiceDetailDao invoiceDetailDao; // Inyectamos el DAO dentro del Controller
 	
 	
-	/*
-	 * 
-	 *
-	 * 
-	 * http://localhost:9002/createInvoiceDetail?invoice_id=1&product_id=1&quantity=10
-	 * 
+	
+	/**
+	 * Inserta un nuevo invoiceDetail en la bbdd,
+	 * recibe un wrapper de invoice e invoiceDetail
+	 * comprueba que  no exista, asocia invoice e invoiceDetil
+	 * y lo almacena en la bbdd
+	 * @param wrapper de invoiceDetail
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/createInvoiceDetail")
+	@RequestMapping(method = RequestMethod.POST, value = "/invoicedetail", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String create(int invoice_id, int product_id,double quantity) {
+	public String insert(@RequestBody RequestWrapperInvoiceDetail wrapper) {
 
-		try {
-			Invoice i = new Invoice();
-			i.setId(invoice_id);
-			Product p = new Product();
-			p.setId(product_id);
-			InvoiceDetail invoiceDetail = new InvoiceDetail(i, p, quantity, 0.0, 0.0);
+		try {	
 			
-			invoiceDetailDao.create(invoiceDetail);
+			Invoice invoice = wrapper.getInvoice();
+			InvoiceDetail invoiceDetail = wrapper.getInvoiceDetail(); 
 
-			return "Detalle creado correctamente";
+			invoiceDetail.setInvoice(invoice);
+			
+			InvoiceDetail exist = invoiceDetailDao.getInvoiceDetailById(invoiceDetail.getId());
+			
+			if(exist == null){
+				
+				invoiceDetailDao.update(invoiceDetail); //I dont know why but persist doesnt work
+			}	
+
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la creación del detalle";
+			return "Error";
 		}
 	}
 	
 	
-	/*
-	 * 
-	 *
-	 * 
-	 * http://localhost:9002/deleteInvoiceDetail?id=17
-	 * 
-	 */	
-	@RequestMapping(value = "/deleteInvoiceDetail")
+	
+	/**
+	 * Elimina un invoiceDetail existente en la bbdd a través de su Id
+	 * @param id
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(value = "/invoicedetail/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public String delete(int id) {
+	public String delete(@PathVariable("id")int id) {
 
 		try {
 
 			InvoiceDetail invoiceDetail = new InvoiceDetail();
-
-
 			invoiceDetail.setId(id);
 
 			invoiceDetailDao.delete(invoiceDetail);
 
-			return "Detalle eliminado correctamente";
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la eliminación del detalle";
+			return "Error";
 		}
 
 	}
 	
-	/*
-	 * 
-	 *  
-	 * http://localhost:9002/updateInvoiceDetail?id=17&invoice_id=1&product_id=1&quantity=10&price_ud=9.9
-	 * 
+	
+	/**
+	 * Actualiza un invoiceDetail existente en la bbdd,
+	 * recibe un wrapper de invoice e invoiceDetail
+	 * comprueba que  exista, asocia invoice e invoiceDetil
+	 * y lo modifica en la bbdd
+	 * @param wrapper de invoiceDetail
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/updateInvoiceDetail")
-	@ResponseBody	
-	public String update(int id, int invoice_id, int product_id,double quantity,double price_ud) {
+	@RequestMapping(method = RequestMethod.PUT, value = "invoicedetail", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+	public String update(@RequestBody RequestWrapperInvoiceDetail wrapper) {
 		
-		try {
+		try {			
 			
-			InvoiceDetail d = new InvoiceDetail();
-								
-			d.setId(id);
-			Invoice i = new Invoice();
-			i.setId(invoice_id);
-			d.setInvoice(i);
-			Product p= new Product();
-			p.setId(product_id);
-			d.setProduct(p);
-			d.setQuantity(quantity);
-			d.setPriceUnit(price_ud);
+			Invoice invoice = wrapper.getInvoice();
+			InvoiceDetail invoiceDetail = wrapper.getInvoiceDetail(); 
+
+			invoiceDetail.setInvoice(invoice);
+			
+			InvoiceDetail exist = invoiceDetailDao.getInvoiceDetailById(invoiceDetail.getId());
 			
 			
-		
+			if(exist != null){
+				invoiceDetailDao.update(invoiceDetail);
+			}
+					
 			
-			invoiceDetailDao.update(d);
-			
-			return "Detalle actualizado correctamente";
+			return "Ok";
 			
 		} catch (Exception e) {
 			
-			return "Error al actualizar el detalle"; 
+			return "Error"; 
 			
 		}
 
@@ -125,12 +137,12 @@ public class InvoiceDetailController {
 	}
 	
 	
-	/*
-	 * Devuelve una lista de todas las facturas
-	 * http://localhost:9002/allInvoiceDetail
+	/**
+	 * Realiza una consulta de todos los invoiceDetail de la bbdd
+	 * devuelve un Json con la lista de objetos	
+	 * @return json lista con todos los invoiceDetail de la bbdd
 	 */
-	
-	@RequestMapping(value = "/allInvoiceDetail")
+	@RequestMapping(value = "/invoicedetail", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody	
 	public String  all() {
 		
@@ -148,24 +160,27 @@ public class InvoiceDetailController {
 	}	
 	
 	
-	/*
-	 * Devuelve una factura por si id
-	 * http://localhost:9002/invoiceDetailById?id=1
-	 */	
-	@RequestMapping(value = "/invoiceDetailById")
+	/**
+	 * Realiza una consulta de un invoiceDetail determinado a través de su id
+	 * devuelve un Json con el objeto encontrado
+	 * @param id de invoiceDetail a buscar
+	 * @return json del invoiceDetail encontrado
+	 */
+	@RequestMapping(value = "/invoicedetail/{id}",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody	
-	public String byId(int id) {
+	public String byId(@PathVariable("id")int id) {
 		
-		InvoiceDetail i = invoiceDetailDao.getInvoiceDetailById(id);
+		InvoiceDetail invoiceDetail = invoiceDetailDao.getInvoiceDetailById(id);
 		
 		Gson gson = new GsonBuilder()
 				  .excludeFieldsWithoutExposeAnnotation()
 				  .serializeNulls()
 				  .create();
-				String json = gson.toJson(i);
+				String json = gson.toJson(invoiceDetail);
 				 
 		
 		return  json;
 	}
+	
 		
 }

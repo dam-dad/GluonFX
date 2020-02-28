@@ -1,0 +1,94 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.javafxports:jfxmobile-plugin:1.3.17'
+    }
+}
+
+plugins {
+    id "com.github.hierynomus.license" version "0.13.1"
+}
+
+apply plugin: 'org.javafxports.jfxmobile'
+
+repositories {
+    jcenter()
+    maven {
+        url 'https://nexus.gluonhq.com/nexus/content/repositories/releases'
+    }
+}
+
+mainClassName = 'com.gluonapplication.GluonApplication'
+
+
+jar {
+  manifest { 
+    attributes "Main-Class": "$mainClassName"
+  }  
+
+  from {
+    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+
+
+
+
+dependencies {
+	compile 'com.gluonhq:charm:5.0.2'
+	
+}
+
+
+jfxmobile {
+    downConfig {
+        version = '3.8.6'
+        plugins 'browser', 'display', 'lifecycle', 'pictures', 'share', 'statusbar', 'storage', 'video'
+    }
+    android {
+        manifest = 'src/android/AndroidManifest.xml'
+        minSdkVersion = 21   
+        compileSdkVersion = 26
+        buildToolsVersion = '26.0.0' 
+        dexOptions {
+            additionalParameters = ['--minimal-main-dex']
+            keepRuntimeAnnotatedClasses = false
+            javaMaxHeapSize = '4g'
+        }
+        
+       packagingOptions {
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/NOTICE'
+            exclude 'META-INF/NOTICE.txt'  
+            exclude 'META-INF/DEPENDENCIES.txt'
+            exclude 'META-INF/DEPENDENCIES'  
+            pickFirst 'META-INF/LICENSE.txt' 
+            pickFirst 'META-INF/NOTICE.txt' 
+            pickFirst 'META-INF/INDEX.LIST'
+            pickFirst 'META-INF/DEPENDENCIES.txt'
+            pickFirst 'META-INF/DEPENDENCIES'  
+        }  
+    }
+    ios {
+        infoPList = file('src/ios/Default-Info.plist')
+        forceLinkClasses = [
+                'com.gluonhq.**.*',
+                'javax.annotations.**.*',
+                'javax.inject.**.*',
+                'javax.json.**.*',
+                'org.glassfish.json.**.*'
+        ]
+    }
+}
+
+license {
+    skipExistingHeaders
+    mapping {
+        fxml = 'XML_STYLE'
+    }
+}
+
+}
+

@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.moimah.hibernate.spring.entities.Invoice;
 
 /**
- * 
- * Esta es la clase que usaremos para acceder a los datos de las entidades User.
+ * Esta es la clase que  para acceder a los datos de las entidades Invoice.
  * Al estar anotada con el estereotipo @Repository, será localizada rapidamente,
  * y usada para tal fin.
  * 
@@ -21,6 +20,8 @@ import com.moimah.hibernate.spring.entities.Invoice;
  * y commit() de forma "mágica" en el inicio y el fin del método.
  * 
  * 
+ * @author moimah
+ *
  */
 @Repository
 @Transactional
@@ -37,15 +38,17 @@ public class InvoiceDao {
 	// METODOS CRUD	
 
 	/**
-	 * Almacena una factura en la base de datos
-	 */	
+	 * Almacena un invoice en la bbdd
+	 * @param invoice a almacenar
+	 */
 	public void create(Invoice invoice) {		
 		entityManager.persist(invoice);
 	}
 	
 	/**
-	 * Elimina una factura de la base de datos.
-	 */	
+	 * Elimina un invoice de la bbddd
+	 * @param invoice invoice a eliminar
+	 */
 	public void delete(Invoice invoice) {
 		
 		if(entityManager.contains(invoice)) {
@@ -57,7 +60,8 @@ public class InvoiceDao {
 	
 	
 	/**
-	 * Actualiza la  factura proporcionada
+	 * Actualiza el invoice en la bbdd
+	 * @param invoice
 	 */	
 	public void update(Invoice invoice) {
 		entityManager.merge(invoice);			
@@ -65,15 +69,18 @@ public class InvoiceDao {
 	}
 	
 	/**
-	 * Devuelve una factura en base a su Id
-	 */	
+	 * Busca y devuelve un invoice por su id
+	 * @param id del invoice a buscar
+	 * @return invoice encontrado
+	 */
 	public Invoice getInvoiceById(int id) {
 		return entityManager.find(Invoice.class, id);
 	}
 	
 	
 	/**
-	 * Devuelve todos las facturas de la base de datos.
+	 * Busca y devuelve en forma de lista todos los invoices encontrados
+	 * @return listInvoices lista con todos los invoices
 	 */	
 	@SuppressWarnings("unchecked")
 	public List<Invoice> getAll(){		

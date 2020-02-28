@@ -5,15 +5,29 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.moimah.hibernate.spring.daos.ProductDao;
 import com.moimah.hibernate.spring.entities.Product;
+import com.moimah.hibernate.spring.utils.ProductPNG;
+import com.moimah.hibernate.spring.utils.RequestWrapperProductPNG;
 
+/**
+ * 
+ * Clase de tipo controller de entidad Product
+ * 
+ * 
+ * @author moimah
+ *
+ */
 
 @Controller
 public class ProductController {
@@ -22,43 +36,45 @@ public class ProductController {
 	private ProductDao productDao; // Inyectamos el DAO dentro del Controller
 	
 	
-	/*
-	 * 
-	 * Crea un nuevo estudiante con un Id autogenerado, y con los datos recibidos
-	 * por la URL 
-	 * 
-	 * http://localhost:9002/createProduct?product_id=12341&name=condon&description=esto me describe&price=20&stock=2000&url=https://www.google.com/search?q=panda&rlz=1C1GCEA_enES867ES867&sxsrf=ACYBGNS-LPbeZ4GipBssl02Sqvj5azKuVA:1581418771416&source=lnms&tbm=isch&sa=X&ved=2ahUKEwieyvGArMnnAhUO3IUKHcPXCcEQ_AUoAXoECAoQAw&biw=1920&bih=920#imgrc=uykVn9cn1hCugM
-	 * 
+	/**
+	 * Inserta una nuevo product en la bbdd
+	 * comprueba que este no exista y lo inserta
+	 * @param product nuevo product a insertar
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/createProduct")
+	@RequestMapping(method = RequestMethod.POST, value = "/product", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String create(String product_id, String name, String description, double price, int stock, String url) {
-
-		try {
-
-			Product product = new Product(product_id, name, description, price, stock, url, null, null, null);
+	public String insert(@RequestBody Product product) {
+		
+		try {	
 			
-			productDao.create(product);
-
-			return "Producto creado correctamente";
-
+			//check if product exist
+			Product exist = productDao.getProductById(product.getId());
+			
+			if(exist == null){
+				productDao.create(product); //I dont know why but persist doesnt work
+			}	
+						
+			return "Ok";
+			
 		} catch (Exception e) {
-
-			return "Error en la creación del producto";
+			
+			return "Error"; 
+			
 		}
+
+		
 	}
 	
 	
-	/*
-	 * 
-	 * Elimina un estudiante, localizándolo por su Id
-	 * 
-	 * http://localhost:9002/deleteProduct?id=1
-	 * 
-	 */	
-	@RequestMapping(value = "/deleteProduct")
+	/**
+	 * Elimina un product existente en la bbdd a través de su Id
+	 * @param id
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public String delete(int id) {
+	public String delete(@PathVariable("id") int id) {
 
 		try {
 
@@ -67,45 +83,41 @@ public class ProductController {
 
 			productDao.delete(product);
 
-			return "Producto eliminado correctamente";
+			return "Ok";
 
 		} catch (Exception e) {
 
-			return "Error en la eliminación del producto";
+			return "Error";
 		}
 
 	}
-	/*
-	 * Actualiza el nombre de estudiante, localizándolo por su id
-	 *  
-	 * http://localhost:9002/updateProduct?id=17&product_id=12341&name=condon&description=esto me describe&price=20&stock=2000&url=https://www.google.com/search?q=panda&rlz=1C1GCEA_enES867ES867&sxsrf=ACYBGNS-LPbeZ4GipBssl02Sqvj5azKuVA:1581418771416&source=lnms&tbm=isch&sa=X&ved=2ahUKEwieyvGArMnnAhUO3IUKHcPXCcEQ_AUoAXoECAoQAw&biw=1920&bih=920#imgrc=uykVn9cn1hCugM
-	 * 
+	
+	
+	
+	/**
+	 * Actualiza un product existente en la bbdd
+	 * comprueba que  exista y lo modifica
+	 * @param product nuevo product a insertar
+	 * @return mensaje de confirmacion
 	 */
-	@RequestMapping(value = "/updateProduct")
-	@ResponseBody	
-	public String update(int id,String product_id, String name, String description, double price, int stock, String url) {
+	@RequestMapping(method = RequestMethod.PUT, value = "/product", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+	public String update(@RequestBody Product product) {
 		
-		try {
+		try {				
 			
-			Product p = new Product();
-			p.setId(id);
-			p.setProductId(product_id);
-			p.setName(name);
-			p.setDescription(description);
-			p.setPrice(price);
-			p.setStock(stock);
-			p.setUrl(url);
+			//check if product exist
+			Product exist = productDao.getProductById(product.getId());
 			
+			if(exist != null){
+				productDao.update(product);
+			}
+					
 			
-		
-			
-			productDao.update(p);
-			
-			return "Producto actualizado correctamente";
+			return "Ok";
 			
 		} catch (Exception e) {
 			
-			return "Error al actualizar el producto"; 
+			return "Error"; 
 			
 		}
 
@@ -113,12 +125,113 @@ public class ProductController {
 	}
 	
 	
-	/*
-	 * Devuelve una lista de todas las facturas
-	 * http://localhost:9002/allProduct
-	 */
 	
-	@RequestMapping(value = "/allProduct")
+	/**
+	 * Recibe un Wrapper de png y product y lo envia a un php alojado en otro servidor,
+	 * mediante unirest, se realiza verificacion de si contiene id e imagen antes de ser
+	 * enviado. El servidor se encarga de interpretar si es un nuevo producto o existe,  
+	 * se aloja y asocia la imagen al producto insertado/actualizado
+	 * @param wrapperProductPNG wrapper de producto y objeto productPNG
+	 * @return mensaje de confirmacion
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/png", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+	public String pngUpload(@RequestBody RequestWrapperProductPNG wrapperProductPNG) {
+		
+		Product product = null;
+		ProductPNG productPNG = null;
+	
+		try {					
+			
+			
+			try {
+				product = wrapperProductPNG.getProduct();
+				productPNG = wrapperProductPNG.getProductPNG();
+			} catch (Exception e) {				
+			}
+			
+			try {
+				
+				if(productPNG != null ) {
+				
+					if(product.getId() != 0) {
+						Unirest.post("https://www.moimah.com/gluonfx/uploads/add.php")	
+						.field("id", product.getId())
+						.field("product_id", product.getProductId())								
+						.field("name", product.getName())
+						.field("description", product.getDescription())
+						.field("price", product.getPrice())
+						.field("stock", product.getStock())
+						.field("image", productPNG.getB64())
+						.asString();
+					}else {
+						
+						Unirest.post("https://www.moimah.com/gluonfx/uploads/add.php")						
+						.field("product_id", product.getProductId())								
+						.field("name", product.getName())
+						.field("description", product.getDescription())
+						.field("price", product.getPrice())
+						.field("stock", product.getStock())
+						.field("image", productPNG.getB64())
+						.asString();
+					}
+					
+				}else {
+					
+					if(product.getId() != 0) {
+						Unirest.post("https://www.moimah.com/gluonfx/uploads/add.php")	
+						.field("id", product.getId())
+						.field("product_id", product.getProductId())								
+						.field("name", product.getName())
+						.field("description", product.getDescription())
+						.field("price", product.getPrice())
+						.field("stock", product.getStock())						
+						.asString();
+						
+					}else {
+						
+						Unirest.post("https://www.moimah.com/gluonfx/uploads/add.php")						
+						.field("product_id", product.getProductId())								
+						.field("name", product.getName())
+						.field("description", product.getDescription())
+						.field("price", product.getPrice())
+						.field("stock", product.getStock())						
+						.asString();
+						
+					}
+				}
+				
+				
+				
+			} catch (UnirestException e) {
+				e.printStackTrace();
+			}
+					
+			
+			System.out.println("Uploading image");
+			
+			return "Ok";
+			
+		} catch (Exception e) {
+			
+			return "Error"; 
+			
+		}
+		
+		
+		
+		
+	}	
+	
+	
+	
+	
+		
+	/**
+	 * Realiza una consulta de todos los product de la bbdd
+	 * devuelve un Json con la lista de objetos	
+	 * @return json lista con todos los product de la bbdd
+	 */
+	@RequestMapping(value = "/product", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody	
 	public String  all() {
 		
@@ -131,18 +244,19 @@ public class ProductController {
 				  .create();
 				String json = gson.toJson(list);				 		
 		
-
+				
 		return  json;
 	}	
 	
 	
-	/*
-	 * Devuelve una factura por si id
-	 * http://localhost:9002/productById?id=1
-	 */	
-	@RequestMapping(value = "/prodcutById")
+	/**
+	 * Realiza una consulta de todos los product de la bbdd
+	 * devuelve un Json con la lista de objetos	
+	 * @return json lista con todos los product de la bbdd
+	 */
+	@RequestMapping(value = "/product/{id}",  method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody	
-	public String byId(int id) {
+	public String byId(@PathVariable("id") int id) {
 		
 		Product	p = productDao.getProductById(id);
 		
