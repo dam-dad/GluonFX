@@ -27,14 +27,14 @@ public class HelpPresenter {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e -> 
                         MobileApplication.getInstance().getDrawer().open()));
-                appBar.setTitleText("Help");
+                appBar.setTitleText("Ayuda");
                 
                 
             }
         });
         
        WebEngine engine = webView.getEngine();
-       engine.load("http://moimah.com/gluonfx/help");
+       engine.load("http://moimah.com/gluonfx/help.htm");
        
     
     }

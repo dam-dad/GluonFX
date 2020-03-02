@@ -48,9 +48,12 @@ public class GluonApplication extends MobileApplication {
         scene.getStylesheets().add(GluonApplication.class.getResource("style.css").toExternalForm());
         ((Stage) scene.getWindow()).getIcons().add(new Image(GluonApplication.class.getResourceAsStream("/icon.png")));
         
-        if(Platform.isDesktop()){
-        	scene.getWindow().setHeight(600);
-        	scene.getWindow().setWidth(600);        	
+        if(Platform.isDesktop()){         
+        	Stage stage = (Stage) scene.getWindow();
+        	stage.setHeight(750);
+        	stage.setWidth(750);
+        	stage.setMinHeight(700);
+        	
         }
     }
 }
