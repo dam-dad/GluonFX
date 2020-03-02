@@ -19,6 +19,7 @@ import com.gluonhq.charm.down.plugins.StorageService;
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.Alert;
 import com.gluonhq.charm.glisten.control.AppBar;
+import com.gluonhq.charm.glisten.control.FloatingActionButton;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.gluonhq.connect.GluonObservableList;
@@ -237,6 +238,7 @@ public class InvoicePresenter {
 						.add(MaterialDesignIcon.PICTURE_AS_PDF.button(e ->generarPDF()));
 			}
 		});
+			
 
 		// BINDINGS
 		tableInvoices.itemsProperty().bindBidirectional(model.listInvoicesProperty());

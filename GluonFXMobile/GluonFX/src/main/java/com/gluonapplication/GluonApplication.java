@@ -1,5 +1,6 @@
 package com.gluonapplication;
 
+import com.gluonapplication.views.HelpView;
 import com.gluonapplication.views.InvoiceView;
 import com.gluonapplication.views.ProductView;
 import com.gluonapplication.views.TaxView;
@@ -20,6 +21,7 @@ public class GluonApplication extends MobileApplication {
     public static final String INVOICE_VIEW = HOME_VIEW;
     public static final String PRODUCT_VIEW = "Product View";
     public static final String TAX_VIEW = "Tax View";
+    public static final String HELP_VIEW = "Help View";
     
     /**
      * Inicializa las vistas y las añade al Drawer
@@ -31,6 +33,7 @@ public class GluonApplication extends MobileApplication {
         addViewFactory(INVOICE_VIEW, () -> new InvoiceView().getView());
         addViewFactory(PRODUCT_VIEW, () -> new ProductView().getView());
         addViewFactory(TAX_VIEW, () -> new TaxView().getView());
+        addViewFactory(HELP_VIEW, () -> new HelpView().getView());
 
         DrawerManager.buildDrawer(this);
     }
@@ -46,8 +49,8 @@ public class GluonApplication extends MobileApplication {
         ((Stage) scene.getWindow()).getIcons().add(new Image(GluonApplication.class.getResourceAsStream("/icon.png")));
         
         if(Platform.isDesktop()){
-        	scene.getWindow().setWidth(800);
-        	scene.getWindow().setHeight(800);
+        	scene.getWindow().setHeight(600);
+        	scene.getWindow().setWidth(600);        	
         }
     }
 }
