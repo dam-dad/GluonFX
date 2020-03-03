@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- * Clase principal de timpo MobileApplication
+ * Clase principal de tipo MobileApplication
  * @author moimah
  *
  */

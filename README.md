@@ -32,8 +32,8 @@ Aplicación JavaFX nativa para escritorio, con "Hibernate" integrado para realiz
 
 | Proyecto        | README                                                       |
 | --------------- | ------------------------------------------------------------ |
-| GluonFXServices | [README.md](https://github.com/dam-dad/GluonFX/blob/master/GluonFXMobile/README.md) |
-| GluonFXMobile   | [README.md](https://github.com/dam-dad/GluonFX/blob/master/ServicesGluonFX/README.md) |
+| GluonFXServices | [README.md](https://github.com/dam-dad/GluonFX/blob/master/ServicesGluonFX/README.md) |
+| GluonFXMobile   | [README.md](https://github.com/dam-dad/GluonFX/blob/master/GluonFXMobile/README.md) |
 | GluonFXDesktop  |                                                              |
 
 ####  Información:
