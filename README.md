@@ -1,4 +1,5 @@
 # GluonFX
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Proyecto Java de gestión administrativa. Frameworks utilizados en el proyecto: 
 
@@ -37,7 +38,7 @@ Aplicación JavaFX nativa para escritorio, con "Hibernate" integrado para realiz
 
 ####  Información:
 
-##### ***Infraestructura del proyecto:***
+#### ***Infraestructura del proyecto:***
 
 ![](https://i.imgur.com/rwity11.png)
 
@@ -49,10 +50,14 @@ Aplicación JavaFX nativa para escritorio, con "Hibernate" integrado para realiz
 
 
 
-#### **Integrantes del proyecto:**
+### **Integrantes del proyecto:**
 
 [Moisés Abreu Hernández](https://github.com/moimah)
 
 [Manuel Alejandro Cruz](https://github.com/blackbacil)
 
 [????](https://bukitei.com)
+
+## Copyright
+
+Más información acerca de la licencia [GNU General Public License v3.0](https://github.com/dam-dad/GluonFX/blob/master/LICENSE) 
