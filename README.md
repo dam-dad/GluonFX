@@ -29,12 +29,31 @@ Aplicación administrativa usando "GluonMobile" para su desarrollo. Genera ".apk
 Aplicación JavaFX nativa para escritorio, con "Hibernate" integrado para realizar operaciones CRUD.
 
 
-| Proyecto        | README                                   |
-| --------------- | ---------------------------------------- |
-| GluonFXServices | [/ServicesGluonFX/README.md][PlDb]       |
-| GluonFXMobile   | [/GluonFXMobile/GluonFX/README.md][PlGh] |
-| GluonFXDesktop  | [/GluonFXDesktop/README.md][PlGd]        |
+| Proyecto        | README                                                       |
+| --------------- | ------------------------------------------------------------ |
+| GluonFXServices | [README.md](https://github.com/dam-dad/GluonFX/blob/master/GluonFXMobile/README.md) |
+| GluonFXMobile   | [README.md](https://github.com/dam-dad/GluonFX/blob/master/ServicesGluonFX/README.md) |
+| GluonFXDesktop  |                                                              |
 
-####  Esquema del proyecto:
+####  Información:
+
+##### ***Infraestructura del proyecto:***
 
 ![](https://i.imgur.com/rwity11.png)
+
+
+
+***[Guía de usuario](https://www.moimah.com/gluonfx/help.htm)***
+
+***[Video demostrativo](https://drive.google.com/file/d/1N-r2v404qMUoTKJ7auYI3KDwAvFQm5Ie/view?usp=sharing)***
+
+
+
+#### **Integrantes del proyecto:** 
+
+```
+-[Moisés Abreu Hernández](https://github.com/moimah)
+-[Manuel Alejandro Cruz](https://github.com/blackbacil)
+-[????](https://bukitei.com)
+
+```
