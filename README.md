@@ -49,11 +49,10 @@ Aplicación JavaFX nativa para escritorio, con "Hibernate" integrado para realiz
 
 
 
-#### **Integrantes del proyecto:** 
+#### **Integrantes del proyecto:**
 
-```
--[Moisés Abreu Hernández](https://github.com/moimah)
--[Manuel Alejandro Cruz](https://github.com/blackbacil)
--[????](https://bukitei.com)
+[Moisés Abreu Hernández](https://github.com/moimah)
 
-```
+[Manuel Alejandro Cruz](https://github.com/blackbacil)
+
+[????](https://bukitei.com)
